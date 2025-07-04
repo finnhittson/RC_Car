@@ -62,6 +62,8 @@
 
 /*---------------------------- Module Variables ---------------------------*/
 static uint8_t MyPriority;
+const uint8_t AddressWidth = 5;
+uint8_t Address[] = {0x01, 0x02, 0x03, 0x04, 0x05};
 
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
@@ -123,18 +125,26 @@ bool InitTransmitService(uint8_t Priority) {
 	}
 
 	delay(POWER_UP_DELAY);
+	
+	// start radio
+	bool RadioStarted = false;
 	if (!StartRadio()) {
-		DB_printf("Unable to communicated with radio.\n");
-		// while (1);
+		DB_printf("Unsuccessfully communicated with radio.\n");
 	} else {
-		DB_printf("Communicated with radio.\n");
+		DB_printf("Successfully communicated with radio.\n");
+		RadioStarted = true;
 	}
 
-	ThisEvent.EventType = ES_INIT;
-	if (ES_PostToService(MyPriority, ThisEvent) == true) {
-		return true;
-	} else {
-		return false;
+	if (RadioStarted) {
+		// set radio address
+		SetAddress(Address);
+
+		ThisEvent.EventType = ES_INIT;
+		if (ES_PostToService(MyPriority, ThisEvent) == true) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -182,7 +192,7 @@ bool StartRadio(void) {
 	SetupPayloadSize(6);
 
 	// setup address width
-	databytes[0] = 0x03;
+	databytes[0] = AddressWidth;
 	WriteRegister(SETUP_AW, databytes, 1);
 
 	// set channel
@@ -210,6 +220,11 @@ bool StartRadio(void) {
 	}
 
 	return ReturnVal;
+}
+
+void SetAddress(uint8_t *Address) {
+	WriteRegister(RX_ADDR_P0, Address, AddressWidth);
+	WriteRegister(TX_ADDR, Address, AddressWidth);
 }
 
 void FlushRX(void) {

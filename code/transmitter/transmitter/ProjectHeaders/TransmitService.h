@@ -108,6 +108,7 @@ void SetupPayloadSize(uint8_t PayloadSize);
 void SetRFChannel(uint8_t Channel);
 void FlushTX(void);
 void FlushRX(void);
+void SetAddress(uint8_t *Address);
 
 // misc functions
 void PrintStatus(STATUSbits_t STATUSbits);
