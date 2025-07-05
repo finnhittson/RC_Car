@@ -88,6 +88,17 @@ typedef enum {
 	RF_PWR_0dBm
 } RF_PWR_t;
 
+typedef enum {
+	Throttle = 0,
+	Steering,
+	Misc
+} Mode_t;
+
+typedef enum {
+	LOW = 0,
+	HIGH
+} Level_t;
+
 // Public Function Prototypes
 bool InitTransmitService(uint8_t Priority);
 bool PostTransmitService(ES_Event_t ThisEvent);
@@ -101,17 +112,22 @@ void WriteRegister(uint8_t reg, uint8_t databytes[], uint8_t n);
 // radio functions
 bool StartRadio(void);
 void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
-void SetupRetries(uint16_t AutoRetransmitDelay, uint8_t AutoRetransmitCount);
-void RFSetup(RF_DR_t Datarate, RF_PWR_t Power);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t AutoReTXCount);
+void RFSetup(RF_DR_t datarate, RF_PWR_t power);
 void FeatureTest(void);
-void SetupPayloadSize(uint8_t PayloadSize);
-void SetRFChannel(uint8_t Channel);
+void SetupPayloadSize(uint8_t payloadSize);
+void SetRFChannel(uint8_t channel);
 void FlushTX(void);
 void FlushRX(void);
-void SetAddress(uint8_t *Address);
+void SetAddress(uint8_t *address);
+void StopListening(void);
+void TransmitPayload(void);
 
 // misc functions
 void PrintStatus(STATUSbits_t STATUSbits);
 void delay (volatile int length);
+void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2);
+void InitPayload(void);
+void ce(Level_t Level);
 
 #endif /* ServTemplate_H */

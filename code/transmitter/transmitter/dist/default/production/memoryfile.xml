@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="dist/default/production/RadioTransmitter.production.elf">                 
+  <executable name="dist/default/production/transmitter.production.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>263312</length>                 
-      <used>35664</used>                     
-      <free>227648</free>                     
+      <used>36580</used>                     
+      <free>226732</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
       <length>65536</length>                 
-      <used>1424</used>                     
-      <free>64112</free>                     
+      <used>1464</used>                     
+      <free>64072</free>                     
     </memory>                              
   </executable>                            
 </project>                                 

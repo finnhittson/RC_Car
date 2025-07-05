@@ -57,14 +57,18 @@
 #define FEATURE				0x1D
 
 // misc
-#define MAX_RETRIES		5
+#define MAX_RETRIES			5
+#define RADIO_ID			0x01
 /*---------------------------- Module Functions ---------------------------*/
 
 /*---------------------------- Module Variables ---------------------------*/
 static uint8_t MyPriority;
-const uint8_t AddressWidth = 5;
-uint8_t Address[] = {0x01, 0x02, 0x03, 0x04, 0x05};
-
+const uint8_t addressWidth = 0x05;
+uint8_t address[] = {0x30, 0x30, 0x30, 0x30, 0x31};
+RF_PWR_t datarate = RF_DR_1Mbps;
+uint8_t payloadSize = 32;
+uint8_t payload[32];
+uint8_t channel = 76;
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
 	clrScrn();
@@ -78,7 +82,9 @@ bool InitTransmitService(uint8_t Priority) {
 
 	// radio CE config (pin 12)
 	TRISAbits.TRISA4 = 0;
-	LATAbits.LATA4 = 0;
+	ce(LOW);
+
+	InitPayload();
 
 	// SPI config
 	if (true) {
@@ -107,7 +113,8 @@ bool InitTransmitService(uint8_t Priority) {
 		LATBbits.LATB15 = 1;
 		// RPB15R = 0b0011;
 
-		SPI1BRG = 85;  				// set baud rate SPI1BRG = 2 = 20MHz / (2 * 8MHz - 1)
+		// SPI1BRG = 85;  				// set baud rate SPI1BRG = 2 = 20MHz / (2 * 8MHz - 1)
+		SPI1BRG = 2;
 		SPI1CONbits.ENHBUF = 0;     // disable enhanced buffer
 		SPI1STATbits.SPIROV = 0;    // receive overflow flag bit
 
@@ -137,14 +144,23 @@ bool InitTransmitService(uint8_t Priority) {
 
 	if (RadioStarted) {
 		// set radio address
-		SetAddress(Address);
+		SetAddress(address);
 
-		ThisEvent.EventType = ES_INIT;
-		if (ES_PostToService(MyPriority, ThisEvent) == true) {
-			return true;
-		} else {
-			return false;
-		}
+		// set RF output power
+		RFSetup(datarate, RF_PWR_18dBm);
+
+		// power up radio
+		ChangeRadioMode(Standby1, 1);
+		
+		// test payload
+		PackagePayload(Misc, 0x01, 0x02);
+		TransmitPayload();
+	}
+	ThisEvent.EventType = ES_INIT;
+	if (ES_PostToService(MyPriority, ThisEvent) == true) {
+		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -162,6 +178,65 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 /***************************************************************************
 private functions
 ***************************************************************************/
+void ce(Level_t Level) {
+	if (Level == LOW) {
+		LATAbits.LATA4 = 0;
+	} else if (Level == HIGH) {
+		LATAbits.LATA4 = 1;
+	}
+}
+void InitPayload(void) {
+	payload[0] = W_TX_PAYLOAD;
+	payload[1] = RADIO_ID;
+	for (int i = 2; i < payloadSize; i++) {
+		payload[i] = 0x00;
+	}
+}
+
+void TransmitPayload(void) {
+	uint8_t result[payloadSize + 1];
+	SendSPI(payload, result, payloadSize);
+	ce(HIGH);
+	delay(TX_DELAY);
+	ce(LOW);
+	STATUSbits_t STATUSreg;
+	STATUSreg.w = 0;
+	uint8_t bytes[] = {NOP};
+	int count = 0;
+	while (!STATUSreg.TX_DS && !STATUSreg.MAX_RT && count != 10000) {
+		SendSPI(bytes, result, 1);
+		STATUSreg.w = result[0];
+		count++;
+	}
+	if (false) {
+		if (STATUSreg.TX_DS) {
+			DB_printf("Packet transmitted\n");
+		} else if (STATUSreg.MAX_RT) {
+			DB_printf("Max number of retransmits reached\n");
+		} else {
+			DB_printf("Never completed");
+		}
+	}
+	// clear STATUS register to allow for more transmissions
+	uint8_t databytes[] = {0x70};
+	WriteRegister(STATUS, databytes, 1);
+}
+
+void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2) {
+	uint8_t checksum = 0xFF - (RADIO_ID + type + data1 + data2);
+	payload[2] = type;
+	payload[3] = data1;
+	payload[4] = data2;
+}
+
+void StopListening(void) {
+	ChangeRadioMode(Standby1, 1);
+	SetAddress(address);
+
+	// enable RX address for datapipe 0
+	uint8_t databytes[] = {0x01};
+	WriteRegister(EN_RXADDR, databytes, 1);
+}
 
 bool StartRadio(void) {
 	bool ReturnVal = false;
@@ -171,7 +246,7 @@ bool StartRadio(void) {
 	SetupRetries(1500, 15);
 
 	// setup RF
-	RFSetup(RF_DR_1Mbps, RF_PWR_0dBm);
+	RFSetup(datarate, RF_PWR_18dBm);
 
 	// activate features
 	FeatureTest();
@@ -185,18 +260,18 @@ bool StartRadio(void) {
 	WriteRegister(EN_AA, databytes, 1);
 
 	// enable RX address for datapipe 0
-	databytes[0] = 0x01;
+	databytes[0] = 0x03;
 	WriteRegister(EN_RXADDR, databytes, 1);
 
 	// set number of bytes in each RX payload to be 6 bytes
-	SetupPayloadSize(6);
+	SetupPayloadSize(payloadSize);
 
 	// setup address width
-	databytes[0] = AddressWidth;
+	databytes[0] = addressWidth;
 	WriteRegister(SETUP_AW, databytes, 1);
 
 	// set channel
-	SetRFChannel(42);
+	SetRFChannel(channel);
 
 	// clear status interrupts
 	databytes[0] = 0x70;
@@ -207,7 +282,7 @@ bool StartRadio(void) {
 	FlushTX();
 
 	// enable cyclic redundancy check with 2 bytes and powerup
-	ChangeRadioMode(Standby1, 1);
+	ChangeRadioMode(PowerDown, 1);
 
 	// read CONFIG register to ensure propper setting
 	uint8_t result[2];
@@ -215,16 +290,16 @@ bool StartRadio(void) {
 	CONFIGbits_t CONFIGReg;
 	CONFIGReg.w = result[1];
 
-	if (CONFIGReg.EN_CRC && CONFIGReg.CRCO && CONFIGReg.PWR_UP) {
+	if (CONFIGReg.EN_CRC && CONFIGReg.CRCO) { // && CONFIGReg.PWR_UP
 		ReturnVal = true;
 	}
 
 	return ReturnVal;
 }
 
-void SetAddress(uint8_t *Address) {
-	WriteRegister(RX_ADDR_P0, Address, AddressWidth);
-	WriteRegister(TX_ADDR, Address, AddressWidth);
+void SetAddress(uint8_t *address) {
+	WriteRegister(RX_ADDR_P0, address, addressWidth);
+	WriteRegister(TX_ADDR, address, addressWidth);
 }
 
 void FlushRX(void) {
@@ -241,13 +316,13 @@ void FlushTX(void) {
 	delay(DELAY_TIME);
 }
 
-void SetRFChannel(uint8_t Channel) {
-	uint8_t databytes[] = {Channel & 0x7F};
+void SetRFChannel(uint8_t channel) {
+	uint8_t databytes[] = {channel & 0x7F};
 	WriteRegister(RF_CH, databytes, 1);
 }
 
-void SetupPayloadSize(uint8_t PayloadSize) {
-	uint8_t databytes[] = {PayloadSize};
+void SetupPayloadSize(uint8_t payloadSize) {
+	uint8_t databytes[] = {payloadSize};
 	WriteRegister(RX_PW_P0, databytes, 1);
 	WriteRegister(RX_PW_P1, databytes, 1);
 	WriteRegister(RX_PW_P2, databytes, 1);
@@ -261,8 +336,9 @@ void FeatureTest(void) {
 	uint8_t FeaturesBefore[2];
 	ReadRegister(FEATURE, FeaturesBefore);
 
-	uint8_t databytes[1] = {0x73};
-	WriteRegister(ACTIVATE, databytes, 1);
+	uint8_t bytes[] = {ACTIVATE, 0x73};
+	uint8_t result[2];
+	SendSPI(bytes, result, 2);
 
 	uint8_t FeaturesAfter[2];
 	ReadRegister(FEATURE, FeaturesAfter);
@@ -287,24 +363,24 @@ void FeatureTest(void) {
 	}
 }
 
-void SetupRetries(uint16_t AutoRetransmitDelay, uint8_t AutoRetransmitCount) {
-	uint8_t ARDbin = AutoRetransmitDelay / 250 - 1;
-	if (AutoRetransmitDelay > 4000) {
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount) {
+	uint8_t ARDbin = autoReTXDelay / 250 - 1;
+	if (autoReTXDelay > 4000) {
 		ARDbin = 15;
 	}
-	uint8_t databytes[] = {ARDbin << 4 | AutoRetransmitCount};
+	uint8_t databytes[] = {ARDbin << 4 | autoReTXCount};
 	WriteRegister(SETUP_RETR, databytes, 1);
 }
 
-void RFSetup(RF_DR_t Datarate, RF_PWR_t Power) {
+void RFSetup(RF_DR_t datarate, RF_PWR_t power) {
 	uint8_t result[2];
 	ReadRegister(RF_SETUP, result);
 
 	RF_SETUPbits_t Setup;
 	Setup.w = result[1];
-	Setup.RF_PWR = Power;
-	Setup.RF_DR_LOW = (Datarate & 0x02) >> 1;
-	Setup.RF_DR_HIGH = Datarate & 0x01;
+	Setup.RF_PWR = power;
+	Setup.RF_DR_LOW = (datarate & 0x02) >> 1;
+	Setup.RF_DR_HIGH = datarate & 0x01;
 	uint8_t databytes[] = {Setup.w};
 	WriteRegister(RF_SETUP, databytes, 1);
 }
@@ -312,7 +388,7 @@ void RFSetup(RF_DR_t Datarate, RF_PWR_t Power) {
 void ReadRegister(uint8_t reg, uint8_t *result) {
 	uint8_t bytes[] = {R_REGISTER | reg, NOP};
 	SendSPI(bytes, result, 2);
-	delay(DELAY_TIME);
+	delay(TX_DELAY);
 }
 
 void WriteRegister(uint8_t reg, uint8_t databytes[], uint8_t n) {
@@ -323,35 +399,23 @@ void WriteRegister(uint8_t reg, uint8_t databytes[], uint8_t n) {
 	}
 	uint8_t result[n+1];
 	SendSPI(bytes, result, n+1);
-	delay(DELAY_TIME);
+	delay(TX_DELAY);
 }
 
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
 	if (n == 1) {
 		LATBbits.LATB15 = 0;
-		// delay(CS_LOW_DELAY);
-
 		SPI1BUF = bytes[0];
 		while (!SPI1STATbits.SPIRBF);
 		result[0] = SPI1BUF;
-
-		// delay(CS_HIGH_DELAY);
 		LATBbits.LATB15 = 1;
 	} else {
 		LATBbits.LATB15 = 0;
-		// delay(CS_LOW_DELAY);
-
 		for (uint8_t i = 0; i < n; i++) {
-			// DB_printf("bytes[%d] = 0x0%x!\n", i, bytes[i]);
 			SPI1BUF = bytes[i];
 			while (!SPI1STATbits.SPIRBF);
 			result[i] = SPI1BUF;
-			if (i + 1 != n) {
-				// delay(DELAY_BTW_BYTES);
-			}
 		}
-
-		// delay(CS_HIGH_DELAY);
 		LATBbits.LATB15 = 1;
 	}
 }
