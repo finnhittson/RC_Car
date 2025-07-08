@@ -63,11 +63,11 @@
 
 /*---------------------------- Module Variables ---------------------------*/
 static uint8_t MyPriority;
-const uint8_t addressWidth = 0x05;
+const uint8_t addressWidth = 5;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x30, 0x31};
 RF_PWR_t datarate = RF_DR_1Mbps;
-uint8_t payloadSize = 32;
-uint8_t payload[32];
+uint8_t payloadSize = 33;
+uint8_t payload[33];
 uint8_t channel = 76;
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
@@ -143,6 +143,10 @@ bool InitTransmitService(uint8_t Priority) {
 	}
 
 	if (RadioStarted) {
+		// temp
+		uint8_t databytes[] = {0x0E};
+		WriteRegister(CONFIG, databytes, 1);
+
 		// set radio address
 		SetAddress(address);
 
@@ -151,7 +155,14 @@ bool InitTransmitService(uint8_t Priority) {
 
 		// power up radio
 		ChangeRadioMode(Standby1, 1);
+
+		// set radio address
+		WriteRegister(RX_ADDR_P0, address, addressWidth);
 		
+		// temp
+		databytes[0] = 0x03;
+		WriteRegister(EN_RXADDR, databytes, 1);
+
 		// test payload
 		PackagePayload(Misc, 0x01, 0x02);
 		TransmitPayload();
@@ -187,7 +198,7 @@ void ce(Level_t Level) {
 }
 void InitPayload(void) {
 	payload[0] = W_TX_PAYLOAD;
-	payload[1] = RADIO_ID;
+	payload[1] = 0x48;
 	for (int i = 2; i < payloadSize; i++) {
 		payload[i] = 0x00;
 	}
@@ -224,9 +235,9 @@ void TransmitPayload(void) {
 
 void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2) {
 	uint8_t checksum = 0xFF - (RADIO_ID + type + data1 + data2);
-	payload[2] = type;
-	payload[3] = data1;
-	payload[4] = data2;
+	payload[2] = 0x00;
+	payload[3] = 0x00;
+	payload[4] = 0x00;
 }
 
 void StopListening(void) {
@@ -264,10 +275,10 @@ bool StartRadio(void) {
 	WriteRegister(EN_RXADDR, databytes, 1);
 
 	// set number of bytes in each RX payload to be 6 bytes
-	SetupPayloadSize(payloadSize);
+	SetupPayloadSize(payloadSize - 1);
 
 	// setup address width
-	databytes[0] = addressWidth;
+	databytes[0] = 0x03;
 	WriteRegister(SETUP_AW, databytes, 1);
 
 	// set channel
