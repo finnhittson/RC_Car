@@ -122,6 +122,8 @@ void FlushRX(void);
 void SetAddress(uint8_t *address);
 void StopListening(void);
 void TransmitPayload(void);
+void StartListening(void);
+void ReadRXFIFO(uint8_t *result);
 
 // misc functions
 void PrintStatus(STATUSbits_t STATUSbits);

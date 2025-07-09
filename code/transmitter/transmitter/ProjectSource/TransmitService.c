@@ -142,12 +142,36 @@ bool InitTransmitService(uint8_t Priority) {
 		RadioStarted = true;
 	}
 
-	if (RadioStarted) {
+	if (RadioStarted && true) {
+		// open reading pipe
+		uint8_t databytes[] = {0x01};
+		WriteRegister(EN_RXADDR, databytes, 1);
+
+		// setup datapipe for receiving data
+		StartListening();
+
+		while (1) {
+			uint8_t result[2];
+			ReadRegister(FIFO_STATUS, result);
+
+			if ((result[1] & 0x01) == 0) {
+				// clear interrupts
+				uint8_t databytes[] = {0x70};
+				WriteRegister(STATUS, databytes, 1);
+				break;
+			}
+		}
+		DB_printf("Data in RF FIFO\n");
+		uint8_t result[payloadSize];
+		ReadRXFIFO(result);
+		for (int i = 0; i < payloadSize; i++) {
+			DB_printf("result[%d] = 0x%x\n", i, result[i]);
+		}
+	}
+
+	if (RadioStarted && false) {
 		// set radio address
 		SetAddress(address);
-
-		// set RF output power
-		RFSetup(datarate, RF_PWR_18dBm);
 
 		// power up radio
 		ChangeRadioMode(Standby1, 1);
@@ -182,6 +206,31 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 /***************************************************************************
 private functions
 ***************************************************************************/
+void ReadRXFIFO(uint8_t *result) {
+	uint8_t bytes[payloadSize];
+	bytes[0] = R_RX_PAYLOAD;
+	for (int i = 1; i < payloadSize; i++) {
+		bytes[i] = NOP;
+	}
+	SendSPI(bytes, result, payloadSize);
+
+	// clear interrupts
+	uint8_t databytes[] = {0x70};
+	WriteRegister(STATUS, databytes, 1);
+}
+
+void StartListening(void) {
+	// power up radio to RX mode with 2 bytes cyclic redundancy check
+	ChangeRadioMode(RX, 1);
+
+	// clear interrupts
+	uint8_t databytes[] = {0x70};
+	WriteRegister(STATUS, databytes, 1);
+
+	// set address
+	SetAddress(address);
+}
+
 void ce(Level_t Level) {
 	if (Level == LOW) {
 		LATAbits.LATA4 = 0;
@@ -189,6 +238,7 @@ void ce(Level_t Level) {
 		LATAbits.LATA4 = 1;
 	}
 }
+
 void InitPayload(void) {
 	payload[0] = W_TX_PAYLOAD;
 	payload[1] = 0x69;
@@ -428,9 +478,6 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 	CONFIGbits_t CONFIGbits = {0};
 	CONFIGbits.EN_CRC = 1;
 	CONFIGbits.CRCO = CRCbytes;
-	// CONFIGbits.MASK_RX_DR = 1;
-	// CONFIGbits.MASK_TX_DS = 1;
-	// CONFIGbits.MASK_MAX_RT = 1;
 
 	switch (newMode) {
 	case RX:
