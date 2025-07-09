@@ -5,70 +5,17 @@
 #include "dbprintf.h"
 
 /*----------------------------- Module Defines ----------------------------*/
-// delays
-#define DELAY_TIME		100
-#define POWER_UP_DELAY	10000
-#define TX_DELAY		45
-#define DELAY_BTW_BYTES	0
-#define CS_LOW_DELAY	15
-#define CS_HIGH_DELAY	13
-
-// SPI commands
-#define R_REGISTER 			0x00
-#define W_REGISTER 			0x20
-#define REGISTER_MASK		0x1F
-#define ACTIVATE			0x50
-#define R_RX_PL_WID			0x60
-#define R_RX_PAYLOAD		0x61
-#define W_TX_PAYLOAD		0xA0
-#define W_ACK_PAYLOAD		0xA8
-#define W_TX_PAYLOAD_NO_ACK	0xB0
-#define FLUSH_TX			0xE1
-#define FLUSH_RX			0xE2
-#define RESUE_TX_PL			0xE3
-#define	NOP					0xFF
-
-// register addresses
-#define CONFIG 				0x00
-#define EN_AA				0x01
-#define SETUP_AW			0x03
-#define EN_RXADDR			0x02
-#define SETUP_RETR			0x04
-#define RF_CH				0x05
-#define RF_SETUP			0x06
-#define STATUS				0x07
-#define OBSERVE_TX			0x08
-#define RPD					0x09
-#define RX_ADDR_P0			0x0A
-#define RX_ADDR_P1			0x0B
-#define RX_ADDR_P2			0x0C
-#define RX_ADDR_P3			0x0D
-#define RX_ADDR_P4			0x0E
-#define RX_ADDR_P5			0x0F
-#define TX_ADDR				0x10
-#define RX_PW_P0			0x11
-#define RX_PW_P1			0x12
-#define RX_PW_P2			0x13
-#define RX_PW_P3			0x14
-#define RX_PW_P4			0x15
-#define RX_PW_P5			0x16
-#define FIFO_STATUS			0x17
-#define DYNPD				0x1C
-#define FEATURE				0x1D
-
-// misc
-#define MAX_RETRIES			5
-#define RADIO_ID			0x01
+// radio specific defined constants
+#define ADDRESS_WIDTH		5
+#define PAYLOAD_SIZE		5
+#define CHANNEL				42
 /*---------------------------- Module Functions ---------------------------*/
 
 /*---------------------------- Module Variables ---------------------------*/
 static uint8_t MyPriority;
-const uint8_t addressWidth = 5;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
-RF_PWR_t datarate = RF_DR_1Mbps;
-uint8_t payloadSize = 6;
-uint8_t payload[6];
-uint8_t channel = 42;
+uint8_t payload[PAYLOAD_SIZE + 1];
+
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
 	clrScrn();
@@ -162,9 +109,9 @@ bool InitTransmitService(uint8_t Priority) {
 			}
 		}
 		DB_printf("Data in RF FIFO\n");
-		uint8_t result[payloadSize];
+		uint8_t result[PAYLOAD_SIZE + 1];
 		ReadRXFIFO(result);
-		for (int i = 0; i < payloadSize; i++) {
+		for (int i = 1; i < PAYLOAD_SIZE + 1; i++) {
 			DB_printf("result[%d] = 0x%x\n", i, result[i]);
 		}
 	}
@@ -177,7 +124,7 @@ bool InitTransmitService(uint8_t Priority) {
 		ChangeRadioMode(Standby1, 1);
 
 		// set radio address
-		WriteRegister(RX_ADDR_P0, address, addressWidth);
+		WriteRegister(RX_ADDR_P0, address, ADDRESS_WIDTH);
 
 		// test payload
 		PackagePayload(Misc, 0x01, 0x02);
@@ -207,12 +154,12 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 private functions
 ***************************************************************************/
 void ReadRXFIFO(uint8_t *result) {
-	uint8_t bytes[payloadSize];
+	uint8_t bytes[PAYLOAD_SIZE + 1];
 	bytes[0] = R_RX_PAYLOAD;
-	for (int i = 1; i < payloadSize; i++) {
+	for (int i = 1; i < PAYLOAD_SIZE + 1; i++) {
 		bytes[i] = NOP;
 	}
-	SendSPI(bytes, result, payloadSize);
+	SendSPI(bytes, result, PAYLOAD_SIZE + 1);
 
 	// clear interrupts
 	uint8_t databytes[] = {0x70};
@@ -242,14 +189,14 @@ void ce(Level_t Level) {
 void InitPayload(void) {
 	payload[0] = W_TX_PAYLOAD;
 	payload[1] = 0x69;
-	for (int i = 2; i < payloadSize; i++) {
+	for (int i = 2; i < PAYLOAD_SIZE + 1; i++) {
 		payload[i] = 0x00;
 	}
 }
 
 void TransmitPayload(void) {
-	uint8_t result[payloadSize + 1];
-	SendSPI(payload, result, payloadSize);
+	uint8_t result[PAYLOAD_SIZE + 1];
+	SendSPI(payload, result, PAYLOAD_SIZE + 1);
 	ce(HIGH);
 	delay(TX_DELAY);
 	ce(LOW);
@@ -300,7 +247,7 @@ bool StartRadio(void) {
 	SetupRetries(1500, 15);
 
 	// setup RF
-	RFSetup(datarate, RF_PWR_18dBm);
+	RFSetup(RF_DR_1Mbps, RF_PWR_18dBm);
 
 	// activate features
 	FeatureTest();
@@ -318,14 +265,14 @@ bool StartRadio(void) {
 	WriteRegister(EN_RXADDR, databytes, 1);
 
 	// set number of bytes in each RX payload to be 6 bytes
-	SetupPayloadSize(payloadSize - 1);
+	SetupPayloadSize(PAYLOAD_SIZE);
 
 	// setup address width
 	databytes[0] = 0x03;
 	WriteRegister(SETUP_AW, databytes, 1);
 
 	// set channel
-	SetRFChannel(channel);
+	SetRFChannel(CHANNEL);
 
 	// clear status interrupts
 	databytes[0] = 0x70;
@@ -352,8 +299,8 @@ bool StartRadio(void) {
 }
 
 void SetAddress(uint8_t *address) {
-	WriteRegister(RX_ADDR_P0, address, addressWidth);
-	WriteRegister(TX_ADDR, address, addressWidth);
+	WriteRegister(RX_ADDR_P0, address, ADDRESS_WIDTH);
+	WriteRegister(TX_ADDR, address, ADDRESS_WIDTH);
 }
 
 void FlushRX(void) {
@@ -375,8 +322,8 @@ void SetRFChannel(uint8_t channel) {
 	WriteRegister(RF_CH, databytes, 1);
 }
 
-void SetupPayloadSize(uint8_t payloadSize) {
-	uint8_t databytes[] = {payloadSize};
+void SetupPayloadSize(uint8_t size) {
+	uint8_t databytes[] = {size};
 	WriteRegister(RX_PW_P0, databytes, 1);
 	WriteRegister(RX_PW_P1, databytes, 1);
 	WriteRegister(RX_PW_P2, databytes, 1);
