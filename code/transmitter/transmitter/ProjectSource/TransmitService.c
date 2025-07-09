@@ -64,11 +64,11 @@
 /*---------------------------- Module Variables ---------------------------*/
 static uint8_t MyPriority;
 const uint8_t addressWidth = 5;
-uint8_t address[] = {0x30, 0x30, 0x30, 0x30, 0x31};
+uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
 RF_PWR_t datarate = RF_DR_1Mbps;
-uint8_t payloadSize = 33;
-uint8_t payload[33];
-uint8_t channel = 76;
+uint8_t payloadSize = 6;
+uint8_t payload[6];
+uint8_t channel = 42;
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
 	clrScrn();
@@ -143,10 +143,6 @@ bool InitTransmitService(uint8_t Priority) {
 	}
 
 	if (RadioStarted) {
-		// temp
-		uint8_t databytes[] = {0x0E};
-		WriteRegister(CONFIG, databytes, 1);
-
 		// set radio address
 		SetAddress(address);
 
@@ -158,15 +154,12 @@ bool InitTransmitService(uint8_t Priority) {
 
 		// set radio address
 		WriteRegister(RX_ADDR_P0, address, addressWidth);
-		
-		// temp
-		databytes[0] = 0x03;
-		WriteRegister(EN_RXADDR, databytes, 1);
 
 		// test payload
 		PackagePayload(Misc, 0x01, 0x02);
 		TransmitPayload();
 	}
+
 	ThisEvent.EventType = ES_INIT;
 	if (ES_PostToService(MyPriority, ThisEvent) == true) {
 		return true;
@@ -198,7 +191,7 @@ void ce(Level_t Level) {
 }
 void InitPayload(void) {
 	payload[0] = W_TX_PAYLOAD;
-	payload[1] = 0x48;
+	payload[1] = 0x69;
 	for (int i = 2; i < payloadSize; i++) {
 		payload[i] = 0x00;
 	}
