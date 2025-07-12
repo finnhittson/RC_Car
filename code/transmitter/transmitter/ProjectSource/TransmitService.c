@@ -78,6 +78,12 @@ bool InitTransmitService(uint8_t Priority) {
 		SPI1BUF;					// clear SPI1BUF
 	}
 
+	if (true) {
+		INT3R = 0b0100;			// map pin 17 (RPB8) to input interrupt
+		INTCONbits.MVEC = 1;	// enable multivector mode
+		INTCONbits.INT3EP = 1;	// interrupt on rising edge
+	}
+
 	delay(POWER_UP_DELAY);
 	
 	// start radio
