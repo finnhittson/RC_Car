@@ -1,4 +1,6 @@
 /*----------------------------- Include Files -----------------------------*/
+#include <xc.h>
+#include <sys/attribs.h>
 #include "ES_Configure.h"
 #include "ES_Framework.h"
 #include "TransmitService.h"
@@ -15,6 +17,7 @@
 static uint8_t MyPriority;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
 uint8_t payload[PAYLOAD_SIZE + 1];
+STATUSbits_t STATUSbits;
 
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
@@ -30,6 +33,16 @@ bool InitTransmitService(uint8_t Priority) {
 	// radio CE config (pin 12)
 	TRISAbits.TRISA4 = 0;
 	ce(LOW);
+
+	// receiver/transmiter selection pin
+	TRISBbits.TRISB9 = 1;
+	Radio_t radioType = RECEIVER;
+	if (PORTBbits.RB9) {
+		radioType = TRANSMITTER;
+		DB_printf("Radio configured as transmiter\n");
+	} else {
+		DB_printf("Rado configured as receiver\n");
+	}
 
 	InitPayload();
 
@@ -60,7 +73,7 @@ bool InitTransmitService(uint8_t Priority) {
 		LATBbits.LATB15 = 1;
 		// RPB15R = 0b0011;
 
-		// SPI1BRG = 85;  				// set baud rate SPI1BRG = 2 = 20MHz / (2 * 8MHz - 1)
+		// SPI1BRG = 2000;  				// set baud rate SPI1BRG = 2 = 20MHz / (2 * 8MHz - 1)
 		SPI1BRG = 2;
 		SPI1CONbits.ENHBUF = 0;     // disable enhanced buffer
 		SPI1STATbits.SPIROV = 0;    // receive overflow flag bit
@@ -78,12 +91,17 @@ bool InitTransmitService(uint8_t Priority) {
 		SPI1BUF;					// clear SPI1BUF
 	}
 
+	// enable interrupts
 	if (true) {
-		INT3R = 0b0100;			// map pin 17 (RPB8) to input interrupt
-		INTCONbits.MVEC = 1;	// enable multivector mode
-		INTCONbits.INT3EP = 1;	// interrupt on rising edge
+		TRISBbits.TRISB8 = 1;			// enable interrput pin as input
+		INT3R = 0b0100;					// map pin 17 (RPB8) to input interrupt
+		INTCONbits.MVEC = 1;			// enable multi-vector mode
+		INTCONbits.INT3EP = 0;			// interrupt on falling edge
+		IPC3bits.INT3IP = 7;			// set interrupt priority
+		IPC3bits.INT3IS = 0;			// set interrupt sub priority
+		IFS0CLR = _IFS0_INT3IF_MASK;	// clear int3 interrupt flag
 	}
-
+	
 	delay(POWER_UP_DELAY);
 	
 	// start radio
@@ -95,34 +113,18 @@ bool InitTransmitService(uint8_t Priority) {
 		RadioStarted = true;
 	}
 
-	if (RadioStarted && true) {
+	// setup radio as receiver
+	if (RadioStarted && radioType == RECEIVER) {
 		// open reading pipe
 		uint8_t databytes[] = {0x01};
 		WriteRegister(EN_RXADDR, databytes, 1);
 
 		// setup datapipe for receiving data
 		StartListening();
-
-		while (1) {
-			uint8_t result[2];
-			ReadRegister(FIFO_STATUS, result);
-
-			if ((result[1] & 0x01) == 0) {
-				// clear interrupts
-				uint8_t databytes[] = {0x70};
-				WriteRegister(STATUS, databytes, 1);
-				break;
-			}
-		}
-		DB_printf("Data in RF FIFO\n");
-		uint8_t result[PAYLOAD_SIZE + 1];
-		ReadRXFIFO(result);
-		for (int i = 1; i < PAYLOAD_SIZE + 1; i++) {
-			DB_printf("result[%d] = 0x%x\n", i, result[i]);
-		}
 	}
 
-	if (RadioStarted && false) {
+	// setup radio as transmitter
+	if (RadioStarted && radioType == TRANSMITTER) {
 		// set radio address
 		SetAddress(address);
 
@@ -132,9 +134,9 @@ bool InitTransmitService(uint8_t Priority) {
 		// set radio address
 		WriteRegister(RX_ADDR_P0, address, ADDRESS_WIDTH);
 
-		// test payload
-		PackagePayload(Misc, 0x01, 0x02);
-		TransmitPayload();
+		// // test payload
+		// PackagePayload(Misc, 0x01, 0x02);
+		// TransmitPayload();
 	}
 
 	ThisEvent.EventType = ES_INIT;
@@ -152,13 +154,46 @@ bool PostTransmitService(ES_Event_t ThisEvent) {
 ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 	ES_Event_t ReturnEvent;
 	ReturnEvent.EventType = ES_NO_EVENT;
+	switch (ThisEvent.EventType) {
+	case ES_INIT:
+		{
+			DB_printf("ES_INIT\n");
+			TransmitPayload();
+			IEC0SET = _IEC0_INT3IE_MASK;	// enable int3 interrupt
+			__builtin_enable_interrupts();
+			break;
+		}
 
+	case ES_STATUS_FLAGS:
+		{
+			DB_printf("Event Param: 0x%x\n", ThisEvent.EventParam);
+			if (STATUSbits.RX_DR) { 			// data ready in RX FIFO
+				DB_printf("Data ready in RX FIFO\n");
+			} else if (STATUSbits.TX_DS) { 	// data successfully sent from TX FIFO
+				DB_printf("Data successfully snet from TX FIFO\n");
+			} else if (STATUSbits.MAX_RT) { 	// max number of TX transmits reached
+				DB_printf("Max number of TX transmits reached\n");
+			}
+			break;
+		}
+	}
 	return ReturnEvent;
 }
 
 /***************************************************************************
 private functions
 ***************************************************************************/
+
+void __ISR(_EXTERNAL_3_VECTOR, IPL7SOFT) INT3Handler(void) {
+	IFS0CLR = _IFS0_INT3IF_MASK;
+	DB_printf("Interrupt occured\n");
+	uint8_t databytes[] = {0x70};
+	WriteRegister(STATUS, databytes, 1);
+	ES_Event_t ThisEvent;
+	ThisEvent.EventType = ES_STATUS_FLAGS;
+	PostTransmitService(ThisEvent);
+}
+
 void ReadRXFIFO(uint8_t *result) {
 	uint8_t bytes[PAYLOAD_SIZE + 1];
 	bytes[0] = R_RX_PAYLOAD;
@@ -201,32 +236,39 @@ void InitPayload(void) {
 }
 
 void TransmitPayload(void) {
+	if (STATUSbits.w & 0x70) {
+		// clear STATUS register to allow for more transmissions
+		uint8_t databytes[] = {0x70};
+		WriteRegister(STATUS, databytes, 1);
+	}
 	uint8_t result[PAYLOAD_SIZE + 1];
 	SendSPI(payload, result, PAYLOAD_SIZE + 1);
 	ce(HIGH);
 	delay(TX_DELAY);
 	ce(LOW);
-	STATUSbits_t STATUSreg;
-	STATUSreg.w = 0;
-	uint8_t bytes[] = {NOP};
-	int count = 0;
-	while (!STATUSreg.TX_DS && !STATUSreg.MAX_RT && count != 10000) {
-		SendSPI(bytes, result, 1);
-		STATUSreg.w = result[0];
-		count++;
-	}
-	if (false) {
-		if (STATUSreg.TX_DS) {
-			DB_printf("Packet transmitted\n");
-		} else if (STATUSreg.MAX_RT) {
-			DB_printf("Max number of retransmits reached\n");
-		} else {
-			DB_printf("Never completed");
+	if (false) { // remove this once IRQ is working
+		STATUSbits_t STATUSreg;
+		STATUSreg.w = 0;
+		uint8_t bytes[] = {NOP};
+		int count = 0;
+		while (!STATUSreg.TX_DS && !STATUSreg.MAX_RT && count != 10000) {
+			SendSPI(bytes, result, 1);
+			STATUSreg.w = result[0];
+			count++;
 		}
+		if (false) {
+			if (STATUSreg.TX_DS) {
+				DB_printf("Packet transmitted\n");
+			} else if (STATUSreg.MAX_RT) {
+				DB_printf("Max number of retransmits reached\n");
+			} else {
+				DB_printf("Never completed");
+			}
+		}
+		// clear STATUS register to allow for more transmissions
+		uint8_t databytes[] = {0x70};
+		WriteRegister(STATUS, databytes, 1);
 	}
-	// clear STATUS register to allow for more transmissions
-	uint8_t databytes[] = {0x70};
-	WriteRegister(STATUS, databytes, 1);
 }
 
 void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2) {
@@ -395,7 +437,6 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power) {
 void ReadRegister(uint8_t reg, uint8_t *result) {
 	uint8_t bytes[] = {R_REGISTER | reg, NOP};
 	SendSPI(bytes, result, 2);
-	delay(TX_DELAY);
 }
 
 void WriteRegister(uint8_t reg, uint8_t databytes[], uint8_t n) {
@@ -406,7 +447,6 @@ void WriteRegister(uint8_t reg, uint8_t databytes[], uint8_t n) {
 	}
 	uint8_t result[n+1];
 	SendSPI(bytes, result, n+1);
-	delay(TX_DELAY);
 }
 
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
@@ -425,12 +465,17 @@ void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
 		}
 		LATBbits.LATB15 = 1;
 	}
+	STATUSbits.w = result[0];
+	delay(TX_DELAY);
 }
 
 void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 	CONFIGbits_t CONFIGbits = {0};
 	CONFIGbits.EN_CRC = 1;
 	CONFIGbits.CRCO = CRCbytes;
+	CONFIGbits.MASK_RX_DR = 0;
+	CONFIGbits.MASK_TX_DS = 0;
+	CONFIGbits.MASK_MAX_RT = 0;
 
 	switch (newMode) {
 	case RX:

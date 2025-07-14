@@ -154,6 +154,11 @@ typedef enum {
 	HIGH
 } Level_t;
 
+typedef enum {
+	RECEIVER = 0,
+	TRANSMITTER
+} Radio_t;
+
 // Public Function Prototypes
 bool InitTransmitService(uint8_t Priority);
 bool PostTransmitService(ES_Event_t ThisEvent);
