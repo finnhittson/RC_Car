@@ -320,7 +320,7 @@ typedef enum {
 #define TIMER12_RESP_FUNC TIMER_UNUSED
 #define TIMER13_RESP_FUNC TIMER_UNUSED
 #define TIMER14_RESP_FUNC TIMER_UNUSED
-#define TIMER15_RESP_FUNC TIMER_UNUSED
+#define TIMER15_RESP_FUNC PostTransmitService
 
 /****************************************************************************/
 // Give the timer numbers symbolc names to make it easier to move them
@@ -329,7 +329,7 @@ typedef enum {
 // the timer number matches where the timer event will be routed
 // These symbolic names should be changed to be relevant to your application
 
-#define SERVICE0_TIMER 15
+#define SERVICE_TIMER 15
 
 
 #endif /* ES_CONFIGURE_H */

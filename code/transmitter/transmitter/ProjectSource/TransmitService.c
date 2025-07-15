@@ -18,6 +18,7 @@ static uint8_t MyPriority;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
 uint8_t payload[PAYLOAD_SIZE + 1];
 STATUSbits_t STATUSbits;
+Radio_t radioType = RECEIVER;
 
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
@@ -36,15 +37,9 @@ bool InitTransmitService(uint8_t Priority) {
 
 	// receiver/transmiter selection pin
 	TRISBbits.TRISB9 = 1;
-	Radio_t radioType = RECEIVER;
 	if (PORTBbits.RB9) {
 		radioType = TRANSMITTER;
-		DB_printf("Radio configured as transmiter\n");
-	} else {
-		DB_printf("Rado configured as receiver\n");
 	}
-
-	InitPayload();
 
 	// SPI config
 	if (true) {
@@ -100,9 +95,9 @@ bool InitTransmitService(uint8_t Priority) {
 		IPC3bits.INT3IP = 7;			// set interrupt priority
 		IPC3bits.INT3IS = 0;			// set interrupt sub priority
 		IFS0CLR = _IFS0_INT3IF_MASK;	// clear int3 interrupt flag
+		IEC0SET = _IEC0_INT3IE_MASK;	// enable int3 interrupt
+		__builtin_enable_interrupts();
 	}
-	
-	delay(POWER_UP_DELAY);
 	
 	// start radio
 	bool RadioStarted = false;
@@ -121,22 +116,24 @@ bool InitTransmitService(uint8_t Priority) {
 
 		// setup datapipe for receiving data
 		StartListening();
+
+		// clear status register
+		databytes[0] = 0x70;
+		WriteRegister(STATUS, databytes, 1);
+		DB_printf("Radio configured as a receiver\n");
 	}
 
 	// setup radio as transmitter
-	if (RadioStarted && radioType == TRANSMITTER) {
-		// set radio address
+	else if (RadioStarted && radioType == TRANSMITTER) {
+		// init payload
+		InitPayload();
+
+		// set address
 		SetAddress(address);
 
 		// power up radio
 		ChangeRadioMode(Standby1, 1);
-
-		// set radio address
-		WriteRegister(RX_ADDR_P0, address, ADDRESS_WIDTH);
-
-		// // test payload
-		// PackagePayload(Misc, 0x01, 0x02);
-		// TransmitPayload();
+		DB_printf("Radio configured as a transmitter\n");
 	}
 
 	ThisEvent.EventType = ES_INIT;
@@ -157,24 +154,33 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 	switch (ThisEvent.EventType) {
 	case ES_INIT:
 		{
-			DB_printf("ES_INIT\n");
-			TransmitPayload();
-			IEC0SET = _IEC0_INT3IE_MASK;	// enable int3 interrupt
-			__builtin_enable_interrupts();
+			if (radioType == TRANSMITTER) {
+				TransmitPayload();
+			}
+			// IEC0SET = _IEC0_INT3IE_MASK;	// enable int3 interrupt
+			// __builtin_enable_interrupts();
+
+			ES_Timer_InitTimer(SERVICE_TIMER, 1000);
 			break;
 		}
 
 	case ES_STATUS_FLAGS:
 		{
-			DB_printf("Event Param: 0x%x\n", ThisEvent.EventParam);
 			if (STATUSbits.RX_DR) { 			// data ready in RX FIFO
 				DB_printf("Data ready in RX FIFO\n");
 			} else if (STATUSbits.TX_DS) { 	// data successfully sent from TX FIFO
-				DB_printf("Data successfully snet from TX FIFO\n");
+				DB_printf("Data successfully sent from TX FIFO\n");
 			} else if (STATUSbits.MAX_RT) { 	// max number of TX transmits reached
 				DB_printf("Max number of TX transmits reached\n");
 			}
 			break;
+		}
+
+	case ES_TIMEOUT:
+		{
+			uint8_t result[1];
+			ReadRegister(STATUS, result);
+			ES_Timer_InitTimer(SERVICE_TIMER, 1000);
 		}
 	}
 	return ReturnEvent;
@@ -246,29 +252,6 @@ void TransmitPayload(void) {
 	ce(HIGH);
 	delay(TX_DELAY);
 	ce(LOW);
-	if (false) { // remove this once IRQ is working
-		STATUSbits_t STATUSreg;
-		STATUSreg.w = 0;
-		uint8_t bytes[] = {NOP};
-		int count = 0;
-		while (!STATUSreg.TX_DS && !STATUSreg.MAX_RT && count != 10000) {
-			SendSPI(bytes, result, 1);
-			STATUSreg.w = result[0];
-			count++;
-		}
-		if (false) {
-			if (STATUSreg.TX_DS) {
-				DB_printf("Packet transmitted\n");
-			} else if (STATUSreg.MAX_RT) {
-				DB_printf("Max number of retransmits reached\n");
-			} else {
-				DB_printf("Never completed");
-			}
-		}
-		// clear STATUS register to allow for more transmissions
-		uint8_t databytes[] = {0x70};
-		WriteRegister(STATUS, databytes, 1);
-	}
 }
 
 void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2) {
@@ -348,7 +331,9 @@ bool StartRadio(void) {
 
 void SetAddress(uint8_t *address) {
 	WriteRegister(RX_ADDR_P0, address, ADDRESS_WIDTH);
-	WriteRegister(TX_ADDR, address, ADDRESS_WIDTH);
+	if (radioType == TRANSMITTER) {
+		WriteRegister(TX_ADDR, address, ADDRESS_WIDTH);
+	}
 }
 
 void FlushRX(void) {
@@ -476,11 +461,12 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 	CONFIGbits.MASK_RX_DR = 0;
 	CONFIGbits.MASK_TX_DS = 0;
 	CONFIGbits.MASK_MAX_RT = 0;
-
+	bool verbose = false;
 	switch (newMode) {
 	case RX:
 		{
-			DB_printf("Configuring radio into RX mode.\n");
+			if (verbose)
+				DB_printf("Configuring radio into RX mode.\n");
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 1;
 			LATAbits.LATA4 = 1;
@@ -489,7 +475,8 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 
 	case TX:
 		{
-			DB_printf("Configuring radio into TX mode.\n");
+			if (verbose)
+				DB_printf("Configuring radio into TX mode.\n");
 			CONFIGbits.PWR_UP = 1;
 			CONFIGbits.PRIM_RX = 0;
 			LATAbits.LATA4 = 1;
@@ -498,7 +485,8 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 
 	case Standby2:
 		{
-			DB_printf("Configuring radio into Standby2 mode.\n");
+			if (verbose)
+				DB_printf("Configuring radio into Standby2 mode.\n");
 			// TX FIFO needs to be empty to enter Standby2 mode
 			// otherwise will go into TX mode
 			CONFIGbits.PWR_UP = 1;			
@@ -509,7 +497,8 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 
 	case Standby1:
 		{
-			DB_printf("Configuring radio into Standby1 mode.\n");
+			if (verbose)
+				DB_printf("Configuring radio into Standby1 mode.\n");
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 0;
 			LATAbits.LATA4 = 0;
@@ -518,16 +507,17 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 
 	case PowerDown:
 		{
-			DB_printf("Configuring radio into PowerDown mode.\n");
+			if (verbose)
+				DB_printf("Configuring radio into PowerDown mode.\n");
 			CONFIGbits.PWR_UP = 0;			
 			CONFIGbits.PRIM_RX = 0;
 			LATAbits.LATA4 = 0;
 			break;
 		}
 	}
-	// DB_printf("0x%x\n", CONFIGbits.w);
 	uint8_t databytes[] = { CONFIGbits.w };
 	WriteRegister(CONFIG, databytes, 1);
+	delay(POWER_UP_DELAY);
 }
 
 void PrintStatus(STATUSbits_t STATUSbits) {
