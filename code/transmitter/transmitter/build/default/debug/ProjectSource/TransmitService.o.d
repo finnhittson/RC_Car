@@ -6,7 +6,8 @@ build/default/debug/ProjectSource/TransmitService.o: \
  FrameworkHeaders/ES_Events.h FrameworkHeaders/ES_Configure.h \
  FrameworkHeaders/ES_PostList.h FrameworkHeaders/ES_General.h \
  FrameworkHeaders/ES_Timers.h ProjectHeaders/TransmitService.h \
- FrameworkHeaders/ES_Types.h FrameworkHeaders/dbprintf.h
+ FrameworkHeaders/ES_Types.h FrameworkHeaders/dbprintf.h \
+ ProjectHeaders/PIC32_AD_Lib.h
 
 FrameworkHeaders/ES_Configure.h:
 
@@ -37,3 +38,5 @@ ProjectHeaders/TransmitService.h:
 FrameworkHeaders/ES_Types.h:
 
 FrameworkHeaders/dbprintf.h:
+
+ProjectHeaders/PIC32_AD_Lib.h:

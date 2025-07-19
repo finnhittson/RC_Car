@@ -63,7 +63,7 @@ based on the Gen 2 Events and Services Framework
 
 // misc
 #define MAX_RETRIES			5
-#define RADIO_ID			0x01
+
 
 typedef union {
 	struct {
@@ -144,12 +144,6 @@ typedef enum {
 } RF_PWR_t;
 
 typedef enum {
-	Throttle = 0,
-	Steering,
-	Misc
-} Mode_t;
-
-typedef enum {
 	LOW = 0,
 	HIGH
 } Level_t;
@@ -183,13 +177,13 @@ void SetAddress(uint8_t *address);
 void StopListening(void);
 void TransmitPayload(void);
 void StartListening(void);
-void ReadRXFIFO(uint8_t *result);
+bool ReadRXFIFO(uint8_t *result);
 
 // misc functions
 void PrintStatus(STATUSbits_t STATUSbits);
 void delay (volatile int length);
-void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2);
-void InitPayload(void);
+void PackagePayload(uint8_t motorSpeed, uint8_t servoPos);
 void ce(Level_t Level);
+bool radioIsTransmitter(void);
 
 #endif /* ServTemplate_H */

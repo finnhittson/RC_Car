@@ -1,24 +1,3 @@
-/****************************************************************************
- Module
-   EventCheckers.c
-
- Revision
-   1.0.1
-
- Description
-   This is the sample for writing event checkers along with the event
-   checkers used in the basic framework test harness.
-
- Notes
-   Note the use of static variables in sample event checker to detect
-   ONLY transitions.
-
- History
- When           Who     What/Why
- -------------- ---     --------
- 08/06/13 13:36 jec     initial version
-****************************************************************************/
-
 // this will pull in the symbolic definitions for events, which we will want
 // to post in response to detecting events
 #include "ES_Configure.h"
@@ -39,6 +18,9 @@
 // include our own prototypes to insure consistency between header &
 // actual functionsdefinition
 #include "EventCheckers.h"
+#include "PIC32_AD_Lib.h"
+#include "TransmitService.h"
+#include "dbprintf.h"
 
 // This is the event checking function sample. It is not intended to be
 // included in the module. It is only here as a sample to guide you in writing
@@ -106,16 +88,45 @@ bool Check4Lock(void)
  Author
    J. Edward Carryer, 08/06/13, 13:48
 ****************************************************************************/
-bool Check4Keystroke(void)
-{
-  if (IsNewKeyReady())   // new key waiting?
-  {
-    ES_Event_t ThisEvent;
-    ThisEvent.EventType   = ES_NEW_KEY;
-    ThisEvent.EventParam  = GetNewKey();
-    ES_PostAll(ThisEvent);
-    return true;
-  }
-  return false;
+bool Check4Keystroke(void) {
+	if (IsNewKeyReady()) {
+		ES_Event_t ThisEvent;
+		ThisEvent.EventType = ES_NEW_KEY;
+		ThisEvent.EventParam = GetNewKey();
+		ES_PostAll(ThisEvent);
+		return true;
+	}
+	return false;
 }
 
+
+#define DELTA				5
+#define NUM_AD_CHANNELS		2
+
+static uint32_t ADValues[NUM_AD_CHANNELS];
+
+bool CheckControls(void) {
+	bool ReturnVal = false;
+	static uint32_t lastVal1;
+	static uint32_t lastVal2;
+	ADC_MultiRead(ADValues);
+	uint8_t currentVal1 = ADValues[0] / 4;
+	uint8_t currentVal2 = ADValues[1] / 4;
+	uint8_t diff1 = currentVal1 - lastVal1;
+	uint8_t diff2 = currentVal2 - lastVal2;
+	if (diff1 < 0) {
+		diff1 = diff1 * -1;
+	}
+	if (diff2 < 0) {
+		diff2 = diff2 * -1;
+	}
+	if (radioIsTransmitter() && (diff1 > DELTA || diff2 > DELTA)) {
+		uint16_t controlWord = (currentVal1 << 8) | currentVal2;
+		ES_Event_t ThisEvent = {ES_CONTROL_UPDATE, controlWord};
+		PostTransmitService(ThisEvent);
+		ReturnVal = true;
+		lastVal1 = currentVal1;
+		lastVal2 = currentVal2;
+	}
+	return ReturnVal;
+}

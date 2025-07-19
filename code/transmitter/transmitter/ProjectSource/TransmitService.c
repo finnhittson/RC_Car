@@ -5,12 +5,18 @@
 #include "ES_Framework.h"
 #include "TransmitService.h"
 #include "dbprintf.h"
+#include "PIC32_AD_Lib.h"
 
 /*----------------------------- Module Defines ----------------------------*/
 // radio specific defined constants
 #define ADDRESS_WIDTH		5
-#define PAYLOAD_SIZE		5
+#define PAYLOAD_SIZE		4
 #define CHANNEL				42
+#define RADIO_ID			0x01
+#define MOTOR_PERIOD		50000
+#define AD_CHANNEL1			(1 << 0)
+#define AD_CHANNEL2			(1 << 1)
+
 /*---------------------------- Module Functions ---------------------------*/
 
 /*---------------------------- Module Variables ---------------------------*/
@@ -19,11 +25,14 @@ uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
 uint8_t payload[PAYLOAD_SIZE + 1];
 STATUSbits_t STATUSbits;
 Radio_t radioType = RECEIVER;
+static uint8_t motorSpeed = 128;
+static uint8_t servoPos = 0;
+bool readyToTransmit = true;
 
 /*------------------------------ Module Code ------------------------------*/
 bool InitTransmitService(uint8_t Priority) {
 	clrScrn();
-	DB_printf("Init Transmit Service\n");
+	DB_printf("Init Transmit/Receive Service\n");
 	ES_Event_t ThisEvent;
 	MyPriority = Priority;
 
@@ -121,19 +130,60 @@ bool InitTransmitService(uint8_t Priority) {
 		databytes[0] = 0x70;
 		WriteRegister(STATUS, databytes, 1);
 		DB_printf("Radio configured as a receiver\n");
+
+		// init timer2
+		T2CONbits.ON = 0;			// turn off timer2
+		T2CONbits.TCS = 0;			// set timer2 source
+		T2CONbits.TGATE = 0;		// disable TGATE
+		T2CONbits.TCKPS = 1;		// set timer2 pre-scaler 1:8
+		PR2 = MOTOR_PERIOD - 1;		// set timer2 period
+		TMR2 = 0;					// set timer2 to start at 0
+		IFS0CLR = _IFS0_T2IF_MASK;	// clear timer2 interrupt flags
+		T2CONbits.ON = 1;			// enable timer2
+
+		// PWM forwards - output compare module 1
+		TRISAbits.TRISA0 = 0;		// set pin 2 (RA0) as output
+		ANSELAbits.ANSA0 = 0;		// set pin 2 as digital
+		OC1CONbits.ON = 0;			// disable module
+		OC1CONbits.SIDL = 0;		// set to continue in idle mode
+		RPA0R = 0b0101;				// map pin 2 to OC module
+		OC1CONbits.OC32 = 0;		// use 16 bit timer source
+		OC1CONbits.OCTSEL = 0;		// use timer2
+		OC1R = 0;					// set duty cycle
+		OC1RS = 0;					// set duty cycle
+		OC1CONbits.OCM = 6;			// set as pwm
+		OC1CONbits.ON = 1;			// enable output compare module 1
+
+		// PWM backwards - output compare module 2
+		TRISAbits.TRISA1 = 0;		// set pin 3 (RA1) as output
+		ANSELAbits.ANSA1 = 0;		// set pin 3 as digital
+		OC2CONbits.ON = 0;			// disable module
+		OC2CONbits.SIDL = 0;		// set to continue in idle mode
+		RPA1R = 0b0101;				// map pin 3 to OC module
+		OC2CONbits.OC32 = 0;		// use 16 bit timer source
+		OC2CONbits.OCTSEL = 0;		// use timer2
+		OC2R = 0;					// set duty cycle
+		OC2RS = 0;					// set duty cycle
+		OC2CONbits.OCM = 6;			// set as pwm
+		OC2CONbits.ON = 1;			// enable output compare module 2
 	}
 
 	// setup radio as transmitter
 	else if (RadioStarted && radioType == TRANSMITTER) {
-		// init payload
-		InitPayload();
-
 		// set address
 		SetAddress(address);
 
 		// power up radio
 		ChangeRadioMode(Standby1, 1);
 		DB_printf("Radio configured as a transmitter\n");
+
+		ANSELAbits.ANSA0 = 1;
+		TRISAbits.TRISA0 = 1;
+
+		ANSELAbits.ANSA1 = 1;
+		TRISAbits.TRISA1 = 1;
+
+		ADC_ConfigAutoScan(AD_CHANNEL1 | AD_CHANNEL2);
 	}
 
 	ThisEvent.EventType = ES_INIT;
@@ -154,32 +204,79 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 	switch (ThisEvent.EventType) {
 	case ES_INIT:
 		{
-			if (radioType == TRANSMITTER) {
+			if (radioType == TRANSMITTER && false) {
+				PackagePayload(motorSpeed, servoPos);
 				TransmitPayload();
 			}
-			// IEC0SET = _IEC0_INT3IE_MASK;	// enable int3 interrupt
-			// __builtin_enable_interrupts();
-
-			ES_Timer_InitTimer(SERVICE_TIMER, 1000);
+			// ES_Timer_InitTimer(SERVICE_TIMER, 1000);
 			break;
 		}
 
 	case ES_STATUS_FLAGS:
 		{
-			if (STATUSbits.RX_DR) { 			// data ready in RX FIFO
+			if (STATUSbits.RX_DR) {
 				DB_printf("Data ready in RX FIFO\n");
-			} else if (STATUSbits.TX_DS) { 	// data successfully sent from TX FIFO
+				if (!radioIsTransmitter()) {
+					ThisEvent.EventType = ES_HANDLE_PAYLOAD;
+					PostTransmitService(ThisEvent);
+				}
+			} else if (STATUSbits.TX_DS) {
 				DB_printf("Data successfully sent from TX FIFO\n");
-			} else if (STATUSbits.MAX_RT) { 	// max number of TX transmits reached
+				readyToTransmit = true;
+			} else if (STATUSbits.MAX_RT) {
 				DB_printf("Max number of TX transmits reached\n");
+			} else {
+				DB_printf("SHOULD NOT BE HERE!!!\n");
+			}
+			break;
+		}
+
+	case ES_HANDLE_PAYLOAD:
+		{
+			uint8_t result[PAYLOAD_SIZE + 1];
+			bool validData = ReadRXFIFO(result);
+			DB_printf("HERE\n");
+			if (result[1] == RADIO_ID) { // && validData
+				uint8_t newMotorSpeed = result[2];
+				uint8_t newServoPos = result[3];
+				DB_printf("Updating motor speed: %d\n", newMotorSpeed);
+				// update motor speed
+				if (newMotorSpeed < 128) {
+					OC1RS = 0;
+					OC2RS = MOTOR_PERIOD - ((newMotorSpeed * MOTOR_PERIOD) / 128);
+					DB_printf("motor speed: %d\n", MOTOR_PERIOD - ((newMotorSpeed * MOTOR_PERIOD) / 128));
+				} else {
+					OC2RS = 0;
+					OC1RS = ((newMotorSpeed * MOTOR_PERIOD) / 128) - MOTOR_PERIOD;
+					DB_printf("motor speed: %d\n", ((newMotorSpeed * MOTOR_PERIOD) / 128) - MOTOR_PERIOD);
+				}
+				DB_printf("Updating servo position: %d\n", newServoPos);
+				// update servo position
+			} else if (result[1] != RADIO_ID) {
+				DB_printf("Radio ID does not match: %d\n", RADIO_ID);
+			} else if (!validData) {
+				DB_printf("Invalid data recieved. Undesierable checksum value.\n");
+			}
+			break;
+		}
+
+	case ES_CONTROL_UPDATE:
+		{
+			motorSpeed = ThisEvent.EventParam >> 8;
+			servoPos = ThisEvent.EventParam;
+			PackagePayload(motorSpeed, servoPos);
+			if (readyToTransmit) {
+				DB_printf("Update motor speed: %d\n", motorSpeed);
+				DB_printf("Update servo pos: %d\n\n", servoPos);
+				TransmitPayload();
 			}
 			break;
 		}
 
 	case ES_TIMEOUT:
 		{
-			uint8_t result[1];
-			ReadRegister(STATUS, result);
+			uint8_t databytes[] = {NOP};
+			ReadRegister(STATUS, databytes);
 			ES_Timer_InitTimer(SERVICE_TIMER, 1000);
 		}
 	}
@@ -189,10 +286,9 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 /***************************************************************************
 private functions
 ***************************************************************************/
-
 void __ISR(_EXTERNAL_3_VECTOR, IPL7SOFT) INT3Handler(void) {
 	IFS0CLR = _IFS0_INT3IF_MASK;
-	DB_printf("Interrupt occured\n");
+	// DB_printf("Interrupt occured\n");
 	uint8_t databytes[] = {0x70};
 	WriteRegister(STATUS, databytes, 1);
 	ES_Event_t ThisEvent;
@@ -200,7 +296,15 @@ void __ISR(_EXTERNAL_3_VECTOR, IPL7SOFT) INT3Handler(void) {
 	PostTransmitService(ThisEvent);
 }
 
-void ReadRXFIFO(uint8_t *result) {
+bool radioIsTransmitter(void) {
+	if (radioType == TRANSMITTER) {
+		return true;
+	}
+	return false;
+}
+
+bool ReadRXFIFO(uint8_t *result) {
+	bool ReturnVal = false;
 	uint8_t bytes[PAYLOAD_SIZE + 1];
 	bytes[0] = R_RX_PAYLOAD;
 	for (int i = 1; i < PAYLOAD_SIZE + 1; i++) {
@@ -211,6 +315,11 @@ void ReadRXFIFO(uint8_t *result) {
 	// clear interrupts
 	uint8_t databytes[] = {0x70};
 	WriteRegister(STATUS, databytes, 1);
+
+	if (result[1] + result[2] + result[3] + result[4] == 0xFF) {
+		ReturnVal = true;
+	}
+	return ReturnVal;
 }
 
 void StartListening(void) {
@@ -233,15 +342,9 @@ void ce(Level_t Level) {
 	}
 }
 
-void InitPayload(void) {
-	payload[0] = W_TX_PAYLOAD;
-	payload[1] = 0x69;
-	for (int i = 2; i < PAYLOAD_SIZE + 1; i++) {
-		payload[i] = 0x00;
-	}
-}
-
 void TransmitPayload(void) {
+	readyToTransmit = false;
+	// DB_printf("Writing payload to radio\n");
 	if (STATUSbits.w & 0x70) {
 		// clear STATUS register to allow for more transmissions
 		uint8_t databytes[] = {0x70};
@@ -254,11 +357,13 @@ void TransmitPayload(void) {
 	ce(LOW);
 }
 
-void PackagePayload(Mode_t type, uint8_t data1, uint8_t data2) {
-	uint8_t checksum = 0xFF - (RADIO_ID + type + data1 + data2);
-	payload[2] = 0x00;
-	payload[3] = 0x00;
-	payload[4] = 0x00;
+void PackagePayload(uint8_t data1, uint8_t data2) {
+	uint8_t checksum = 0xFF - (RADIO_ID + data1 + data2);
+	payload[0] = W_TX_PAYLOAD;
+	payload[1] = RADIO_ID;
+	payload[2] = data1;
+	payload[3] = data2;
+	payload[4] = checksum;
 }
 
 void StopListening(void) {

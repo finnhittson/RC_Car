@@ -261,7 +261,9 @@ typedef enum {
 	ES_NEW_KEY,               /* signals a new key received from terminal */
 	ES_LOCK,
 	ES_UNLOCK,
-	ES_STATUS_FLAGS
+	ES_STATUS_FLAGS,
+	ES_HANDLE_PAYLOAD,
+	ES_CONTROL_UPDATE
 } ES_EventType_t;
 
 /****************************************************************************/
@@ -296,7 +298,7 @@ typedef enum {
 
 /****************************************************************************/
 // This is the list of event checking functions
-#define EVENT_CHECK_LIST Check4Keystroke
+#define EVENT_CHECK_LIST CheckControls
 
 /****************************************************************************/
 // These are the definitions for the post functions to be executed when the
