@@ -166,6 +166,18 @@ bool InitTransmitService(uint8_t Priority) {
 		OC2RS = 0;					// set duty cycle
 		OC2CONbits.OCM = 6;			// set as pwm
 		OC2CONbits.ON = 1;			// enable output compare module 2
+
+		// servo PWM - output compare module 3
+		TRISAbits.TRISA3 = 0;		// set pin 3 (RA1) as output
+		OC3CONbits.ON = 0;			// disable module
+		OC3CONbits.SIDL = 0;		// set to continue in idle mode
+		RPA3R = 0b0101;				// map pin 3 to OC module
+		OC3CONbits.OC32 = 0;		// use 16 bit timer source
+		OC3CONbits.OCTSEL = 0;		// use timer2
+		OC3R = 3750;				// set duty cycle
+		OC3RS = 3750;				// set duty cycle
+		OC3CONbits.OCM = 6;			// set as pwm
+		OC3CONbits.ON = 1;			// enable output compare module 2
 	}
 
 	// setup radio as transmitter
@@ -252,6 +264,7 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 				}
 				DB_printf("Updating servo position: %d\n", newServoPos);
 				// update servo position
+				OC3RS = 23.4375 * newServoPos + 2250;
 			} else if (result[1] != RADIO_ID) {
 				DB_printf("Radio ID does not match: %d\n", RADIO_ID);
 			} else if (!validData) {
