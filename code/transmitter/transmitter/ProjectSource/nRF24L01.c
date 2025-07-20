@@ -33,7 +33,8 @@ bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
 	WriteRegister(SETUP_AW, databytes, result, 1);
 
 	// set channel
-	SetRFChannel(channel, result);
+	databytes[0] = (channel & 0x7F);
+	WriteRegister(RF_CH, databytes, result, 1);
 
 	// clear status interrupts
 	databytes[0] = 0x70;
@@ -72,21 +73,8 @@ void FlushTX(void) {
 	delay(DELAY_TIME);
 }
 
-void SetRFChannel(uint8_t channel, uint8_t *result) {
-	uint8_t databytes[] = {channel & 0x7F};
-	WriteRegister(RF_CH, databytes, result, 1);
-}
-
-void SetAddress(Radio_t radioType, uint8_t *address, uint8_t addressWidth, uint8_t *result) {
-	WriteRegister(RX_ADDR_P0, address, result, addressWidth);
-	if (radioType == TRANSMITTER) {
-		WriteRegister(TX_ADDR, address, result, addressWidth);
-	}
-}
-
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
 	ReadRegister(RF_SETUP, result);
-
 	RF_SETUPbits_t Setup;
 	Setup.w = result[1];
 	Setup.RF_PWR = power;
@@ -220,7 +208,7 @@ bool ReadRXFIFO(uint8_t payloadSize, uint8_t *result) {
 	return ReturnVal;
 }
 
-void StartListening(Radio_t radioType, uint8_t *address, uint8_t addressWidth, uint8_t *result) {
+void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result) {
 	// power up radio to RX mode with 2 bytes cyclic redundancy check
 	ChangeRadioMode(RX, 1, result);
 
@@ -229,14 +217,5 @@ void StartListening(Radio_t radioType, uint8_t *address, uint8_t addressWidth, u
 	WriteRegister(STATUS, databytes, result, 1);
 
 	// set address
-	SetAddress(radioType, address, addressWidth, result);
-}
-
-void StopListening(Radio_t radioType, uint8_t *address, uint8_t addressWidth, uint8_t *result) {
-	ChangeRadioMode(Standby1, 1, result);
-	SetAddress(radioType, address, addressWidth, result);
-
-	// enable RX address for datapipe 0
-	uint8_t databytes[] = {0x01};
-	WriteRegister(EN_RXADDR, databytes, result, 1);
+	WriteRegister(RX_ADDR_P0, address, result, addressWidth);
 }

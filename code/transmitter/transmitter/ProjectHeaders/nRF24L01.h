@@ -63,13 +63,10 @@ typedef enum {
 bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
 void FlushTX(void);
 void FlushRX(void);
-void SetRFChannel(uint8_t channel, uint8_t *result);
-void SetAddress(Radio_t radioType, uint8_t *address, uint8_t addressWidth, uint8_t *result);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
 void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t AutoReTXCount, uint8_t *result);
 bool ReadRXFIFO(uint8_t payloadSize, uint8_t *result);
-void StartListening(Radio_t radioType, uint8_t *address, uint8_t addressWidth, uint8_t *result);
-void StopListening(Radio_t radioType, uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);

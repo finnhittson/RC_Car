@@ -128,7 +128,7 @@ bool InitTransmitService(uint8_t Priority) {
 		STATUSbits.w = result[0];
 
 		// setup datapipe for receiving data
-		StartListening(radioType, address, ADDRESS_WIDTH, result);
+		StartListening(address, ADDRESS_WIDTH, result);
 		STATUSbits.w = result[0];
 
 		// clear status register
@@ -190,7 +190,8 @@ bool InitTransmitService(uint8_t Priority) {
 	else if (RadioStarted && radioType == TRANSMITTER) {
 		// set address
 		uint8_t result[2];
-		SetAddress(radioType, address, ADDRESS_WIDTH, result);
+		WriteRegister(RX_ADDR_P0, address, result, ADDRESS_WIDTH);
+		WriteRegister(TX_ADDR, address, result, ADDRESS_WIDTH);
 		STATUSbits.w = result[0];
 
 		// power up radio
