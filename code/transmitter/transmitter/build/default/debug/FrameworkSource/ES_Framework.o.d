@@ -19,6 +19,7 @@ build/default/debug/FrameworkSource/ES_Framework.o: \
  FrameworkSource/../FrameworkHeaders/ES_CheckEvents.h \
  FrameworkHeaders/ES_ServiceHeaders.h FrameworkHeaders/ES_Configure.h \
  ProjectHeaders/TransmitService.h FrameworkHeaders/ES_Types.h \
+ ProjectHeaders/nRF24L01.h ProjectHeaders/SPI.h \
  ProjectHeaders/EventCheckWrapper.h ProjectHeaders/EventCheckers.h \
  FrameworkHeaders/ES_Port.h
 
@@ -63,6 +64,10 @@ FrameworkHeaders/ES_Configure.h:
 ProjectHeaders/TransmitService.h:
 
 FrameworkHeaders/ES_Types.h:
+
+ProjectHeaders/nRF24L01.h:
+
+ProjectHeaders/SPI.h:
 
 ProjectHeaders/EventCheckWrapper.h:
 

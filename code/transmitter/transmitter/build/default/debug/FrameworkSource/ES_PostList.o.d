@@ -13,7 +13,8 @@ build/default/debug/FrameworkSource/ES_PostList.o: \
  FrameworkSource/../FrameworkHeaders/ES_Events.h \
  FrameworkSource/../FrameworkHeaders/ES_Configure.h \
  FrameworkSource/../FrameworkHeaders/ES_ServiceHeaders.h \
- ProjectHeaders/TransmitService.h FrameworkHeaders/ES_Types.h
+ ProjectHeaders/TransmitService.h FrameworkHeaders/ES_Types.h \
+ ProjectHeaders/nRF24L01.h ProjectHeaders/SPI.h
 
 FrameworkSource/../FrameworkHeaders/ES_Port.h:
 
@@ -44,3 +45,7 @@ FrameworkSource/../FrameworkHeaders/ES_ServiceHeaders.h:
 ProjectHeaders/TransmitService.h:
 
 FrameworkHeaders/ES_Types.h:
+
+ProjectHeaders/nRF24L01.h:
+
+ProjectHeaders/SPI.h:

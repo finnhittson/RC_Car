@@ -8,6 +8,7 @@ build/default/debug/ProjectSource/EventCheckers.o: \
  FrameworkHeaders/ES_Timers.h FrameworkHeaders/ES_Events.h \
  FrameworkHeaders/ES_PostList.h FrameworkHeaders/ES_ServiceHeaders.h \
  ProjectHeaders/TransmitService.h FrameworkHeaders/ES_Types.h \
+ ProjectHeaders/nRF24L01.h ProjectHeaders/SPI.h \
  FrameworkHeaders/ES_Port.h ProjectHeaders/EventCheckers.h \
  ProjectHeaders/PIC32_AD_Lib.h FrameworkHeaders/dbprintf.h
 
@@ -44,6 +45,10 @@ FrameworkHeaders/ES_ServiceHeaders.h:
 ProjectHeaders/TransmitService.h:
 
 FrameworkHeaders/ES_Types.h:
+
+ProjectHeaders/nRF24L01.h:
+
+ProjectHeaders/SPI.h:
 
 FrameworkHeaders/ES_Port.h:
 

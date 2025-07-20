@@ -45,6 +45,8 @@
       <itemPath>ProjectHeaders/EventCheckers.h</itemPath>
       <itemPath>ProjectHeaders/TransmitService.h</itemPath>
       <itemPath>ProjectHeaders/PIC32_AD_Lib.h</itemPath>
+      <itemPath>ProjectHeaders/SPI.h</itemPath>
+      <itemPath>ProjectHeaders/nRF24L01.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -62,6 +64,8 @@
       <itemPath>ProjectSource/main.c</itemPath>
       <itemPath>ProjectSource/TransmitService.c</itemPath>
       <itemPath>ProjectSource/PIC32_AD_Lib.c</itemPath>
+      <itemPath>ProjectSource/SPI.c</itemPath>
+      <itemPath>ProjectSource/nRF24L01.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

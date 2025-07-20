@@ -14,6 +14,7 @@ build/default/debug/FrameworkSource/ES_Timers.o: \
  FrameworkSource/../FrameworkHeaders/ES_Timers.h \
  FrameworkSource/../FrameworkHeaders/ES_ServiceHeaders.h \
  ProjectHeaders/TransmitService.h FrameworkHeaders/ES_Types.h \
+ ProjectHeaders/nRF24L01.h ProjectHeaders/SPI.h \
  FrameworkSource/../FrameworkHeaders/ES_General.h \
  FrameworkSource/../FrameworkHeaders/ES_Events.h \
  FrameworkSource/../FrameworkHeaders/ES_PostList.h \
@@ -50,6 +51,10 @@ FrameworkSource/../FrameworkHeaders/ES_ServiceHeaders.h:
 ProjectHeaders/TransmitService.h:
 
 FrameworkHeaders/ES_Types.h:
+
+ProjectHeaders/nRF24L01.h:
+
+ProjectHeaders/SPI.h:
 
 FrameworkSource/../FrameworkHeaders/ES_General.h:
 
