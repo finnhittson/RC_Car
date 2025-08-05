@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pig/Documents/GitHub/RC_Car/code/RC_Car.X/SourceFiles/main.c</file>
             <file>file:/C:/Users/pig/Documents/GitHub/RC_Car/code/RC_Car.X/SourceFiles/TransmitService.c</file>
-            <file>file:/C:/Users/pig/Documents/GitHub/RC_Car/code/RC_Car.X/SourceFiles/nRF24L01.c</file>
+            <file>file:/C:/Users/pig/Documents/GitHub/RC_Car/code/RC_Car.X/SourceFiles/main.c</file>
             <file>file:/C:/Users/pig/Documents/GitHub/RC_Car/code/RC_Car.X/SourceFiles/SPI.c</file>
+            <file>file:/C:/Users/pig/Documents/GitHub/RC_Car/code/RC_Car.X/SourceFiles/nRF24L01.c</file>
         </group>
     </open-files>
 </project-private>
