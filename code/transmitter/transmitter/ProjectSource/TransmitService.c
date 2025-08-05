@@ -82,7 +82,7 @@ bool InitTransmitService(uint8_t Priority) {
 		SPI1CONbits.ENHBUF = 0;     // disable enhanced buffer
 		SPI1STATbits.SPIROV = 0;    // receive overflow flag bit
 
-		SPI1CONbits.CKE = 1;        // data transmit on idle to active
+		SPI1CONbits.CKE = 1;        // data transmit on active to idle
 		SPI1CONbits.CKP = 0;        // clock idles low
 
 		SPI1CONbits.MODE32 = 0;     // data transfer 8 bit
