@@ -10888,6 +10888,8 @@ void TransmitPayload(void);
 
 
 Radio_t radioType = RECEIVER;
+SPISTATUSbits_t SPI_STATUSbits;
+uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
 
 int main(int argc, char** argv) {
 
@@ -10903,7 +10905,6 @@ int main(int argc, char** argv) {
     ANSELAbits.ANSA5 = 0;
  if (PORTAbits.RA5) {
   radioType = TRANSMITTER;
-
  }
 
 
@@ -10946,19 +10947,18 @@ int main(int argc, char** argv) {
         SSP1CON1bits.CKP = 0;
 
         SSP1CON1bits.SSPM = 0;
-
-
-        SSP1CON1bits.SSPOV = 0;
  }
 
 
- _Bool RadioStarted = 0;
+ _Bool radioStarted = 0;
  uint8_t result[2];
  if (StartRadio(42, 4, result)) {
-  RadioStarted = 1;
+  radioStarted = 1;
  }
+    SPI_STATUSbits.w = result[0];
 
-    if (RadioStarted && radioType == RECEIVER) {
+    if (radioStarted && radioType == RECEIVER) {
+        LATAbits.LATA0 = 1;
 
   uint8_t databytes[2];
         uint8_t result[2];
@@ -10979,31 +10979,76 @@ int main(int argc, char** argv) {
 
 
         T2CONbits.TMR2ON = 0;
-        T2CONbits.T2OUTPS = 0b1111;
-        T2CONbits.T2CKPS = 0b11;
+        T2CONbits.T2CKPS = 0b01;
         TMR2 = 0;
-        PR2 = 156;
+        PR2 = 125;
         T2CONbits.TMR2ON = 1;
 
+
+        TRISCbits.TRISC3 = 0;
         PWM5CONbits.PWM5EN = 0;
         PWM5CONbits.PWM5POL = 0;
         RC3PPS = 0b00010;
-        PWM5DCL = 0b10;
-        PWM5DCH = 0b10;
+        PWM5DCL = 0xC0;
+        PWM5DCH = 0x6F;
         PWMTMRSbits.P5TSEL = 0b01;
         PWM5CONbits.PWM5EN = 1;
 
+
+        TRISCbits.TRISC4 = 0;
         PWM6CONbits.PWM6EN = 0;
         PWM6CONbits.PWM6POL = 0;
         RC4PPS = 0b00011;
-        PWM6DCL = 0b10;
-        PWM6DCH = 0b10;
+        PWM6DCL = 0x00;
+        PWM6DCH = 0x00;
         PWMTMRSbits.P6TSEL = 0b01;
         PWM6CONbits.PWM6EN = 1;
  }
 
-    while (1) {
 
+ if (radioStarted && radioType == TRANSMITTER) {
+
+        uint8_t databytes[6];
+  uint8_t result[6];
+        databytes[0] = 0x20 | 0x0A;
+        databytes[1] = address[0];
+        databytes[2] = address[1];
+        databytes[3] = address[2];
+        databytes[4] = address[3];
+        databytes[5] = address[4];
+        SendSPI(databytes, result, 5 + 1);
+        databytes[0] = 0x20 | 0x10;
+        SendSPI(databytes, result, 5 + 1);
+  SPI_STATUSbits.w = result[0];
+
+
+  ChangeRadioMode(Standby1, 1, result);
+  SPI_STATUSbits.w = result[0];
+
+
+        ANSELAbits.ANSA0 = 1;
+  TRISAbits.TRISA0 = 1;
+
+        ADCON0bits.ADON = 0;
+        ADCON1bits.ADCS = 0b010;
+        ADCON1bits.ADNREF = 0;
+        ADCON1bits.ADPREF = 0;
+        ADCON0bits.CHS = 0x00;
+        ADCON0bits.CHS = 0x01;
+        ADCON1bits.ADFM = 1;
+        ADCON0bits.ADON = 1;
+ }
+
+    if (radioType == TRANSMITTER) {
+        while (1) {
+
+        }
+    }
+
+    if (radioType == RECEIVER) {
+        while (1) {
+
+        }
     }
 
     return 1;

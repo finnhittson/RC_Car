@@ -131,8 +131,50 @@ int main(int argc, char** argv) {
         PWM6CONbits.PWM6EN = 1;     // enable PWM5 module
 	}
     
-    while (1) {
+    // setup radio as transmitter
+	if (radioStarted && radioType == TRANSMITTER) {
+		// set address
+        uint8_t databytes[6];
+		uint8_t result[6];
+        databytes[0] = W_REGISTER | RX_ADDR_P0;
+        databytes[1] = address[0];
+        databytes[2] = address[1];
+        databytes[3] = address[2];
+        databytes[4] = address[3];
+        databytes[5] = address[4];
+        SendSPI(databytes, result, ADDRESS_WIDTH + 1);
+        databytes[0] = W_REGISTER | TX_ADDR;
+        SendSPI(databytes, result, ADDRESS_WIDTH + 1);
+		SPI_STATUSbits.w = result[0];
+
+		// power up radio
+		ChangeRadioMode(Standby1, 1, result);
+		SPI_STATUSbits.w = result[0];
+
+		// configure analog input
+        ANSELAbits.ANSA0 = 1;
+		TRISAbits.TRISA0 = 1;
         
+        ADCON0bits.ADON = 0;        // turn off ADC
+        ADCON1bits.ADCS = 0b010;    // select ADC conversion clock as Fosc/32
+        ADCON1bits.ADNREF = 0;      // set negative voltage reference as Vss
+        ADCON1bits.ADPREF = 0;      // set positive voltage reference as Vdd
+        ADCON0bits.CHS = 0x00;      // select analog input channel as RA0
+        ADCON0bits.CHS = 0x01;      // select analog input channel as RA1
+        ADCON1bits.ADFM = 1;        // result is stored right justified
+        ADCON0bits.ADON = 1;        // turn on ADC
+	}
+    
+    if (radioType == TRANSMITTER) {
+        while (1) {
+
+        }
+    }
+    
+    if (radioType == RECEIVER) {
+        while (1) {
+            
+        }
     }
     
     return 1;

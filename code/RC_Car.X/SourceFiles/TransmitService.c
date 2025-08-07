@@ -41,35 +41,7 @@ Radio_t InitTransmitService() {
 	// setup radio as receiver
 	
 
-	// setup radio as transmitter
-	if (RadioStarted && radioType == TRANSMITTER) {
-		// set address
-        uint8_t databytes[6];
-		uint8_t result[6];
-        databytes[0] = W_REGISTER | RX_ADDR_P0;
-        databytes[1] = address[0];
-        databytes[2] = address[1];
-        databytes[3] = address[2];
-        databytes[4] = address[3];
-        databytes[5] = address[4];
-        SendSPI(databytes, result, ADDRESS_WIDTH + 1);
-        databytes[0] = W_REGISTER | TX_ADDR;
-        SendSPI(databytes, result, ADDRESS_WIDTH + 1);
-		SPI_STATUSbits.w = result[0];
-
-		// power up radio
-		ChangeRadioMode(Standby1, 1, result);
-		SPI_STATUSbits.w = result[0];
-//		DB_printf("Radio configured as a transmitter\n");
-
-		ANSELAbits.ANSA0 = 1;
-		TRISAbits.TRISA0 = 1;
-
-		ANSELAbits.ANSA1 = 1;
-		TRISAbits.TRISA1 = 1;
-
-//		ADC_ConfigAutoScan(AD_CHANNEL1 | AD_CHANNEL2);
-	}
+	
 
 	return radioType;
 }

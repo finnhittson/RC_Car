@@ -10755,34 +10755,6 @@ Radio_t InitTransmitService() {
 
 
 
- if (RadioStarted && radioType == TRANSMITTER) {
-
-        uint8_t databytes[6];
-  uint8_t result[6];
-        databytes[0] = 0x20 | 0x0A;
-        databytes[1] = address[0];
-        databytes[2] = address[1];
-        databytes[3] = address[2];
-        databytes[4] = address[3];
-        databytes[5] = address[4];
-        SendSPI(databytes, result, 5 + 1);
-        databytes[0] = 0x20 | 0x10;
-        SendSPI(databytes, result, 5 + 1);
-  SPI_STATUSbits.w = result[0];
-
-
-  ChangeRadioMode(Standby1, 1, result);
-  SPI_STATUSbits.w = result[0];
-
-
-  ANSELAbits.ANSA0 = 1;
-  TRISAbits.TRISA0 = 1;
-
-  ANSELAbits.ANSA1 = 1;
-  TRISAbits.TRISA1 = 1;
-
-
- }
 
  return radioType;
 }
