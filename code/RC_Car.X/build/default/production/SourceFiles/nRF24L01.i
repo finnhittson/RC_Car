@@ -1,4 +1,4 @@
-# 1 "SourceFiles/SPI.c"
+# 1 "SourceFiles/nRF24L01.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "SourceFiles/SPI.c" 2
+# 1 "SourceFiles/nRF24L01.c" 2
+# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 1
 # 1 "SourceFiles/../HeaderFiles/SPI.h" 1
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 3
@@ -10606,59 +10607,341 @@ void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 void sendNOP(uint8_t *result);
 void delay (volatile int length);
 void cs(Level_t level);
-# 1 "SourceFiles/SPI.c" 2
+# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
+# 2 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 
-void ReadRegister(uint8_t reg, uint8_t *result) {
- uint8_t bytes[] = {0x00 | reg, 0xFF};
- SendSPI(bytes, result, 2);
+
+
+
+
+typedef union {
+ struct {
+  uint8_t : 1;
+  uint8_t RF_PWR : 2;
+  uint8_t RF_DR_HIGH : 1;
+  uint8_t PLL_HIGH : 1;
+  uint8_t RF_DR_LOW : 1;
+  uint8_t : 1;
+  uint8_t CONT_WAVE : 1;
+ };
+ struct {
+  uint8_t w : 8;
+ };
+} RF_SETUPbits_t;
+
+typedef union {
+ struct {
+  uint8_t PRIM_RX : 1;
+  uint8_t PWR_UP : 1;
+  uint8_t CRCO : 1;
+  uint8_t EN_CRC : 1;
+  uint8_t MASK_MAX_RT : 1;
+  uint8_t MASK_TX_DS : 1;
+  uint8_t MASK_RX_DR : 1;
+ };
+ struct {
+  uint8_t w : 8;
+ };
+} CONFIGbits_t;
+
+typedef enum {
+ RECEIVER = 0,
+ TRANSMITTER
+} Radio_t;
+
+typedef enum {
+ RF_DR_1Mbps = 0,
+ RF_DR_2Mbps,
+ RF_DR_250Kbps
+} RF_DR_t;
+
+typedef enum {
+ RF_PWR_18dBm = 0,
+ RF_PWR_12dBm,
+ RF_PWR_6dBm,
+ RF_PWR_0dBm
+} RF_PWR_t;
+
+typedef enum {
+ RX,
+ TX,
+ Standby2,
+ Standby1,
+ PowerDown
+} Mode;
+
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+void FlushTX(void);
+void FlushRX(void);
+void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+void SetupPayloadSize(uint8_t size, uint8_t *result);
+void FeatureTest(uint8_t *result);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
+_Bool ReadRXFIFO(uint8_t *result);
+void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void ce(Level_t level);
+# 1 "SourceFiles/nRF24L01.c" 2
+
+
+
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
+ _Bool ReturnVal = 0;
+ uint8_t databytes[2];
+
+
+ SetupRetries(1500, 15, result);
+
+
+ RFSetup(RF_DR_1Mbps, RF_PWR_18dBm, result);
+
+
+ FeatureTest(result);
+
+
+ databytes[0] = 0x20 | 0x1C;
+    databytes[1] = 0x00;
+    SendSPI(databytes, result, 2);
+
+
+    databytes[0] = 0x20 | 0x01;
+ databytes[1] = 0x3F;
+    SendSPI(databytes, result, 2);
+
+
+    databytes[0] = 0x20 | 0x02;
+ databytes[1] = 0x03;
+    SendSPI(databytes, result, 2);
+
+
+ SetupPayloadSize(payloadSize, result);
+
+
+    databytes[0] = 0x20 | 0x03;
+ databytes[1] = 0x03;
+    SendSPI(databytes, result, 2);
+
+
+    databytes[0] = 0x20 | 0x05;
+ databytes[1] = channel & 0x7F;
+    SendSPI(databytes, result, 2);
+
+
+    databytes[0] = 0x20 | 0x07;
+ databytes[1] = 0x70;
+    SendSPI(databytes, result, 2);
+
+
+ FlushRX();
+ FlushTX();
+
+
+ ChangeRadioMode(PowerDown, 1, result);
+
+
+ ReadRegister(0x00, result);
+    if (result[1] & 0x0c) {
+        ReturnVal = 1;
+    }
+
+ return ReturnVal;
 }
 
-void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
- if (n == 1) {
-  LATCbits.LATC3 = 0;
-  SSP1BUF = bytes[0];
-  while (!SSP1STATbits.BF);
-  result[0] = SSP1BUF;
-  LATCbits.LATC3 = 1;
- } else {
-  LATCbits.LATC3 = 0;
-  for (uint8_t i = 0; i < n; i++) {
-            while (SSP1STATbits.BF) {
-                SSP1BUF;
-            }
-   SSP1BUF = bytes[i];
-   while (!SSP1STATbits.BF) {
+void ce(Level_t Level) {
+ if (Level == LOW) {
+  LATAbits.LATA1 = 0;
+ } else if (Level == HIGH) {
+  LATAbits.LATA1 = 1;
+ }
+}
 
-            }
+void FlushRX(void) {
+ uint8_t bytes[] = {0xE2};
+ uint8_t result[1];
+ SendSPI(bytes, result, 1);
+}
 
-            if (SSP1CON1bits.WCOL) {
-                SSP1CON1bits.WCOL = 0;
-                result[i] = 0xFF;
-            } else {
-                result[i] = SSP1BUF;
-            }
+void FlushTX(void) {
+ uint8_t bytes[] = {0xE1};
+ uint8_t result[1];
+ SendSPI(bytes, result, 1);
+}
+
+void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
+ ReadRegister(0x06, result);
+ RF_SETUPbits_t Setup;
+ Setup.w = result[1];
+ Setup.RF_PWR = power;
+ Setup.RF_DR_LOW = (datarate & 0x02) >> 1;
+ Setup.RF_DR_HIGH = datarate & 0x01;
+ uint8_t databytes[2];
+    databytes[0] = 0x20 | 0x06;
+    databytes[1] = Setup.w;
+    SendSPI(databytes, result, 2);
+}
+
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
+ CONFIGbits_t CONFIGbits = {0};
+ CONFIGbits.EN_CRC = 1;
+ CONFIGbits.CRCO = CRCbytes;
+ CONFIGbits.MASK_RX_DR = 0;
+ CONFIGbits.MASK_TX_DS = 0;
+ CONFIGbits.MASK_MAX_RT = 0;
+ switch (newMode) {
+ case RX:
+  {
+   CONFIGbits.PWR_UP = 1;
+   CONFIGbits.PRIM_RX = 1;
+   ce(HIGH);
+   break;
   }
-  LATCbits.LATC3 = 1;
+
+ case TX:
+  {
+   CONFIGbits.PWR_UP = 1;
+   CONFIGbits.PRIM_RX = 0;
+   ce(HIGH);
+   break;
+  }
+
+ case Standby2:
+  {
+
+
+   CONFIGbits.PWR_UP = 1;
+   CONFIGbits.PRIM_RX = 0;
+   ce(HIGH);
+   break;
+  }
+
+ case Standby1:
+  {
+   CONFIGbits.PWR_UP = 1;
+   CONFIGbits.PRIM_RX = 0;
+   ce(LOW);
+   break;
+  }
+
+ case PowerDown:
+  {
+   CONFIGbits.PWR_UP = 0;
+   CONFIGbits.PRIM_RX = 0;
+   ce(LOW);
+   break;
+  }
  }
- delay(45);
+ uint8_t databytes[2];
+    databytes[0] = 0x20 | 0x00;
+    databytes[1] = CONFIGbits.w;
+    SendSPI(databytes, result, 2);
+ delay(10000);
 }
 
-void delay (volatile int length) {
- while (length >= 0) {
-     length--;
- }
+void SetupPayloadSize(uint8_t size, uint8_t *result) {
+ uint8_t databytes[2];
+    databytes[0] = 0x20 | 0x11;
+    databytes[1] = size;
+    SendSPI(databytes, result, 2);
+
+    databytes[0] = 0x20 | 0x12;
+    SendSPI(databytes, result, 2);
+
+    databytes[0] = 0x20 | 0x13;
+    SendSPI(databytes, result, 2);
+
+    databytes[0] = 0x20 | 0x14;
+    SendSPI(databytes, result, 2);
+
+    databytes[0] = 0x20 | 0x15;
+    SendSPI(databytes, result, 2);
+
+    databytes[0] = 0x20 | 0x16;
+    SendSPI(databytes, result, 2);
 }
 
-void cs(Level_t level) {
-    if (level == HIGH) {
-        LATCbits.LATC3 = 1;
-    } else if (level == LOW) {
-        LATCbits.LATC3 = 0;
+void FeatureTest(uint8_t *result) {
+ uint8_t FeaturesBefore[2];
+ ReadRegister(0x1D, FeaturesBefore);
+
+
+ uint8_t bytes[] = {0x50, 0x73};
+ SendSPI(bytes, result, 2);
+
+ uint8_t FeaturesAfter[2];
+ ReadRegister(0x1D, FeaturesAfter);
+
+ if (0) {
+
+
+  if (FeaturesBefore[1] == FeaturesAfter[1]) {
+
+  } else {
+
+  }
+ }
+
+    if (FeaturesAfter[1]) {
+        uint8_t databytes[2] = {0x50, 0x73};
+  if (FeaturesBefore[1] == FeaturesAfter[1]) {
+   SendSPI(databytes, result, 2);
+  }
+        databytes[0] = 0x1D;
+  databytes[1] = 0x00;
+  SendSPI(databytes, result, 2);
     }
 }
 
-void sendNOP(uint8_t *result) {
-    uint8_t bytes[1] = {0xFF};
-    SendSPI(bytes, result, 1);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result) {
+ uint16_t ARDbin = autoReTXDelay / 250 - 1;
+ if (autoReTXDelay > 4000) {
+  ARDbin = 15;
+ }
+ uint8_t databytes[2];
+    databytes[0] = 0x20 | 0x04;
+    databytes[1] = (uint8_t)(ARDbin << 4 | autoReTXCount);
+    SendSPI(databytes, result, 2);
+}
+
+_Bool ReadRXFIFO(uint8_t *result) {
+ _Bool ReturnVal = 0;
+ uint8_t bytes[6 + 1];
+ bytes[0] = 0x61;
+ for (int i = 1; i < 6 + 1; i++) {
+  bytes[i] = 0xFF;
+ }
+ SendSPI(bytes, result, 6 + 1);
+
+
+ uint8_t databytes[2];
+    databytes[0] = 0x20 | 0x07;
+    databytes[1] = 0x70;
+    SendSPI(databytes, result, 2);
+
+ if (result[1] + result[2] + result[3] + result[4] == 0xFF) {
+  ReturnVal = 1;
+ }
+ return ReturnVal;
+}
+
+void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result) {
+
+ ChangeRadioMode(RX, 1, result);
+
+
+    uint8_t databytes[6];
+    databytes[0] = 0x20 | 0x07;
+    databytes[1] = 0x70;
+    SendSPI(databytes, result, 2);
+
+
+    databytes[0] = 0x20 | 0x0A;
+    databytes[1] = address[0];
+    databytes[2] = address[1];
+    databytes[3] = address[2];
+    databytes[4] = address[3];
+    databytes[5] = address[4];
+    SendSPI(databytes, result, 6);
 }

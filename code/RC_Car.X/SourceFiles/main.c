@@ -3,6 +3,7 @@
 #include <xc.h>
 #include "stdbool.h"
 #include "../HeaderFiles/TransmitService.h"
+#include "string.h"
 
 #pragma config WDTE = OFF           // Watchdog Timer Enable bit (WDT disabled)
 #pragma config FEXTOSC = OFF        // External Oscillator mode selection
@@ -16,6 +17,7 @@
 Radio_t radioType = RECEIVER;
 SPISTATUSbits_t SPI_STATUSbits;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
+State_t currentState;
 
 int main(int argc, char** argv) {
     // LED configure (pin 13 - RA0)
@@ -37,54 +39,57 @@ int main(int argc, char** argv) {
 	if (true) {
 		TRISCbits.TRISC5 = 1;			// enable interrupt pin as input
         ANSELCbits.ANSC5 = 0;           // disable analog input
-		IOCCNbits.IOCCN5 = 1;           // interrupt on change enabled on pin 2 (RA5) for negative going edge
+//		IOCCNbits.IOCCN5 = 1;           // interrupt on change enabled on pin 2 (RA5) for negative going edge
 	}
     
     // SPI configure
 	if (true) {
-		// SCLK configure (RC0 - pin 10)
+		// SCLK config
         TRISCbits.TRISC0 = 0;
-        // map RC0 to SPI SCLK
         RC0PPS = 0b11000;
 
-        // MISO/SDI configure (RC1 - pin 9)
+        // MISO/SDI config
         TRISCbits.TRISC1 = 1;
         ANSELCbits.ANSC1 = 0;
-        // map RC1 to SPI MISO
         SSP1DATPPS = 0b10001;
 
-        // MOSI/SDO configure (RA2 - 11)
-        TRISAbits.TRISA2 = 0;
-        // map RA2 to MOSI
-        RA2PPS = 0b11001;
+        // MOSI/SDO config
+        TRISAbits.TRISA4 = 0;
+        RA4PPS = 0b11001;
 
-        // CS configure (RC2 - pin 8)
-        TRISCbits.TRISC2 = 0;
-        // set CS line high by default
-        LATCbits.LATC2 = 1;
-        
-        // input data sampled at middle of data output time
-        SSP1STATbits.SMP = 1;
-        // transmit occurs on transition from active to Idle clock state
-        SSP1STATbits.CKE = 1;
+        // CS configure
+        TRISCbits.TRISC3 = 0;
+        LATCbits.LATC3 = 1;
+
         // enables serial port and configures SCK, SDO, SDI and SS as the source of the serial PORT pins
         SSP1CON1bits.SSPEN = 1;
-        // idle state for clock is a low level
-        SSP1CON1bits.CKP = 0;
         // SPI Master mode, clock = FOSC/4
-        SSP1CON1bits.SSPM = 0;
+        SSP1CON1bits.SSPM = 0b0000;
+        // input data sampled at middle of data output time
+        SSP1STATbits.SMP = 1;   // this bit needs to be set otherwise SPI doesn't work
+        // CLOCK PHASE: transmit occurs on transition from active to Idle clock state
+        SSP1STATbits.CKE = 1;
+        // CLOCK POLARITY: clock idles low
+        SSP1CON1bits.CKP = 0;
 	}
     
     // start radio
-	bool radioStarted = false;
-	uint8_t result[2];
+	bool radioStarted = true;
+	uint8_t result[2];    
 	if (StartRadio(CHANNEL, PAYLOAD_SIZE, result)) {
 		radioStarted = true;
-	}
+	} else {
+        bool val = true;
+        while (1) {
+            LATAbits.LATA0 = val;
+            val = ~val;
+            delay(1000);
+        }
+    }
     SPI_STATUSbits.w = result[0];
     
     if (radioStarted && radioType == RECEIVER) {
-        LATAbits.LATA0 = 1;
+        // LATAbits.LATA0 = 1;
 		// open reading pipe
 		uint8_t databytes[2];
         uint8_t result[2];
@@ -152,31 +157,78 @@ int main(int argc, char** argv) {
 		SPI_STATUSbits.w = result[0];
 
 		// configure analog input
-        ANSELAbits.ANSA0 = 1;
-		TRISAbits.TRISA0 = 1;
+        ANSELCbits.ANSC4 = 1;
+		TRISCbits.TRISC4 = 1;
         
         ADCON0bits.ADON = 0;        // turn off ADC
-        ADCON1bits.ADCS = 0b010;    // select ADC conversion clock as Fosc/32
+        ADCON1bits.ADCS = 0b110;    // select ADC conversion clock as Fosc/2
         ADCON1bits.ADNREF = 0;      // set negative voltage reference as Vss
         ADCON1bits.ADPREF = 0;      // set positive voltage reference as Vdd
-        ADCON0bits.CHS = 0x00;      // select analog input channel as RA0
-        ADCON0bits.CHS = 0x01;      // select analog input channel as RA1
-        ADCON1bits.ADFM = 1;        // result is stored right justified
+        ADCON0bits.CHS = 0x14;      // select analog input channel as RC4
+        ADCON1bits.ADFM = 0;        // result is stored left justified
         ADCON0bits.ADON = 1;        // turn on ADC
-	}
-    
-    if (radioType == TRANSMITTER) {
-        while (1) {
-
-        }
+        
+        currentState = COLLECT_ADC_DATA;
     }
     
-    if (radioType == RECEIVER) {
-        while (1) {
-            
+    bool val = true;
+    uint8_t bytes[4];
+    while (1) {
+        if (radioType == TRANSMITTER) {
+            switch (currentState) {
+                case COLLECT_ADC_DATA: {
+                    if (!ADCON0bits.GO_nDONE) {
+                        if (ADCON0bits.CHS == 0x14) {
+                            bytes[0] = ADRESH;
+                            bytes[1] = ADRESL;
+                            ADCON0bits.CHS = 0x12;
+                        } else {
+                            bytes[2] = ADRESH;
+                            bytes[3] = ADRESL;
+                            ADCON0bits.CHS = 0x14;
+                            currentState = TRANSMIT_ADC_DATA;
+                        }
+                        ADCON0bits.GO_nDONE = 1;
+                    }
+                    break;
+                }
+                
+                case TRANSMIT_ADC_DATA: {
+                    packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
+                    sendNOP(result);
+                    SPI_STATUSbits.w = result[0];
+                    transmitPayload(SPI_STATUSbits);
+                    currentState = CLEAR_INTERRUPT;
+                    break;
+                }
+                
+                case CLEAR_INTERRUPT: {
+                    if (!PORTCbits.RC5) {
+                        bytes[0] = W_REGISTER | SPI_STATUS;
+                        bytes[1] = 0x70;
+                        while (1) {
+                            SendSPI(bytes, result, 2);
+                            sendNOP(result);
+                            if (!(result[0] & 0x70)) {
+                                break;
+                            }
+                        }
+                        currentState = DONE;
+                    }
+                    break;
+                }
+                
+                case DONE: {
+                    LATAbits.LATA0 = val;
+                    val = ~val;
+                    currentState = COLLECT_ADC_DATA;
+                    break;
+                }
+            }
+        } else {
+            // do nothing
         }
     }
-    
     return 1;
 }
 

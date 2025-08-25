@@ -3,7 +3,7 @@
 
 #define DELAY_TIME		100
 #define POWER_UP_DELAY	10000
-#define PAYLOAD_SIZE    4
+#define PAYLOAD_SIZE    6
 
 typedef union {
 	struct {
@@ -68,6 +68,7 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
 void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
-void SetupRetries(uint16_t autoReTXDelay, uint8_t AutoReTXCount, uint8_t *result);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 bool ReadRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void ce(Level_t level);

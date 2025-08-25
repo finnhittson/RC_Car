@@ -1,4 +1,4 @@
-# 1 "SourceFiles/SPI.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "SourceFiles/SPI.c" 2
-# 1 "SourceFiles/../HeaderFiles/SPI.h" 1
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -10594,71 +10593,184 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
-# 1 "SourceFiles/../HeaderFiles/SPI.h" 2
-# 49 "SourceFiles/../HeaderFiles/SPI.h"
-typedef enum {
- LOW = 0,
- HIGH
-} Level_t;
-
-void ReadRegister(uint8_t reg, uint8_t *result);
-void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
-void sendNOP(uint8_t *result);
-void delay (volatile int length);
-void cs(Level_t level);
-# 1 "SourceFiles/SPI.c" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 
 
-void ReadRegister(uint8_t reg, uint8_t *result) {
- uint8_t bytes[] = {0x00 | reg, 0xFF};
- SendSPI(bytes, result, 2);
+
+
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
+{
+ volatile unsigned char *cp = to;
+# 22 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c"
+ while (NVMCON1bits.WR) {
+  continue;
+ }
+ NVMCON1bits.NVMREGS = 1;
+ NVMADRL = (unsigned char) from;
+ NVMADRH = 0x70;
+ while (size--) {
+  NVMCON1bits.RD = 1;
+  *cp++ = NVMDATL;
+  NVMADRL++;
+ }
+
+
+
 }
 
-void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
- if (n == 1) {
-  LATCbits.LATC3 = 0;
-  SSP1BUF = bytes[0];
-  while (!SSP1STATbits.BF);
-  result[0] = SSP1BUF;
-  LATCbits.LATC3 = 1;
- } else {
-  LATCbits.LATC3 = 0;
-  for (uint8_t i = 0; i < n; i++) {
-            while (SSP1STATbits.BF) {
-                SSP1BUF;
-            }
-   SSP1BUF = bytes[i];
-   while (!SSP1STATbits.BF) {
-
-            }
-
-            if (SSP1CON1bits.WCOL) {
-                SSP1CON1bits.WCOL = 0;
-                result[i] = 0xFF;
-            } else {
-                result[i] = SSP1BUF;
-            }
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
+{
+ const unsigned char *ptr =from;
+# 69 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c"
+ while (NVMCON1bits.WR) {
+  continue;
+ }
+ NVMCON1bits.NVMREGS = 1;
+ NVMADRL = (unsigned char) to - 1U;
+ NVMADRH = 0x70;
+ NVMDATH = 0;
+ while (size--) {
+  while (NVMCON1bits.WR) {
+   continue;
   }
-  LATCbits.LATC3 = 1;
+  NVMDATL = *ptr++;
+  NVMADRL++;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  NVMCON1bits.WREN = 1;
+  NVMCON2 = 0x55;
+  NVMCON2 = 0xAA;
+  NVMCON1bits.WR = 1;
+  while (NVMCON1bits.WR) {
+   continue;
+  }
+  NVMCON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
  }
- delay(45);
+
+
+
 }
 
-void delay (volatile int length) {
- while (length >= 0) {
-     length--;
- }
+unsigned char
+__eetoc(__eeprom void *addr)
+{
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-void cs(Level_t level) {
-    if (level == HIGH) {
-        LATCbits.LATC3 = 1;
-    } else if (level == LOW) {
-        LATCbits.LATC3 = 0;
-    }
+unsigned int
+__eetoi(__eeprom void *addr)
+{
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
 }
 
-void sendNOP(uint8_t *result) {
-    uint8_t bytes[1] = {0xFF};
-    SendSPI(bytes, result, 1);
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
+
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
+}
+
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
+
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }

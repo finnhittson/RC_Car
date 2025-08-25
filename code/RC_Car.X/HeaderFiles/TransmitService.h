@@ -22,11 +22,6 @@ typedef union {
 } SPISTATUSbits_t;
 
 typedef enum {
-	LOW = 0,
-	HIGH
-} Level_t;
-
-typedef enum {
 	ES_INIT = 0,
 	ES_STATUS_FLAGS,
 	ES_HANDLE_PAYLOAD,
@@ -38,14 +33,19 @@ typedef struct ES_Event {
   uint16_t EventParam;
 } ES_Event_t;
 
+typedef enum {
+    COLLECT_ADC_DATA,
+    TRANSMIT_ADC_DATA,
+            CLEAR_INTERRUPT,
+            DONE,
+} State_t;
+
 // Public Function Prototypes
 Radio_t InitTransmitService();
 ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 // misc functions
-void PackagePayload(uint8_t motorSpeed, uint8_t servoPos);
-void ce(Level_t Level);
-bool radioIsTransmitter(void);
-void TransmitPayload(void);
+void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
 
 #endif /* ServTemplate_H */

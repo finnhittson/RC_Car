@@ -10751,9 +10751,16 @@ extern __bank0 __bit __timeout;
 # 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 1
 # 1 "SourceFiles/../HeaderFiles/SPI.h" 1
 # 49 "SourceFiles/../HeaderFiles/SPI.h"
+typedef enum {
+ LOW = 0,
+ HIGH
+} Level_t;
+
 void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
+void sendNOP(uint8_t *result);
 void delay (volatile int length);
+void cs(Level_t level);
 # 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 
@@ -10825,9 +10832,10 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
 void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
-void SetupRetries(uint16_t autoReTXDelay, uint8_t AutoReTXCount, uint8_t *result);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool ReadRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void ce(Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
 
 
@@ -10850,11 +10858,6 @@ typedef union {
 } SPISTATUSbits_t;
 
 typedef enum {
- LOW = 0,
- HIGH
-} Level_t;
-
-typedef enum {
  ES_INIT = 0,
  ES_STATUS_FLAGS,
  ES_HANDLE_PAYLOAD,
@@ -10866,16 +10869,80 @@ typedef struct ES_Event {
   uint16_t EventParam;
 } ES_Event_t;
 
+typedef enum {
+    COLLECT_ADC_DATA,
+    TRANSMIT_ADC_DATA,
+            CLEAR_INTERRUPT,
+            DONE,
+} State_t;
+
 
 Radio_t InitTransmitService();
 ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 
-void PackagePayload(uint8_t motorSpeed, uint8_t servoPos);
-void ce(Level_t Level);
-_Bool radioIsTransmitter(void);
-void TransmitPayload(void);
+void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
 # 5 "SourceFiles/main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
+# 25 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 421 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct __locale_struct * locale_t;
+# 26 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 2 3
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+
+
+
+
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
+# 6 "SourceFiles/main.c" 2
 
 
 #pragma config WDTE = OFF
@@ -10911,54 +10978,57 @@ int main(int argc, char** argv) {
  if (1) {
   TRISCbits.TRISC5 = 1;
         ANSELCbits.ANSC5 = 0;
-  IOCCNbits.IOCCN5 = 1;
+
  }
 
 
  if (1) {
 
         TRISCbits.TRISC0 = 0;
-
         RC0PPS = 0b11000;
 
 
         TRISCbits.TRISC1 = 1;
         ANSELCbits.ANSC1 = 0;
-
         SSP1DATPPS = 0b10001;
 
 
-        TRISAbits.TRISA2 = 0;
+        TRISAbits.TRISA4 = 0;
+        RA4PPS = 0b11001;
 
-        RA2PPS = 0b11001;
+
+        TRISCbits.TRISC3 = 0;
+        LATCbits.LATC3 = 1;
 
 
-        TRISCbits.TRISC2 = 0;
+        SSP1CON1bits.SSPEN = 1;
 
-        LATCbits.LATC2 = 1;
-
+        SSP1CON1bits.SSPM = 0b0000;
 
         SSP1STATbits.SMP = 1;
 
         SSP1STATbits.CKE = 1;
 
-        SSP1CON1bits.SSPEN = 1;
-
         SSP1CON1bits.CKP = 0;
-
-        SSP1CON1bits.SSPM = 0;
  }
 
 
- _Bool radioStarted = 0;
+ _Bool radioStarted = 1;
  uint8_t result[2];
- if (StartRadio(42, 4, result)) {
+ if (StartRadio(42, 6, result)) {
   radioStarted = 1;
- }
+ } else {
+        _Bool val = 1;
+        while (1) {
+            LATAbits.LATA0 = val;
+            val = ~val;
+            delay(1000);
+        }
+    }
     SPI_STATUSbits.w = result[0];
 
     if (radioStarted && radioType == RECEIVER) {
-        LATAbits.LATA0 = 1;
+
 
   uint8_t databytes[2];
         uint8_t result[2];
@@ -11026,30 +11096,76 @@ int main(int argc, char** argv) {
   SPI_STATUSbits.w = result[0];
 
 
-        ANSELAbits.ANSA0 = 1;
-  TRISAbits.TRISA0 = 1;
+        ANSELCbits.ANSC4 = 1;
+  TRISCbits.TRISC4 = 1;
 
         ADCON0bits.ADON = 0;
-        ADCON1bits.ADCS = 0b010;
+        ADCON1bits.ADCS = 0b110;
         ADCON1bits.ADNREF = 0;
         ADCON1bits.ADPREF = 0;
-        ADCON0bits.CHS = 0x00;
-        ADCON0bits.CHS = 0x01;
-        ADCON1bits.ADFM = 1;
+        ADCON0bits.CHS = 0x14;
+        ADCON1bits.ADFM = 0;
         ADCON0bits.ADON = 1;
- }
+    }
 
-    if (radioType == TRANSMITTER) {
-        while (1) {
+    _Bool val = 1;
+    uint8_t bytes[4];
+    State_t currentState = COLLECT_ADC_DATA;
+    while (1) {
+        if (radioType == TRANSMITTER) {
+            switch (currentState) {
+                case COLLECT_ADC_DATA: {
+                    if (!ADCON0bits.GO_nDONE) {
+                        if (ADCON0bits.CHS == 0x14) {
+                            bytes[0] = ADRESH;
+                            bytes[1] = ADRESL;
+                            ADCON0bits.CHS = 0x12;
+                        } else {
+                            bytes[2] = ADRESH;
+                            bytes[3] = ADRESL;
+                            ADCON0bits.CHS = 0x14;
+                            currentState = TRANSMIT_ADC_DATA;
+                        }
+                        ADCON0bits.GO_nDONE = 1;
+                    }
+                    break;
+                }
+
+                case TRANSMIT_ADC_DATA: {
+                    packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
+                    transmitPayload(SPI_STATUSbits);
+                    currentState = CLEAR_INTERRUPT;
+                    break;
+                }
+
+                case CLEAR_INTERRUPT: {
+                    if (!PORTCbits.RC5) {
+                        bytes[0] = 0x20 | 0x07;
+                        bytes[1] = 0x70;
+                        while (1) {
+                            SendSPI(bytes, result, 2);
+                            sendNOP(result);
+                            uint8_t bruh = result[0] & 0x70;
+                            if (!bruh) {
+                                break;
+                            }
+                        }
+                        currentState = DONE;
+                    }
+                    break;
+                }
+
+                case DONE: {
+                    while (1) {
+                        LATAbits.LATA0 = val;
+                        val = ~val;
+                    }
+                    break;
+                }
+            }
+        } else {
 
         }
     }
-
-    if (radioType == RECEIVER) {
-        while (1) {
-
-        }
-    }
-
     return 1;
 }

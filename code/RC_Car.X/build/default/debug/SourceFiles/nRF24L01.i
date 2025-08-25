@@ -10597,9 +10597,16 @@ extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
 # 1 "SourceFiles/../HeaderFiles/SPI.h" 2
 # 49 "SourceFiles/../HeaderFiles/SPI.h"
+typedef enum {
+ LOW = 0,
+ HIGH
+} Level_t;
+
 void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
+void sendNOP(uint8_t *result);
 void delay (volatile int length);
+void cs(Level_t level);
 # 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
@@ -10673,9 +10680,10 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
 void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
-void SetupRetries(uint16_t autoReTXDelay, uint8_t AutoReTXCount, uint8_t *result);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool ReadRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void ce(Level_t level);
 # 1 "SourceFiles/nRF24L01.c" 2
 
 
@@ -10735,28 +10743,31 @@ _Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
 
 
  ReadRegister(0x00, result);
- CONFIGbits_t CONFIGReg;
- CONFIGReg.w = result[1];
-
- if (CONFIGReg.EN_CRC && CONFIGReg.CRCO) {
-  ReturnVal = 1;
- }
+    if (result[1] == 0x0c) {
+        ReturnVal = 1;
+    }
 
  return ReturnVal;
+}
+
+void ce(Level_t Level) {
+ if (Level == LOW) {
+  LATAbits.LATA1 = 0;
+ } else if (Level == HIGH) {
+  LATAbits.LATA1 = 1;
+ }
 }
 
 void FlushRX(void) {
  uint8_t bytes[] = {0xE2};
  uint8_t result[1];
  SendSPI(bytes, result, 1);
- delay(100);
 }
 
 void FlushTX(void) {
  uint8_t bytes[] = {0xE1};
  uint8_t result[1];
  SendSPI(bytes, result, 1);
- delay(100);
 }
 
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
@@ -10784,7 +10795,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
   {
    CONFIGbits.PWR_UP = 1;
    CONFIGbits.PRIM_RX = 1;
-   LATAbits.LATA4 = 1;
+   ce(HIGH);
    break;
   }
 
@@ -10792,7 +10803,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
   {
    CONFIGbits.PWR_UP = 1;
    CONFIGbits.PRIM_RX = 0;
-   LATAbits.LATA4 = 1;
+   ce(HIGH);
    break;
   }
 
@@ -10802,7 +10813,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 
    CONFIGbits.PWR_UP = 1;
    CONFIGbits.PRIM_RX = 0;
-   LATAbits.LATA4 = 1;
+   ce(HIGH);
    break;
   }
 
@@ -10810,7 +10821,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
   {
    CONFIGbits.PWR_UP = 1;
    CONFIGbits.PRIM_RX = 0;
-   LATAbits.LATA4 = 0;
+   ce(LOW);
    break;
   }
 
@@ -10818,7 +10829,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
   {
    CONFIGbits.PWR_UP = 0;
    CONFIGbits.PRIM_RX = 0;
-   LATAbits.LATA4 = 0;
+   ce(LOW);
    break;
   }
  }
@@ -10854,6 +10865,7 @@ void SetupPayloadSize(uint8_t size, uint8_t *result) {
 void FeatureTest(uint8_t *result) {
  uint8_t FeaturesBefore[2];
  ReadRegister(0x1D, FeaturesBefore);
+
 
  uint8_t bytes[] = {0x50, 0x73};
  SendSPI(bytes, result, 2);
@@ -10895,12 +10907,12 @@ void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result
 
 _Bool ReadRXFIFO(uint8_t *result) {
  _Bool ReturnVal = 0;
- uint8_t bytes[4 + 1];
+ uint8_t bytes[6 + 1];
  bytes[0] = 0x61;
- for (int i = 1; i < 4 + 1; i++) {
+ for (int i = 1; i < 6 + 1; i++) {
   bytes[i] = 0xFF;
  }
- SendSPI(bytes, result, 4 + 1);
+ SendSPI(bytes, result, 6 + 1);
 
 
  uint8_t databytes[2];

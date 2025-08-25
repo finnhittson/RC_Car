@@ -7,21 +7,22 @@ void ReadRegister(uint8_t reg, uint8_t *result) {
 
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
 	if (n == 1) {
-		LATCbits.LATC2 = 0;
+		LATCbits.LATC3 = 0;
 		SSP1BUF = bytes[0];
 		while (!SSP1STATbits.BF);
 		result[0] = SSP1BUF;
-		LATCbits.LATC2 = 1;
+		LATCbits.LATC3 = 1;
 	} else {
-		LATCbits.LATC2 = 0;
+		LATCbits.LATC3 = 0;
 		for (uint8_t i = 0; i < n; i++) {
             while (SSP1STATbits.BF) {
                 SSP1BUF;
             }
 			SSP1BUF = bytes[i];
 			while (!SSP1STATbits.BF) {
-                // do nothing
+                // do nothing, no body causes stupid warning to occur
             }
+            
             if (SSP1CON1bits.WCOL) {
                 SSP1CON1bits.WCOL = 0;
                 result[i] = 0xFF;
@@ -29,7 +30,7 @@ void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
                 result[i] = SSP1BUF;
             }
 		}
-		LATCbits.LATC2 = 1;
+		LATCbits.LATC3 = 1;
 	}
 	delay(TX_DELAY);
 }
@@ -38,4 +39,17 @@ void delay (volatile int length) {
 	while (length >= 0) {
     	length--;
 	}
+}
+
+void cs(Level_t level) {
+    if (level == HIGH) {
+        LATCbits.LATC3 = 1;
+    } else if (level == LOW) {
+        LATCbits.LATC3 = 0;
+    }
+}
+
+void sendNOP(uint8_t *result) {
+    uint8_t bytes[1] = {SPI_NOP};
+    SendSPI(bytes, result, 1);
 }

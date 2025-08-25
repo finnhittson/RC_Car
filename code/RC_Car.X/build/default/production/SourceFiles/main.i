@@ -1,4 +1,4 @@
-# 1 "SourceFiles/SPI.c"
+# 1 "SourceFiles/main.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,43 +6,184 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "SourceFiles/SPI.c" 2
-# 1 "SourceFiles/../HeaderFiles/SPI.h" 1
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 1 3
-# 18 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 3
-extern const char __xc8_OPTIM_SPEED;
-
-extern double __fpnormalize(double);
-
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\xc8debug.h" 1 3
-
-
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 1 3
+# 1 "SourceFiles/main.c" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdio.h" 1 3
 
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\musl_xc8.h" 1 3
-# 5 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 2 3
+# 5 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdio.h" 2 3
 
 
 
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\features.h" 1 3
-# 11 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 2 3
-# 21 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 3
+# 11 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdio.h" 2 3
+# 24 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdio.h" 3
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 1 3
-# 24 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef long int wchar_t;
+# 12 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef void * va_list[1];
+
+
+
+
+typedef void * __isoc_va_list[1];
 # 128 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef unsigned size_t;
+# 143 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef short ssize_t;
 # 174 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef __int24 int24_t;
 # 210 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
 typedef __uint24 uint24_t;
+# 255 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef long long off_t;
+# 409 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct _IO_FILE FILE;
+# 25 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdio.h" 2 3
+# 52 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdio.h" 3
+typedef union _G_fpos64_t {
+ char __opaque[16];
+ double __align;
+} fpos_t;
+
+extern FILE *const stdin;
+extern FILE *const stdout;
+extern FILE *const stderr;
+
+
+
+
+
+FILE *fopen(const char *restrict, const char *restrict);
+FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
+int fclose(FILE *);
+
+int remove(const char *);
+int rename(const char *, const char *);
+
+int feof(FILE *);
+int ferror(FILE *);
+int fflush(FILE *);
+void clearerr(FILE *);
+
+int fseek(FILE *, long, int);
+long ftell(FILE *);
+void rewind(FILE *);
+
+int fgetpos(FILE *restrict, fpos_t *restrict);
+int fsetpos(FILE *, const fpos_t *);
+
+size_t fread(void *restrict, size_t, size_t, FILE *restrict);
+size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
+
+int fgetc(FILE *);
+int getc(FILE *);
+int getchar(void);
+
+
+
+
+
+int ungetc(int, FILE *);
+int getch(void);
+
+int fputc(int, FILE *);
+int putc(int, FILE *);
+int putchar(int);
+
+
+
+
+
+void putch(char);
+
+char *fgets(char *restrict, int, FILE *restrict);
+
+char *gets(char *);
+
+
+int fputs(const char *restrict, FILE *restrict);
+int puts(const char *);
+
+__attribute__((__format__(__printf__, 1, 2)))
+int printf(const char *restrict, ...);
+__attribute__((__format__(__printf__, 2, 3)))
+int fprintf(FILE *restrict, const char *restrict, ...);
+__attribute__((__format__(__printf__, 2, 3)))
+int sprintf(char *restrict, const char *restrict, ...);
+__attribute__((__format__(__printf__, 3, 4)))
+int snprintf(char *restrict, size_t, const char *restrict, ...);
+
+__attribute__((__format__(__printf__, 1, 0)))
+int vprintf(const char *restrict, __isoc_va_list);
+int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
+__attribute__((__format__(__printf__, 2, 0)))
+int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
+__attribute__((__format__(__printf__, 3, 0)))
+int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
+
+__attribute__((__format__(__scanf__, 1, 2)))
+int scanf(const char *restrict, ...);
+__attribute__((__format__(__scanf__, 2, 3)))
+int fscanf(FILE *restrict, const char *restrict, ...);
+__attribute__((__format__(__scanf__, 2, 3)))
+int sscanf(const char *restrict, const char *restrict, ...);
+
+__attribute__((__format__(__scanf__, 1, 0)))
+int vscanf(const char *restrict, __isoc_va_list);
+int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
+__attribute__((__format__(__scanf__, 2, 0)))
+int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
+
+void perror(const char *);
+
+int setvbuf(FILE *restrict, char *restrict, int, size_t);
+void setbuf(FILE *restrict, char *restrict);
+
+char *tmpnam(char *);
+FILE *tmpfile(void);
+
+
+
+
+FILE *fmemopen(void *restrict, size_t, const char *restrict);
+FILE *open_memstream(char **, size_t *);
+FILE *fdopen(int, const char *);
+FILE *popen(const char *, const char *);
+int pclose(FILE *);
+int fileno(FILE *);
+int fseeko(FILE *, off_t, int);
+off_t ftello(FILE *);
+int dprintf(int, const char *restrict, ...);
+int vdprintf(int, const char *restrict, __isoc_va_list);
+void flockfile(FILE *);
+int ftrylockfile(FILE *);
+void funlockfile(FILE *);
+int getc_unlocked(FILE *);
+int getchar_unlocked(void);
+int putc_unlocked(int, FILE *);
+int putchar_unlocked(int);
+ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
+ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
+int renameat(int, const char *, int, const char *);
+char *ctermid(char *);
+
+
+
+
+
+
+
+char *tempnam(const char *, const char *);
+# 1 "SourceFiles/main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 1 3
+# 21 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 24 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef long int wchar_t;
 # 22 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdlib.h" 2 3
 
 int atoi (const char *);
@@ -115,14 +256,18 @@ typedef struct { unsigned int quot, rem; } udiv_t;
 typedef struct { unsigned long quot, rem; } uldiv_t;
 udiv_t udiv (unsigned int, unsigned int);
 uldiv_t uldiv (unsigned long, unsigned long);
-# 5 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\xc8debug.h" 2 3
+# 2 "SourceFiles/main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 1 3
+# 18 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 3
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
 
 
 
-
-
-
-
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\xc8debug.h" 1 3
+# 12 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\xc8debug.h" 3
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 # 23 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
@@ -10594,7 +10739,17 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
-# 1 "SourceFiles/../HeaderFiles/SPI.h" 2
+# 3 "SourceFiles/main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
+# 4 "SourceFiles/main.c" 2
+
+# 1 "SourceFiles/../HeaderFiles/TransmitService.h" 1
+
+
+
+# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 1
+# 1 "SourceFiles/../HeaderFiles/SPI.h" 1
 # 49 "SourceFiles/../HeaderFiles/SPI.h"
 typedef enum {
  LOW = 0,
@@ -10606,59 +10761,419 @@ void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 void sendNOP(uint8_t *result);
 void delay (volatile int length);
 void cs(Level_t level);
-# 1 "SourceFiles/SPI.c" 2
+# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 
-void ReadRegister(uint8_t reg, uint8_t *result) {
- uint8_t bytes[] = {0x00 | reg, 0xFF};
- SendSPI(bytes, result, 2);
-}
 
-void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
- if (n == 1) {
-  LATCbits.LATC3 = 0;
-  SSP1BUF = bytes[0];
-  while (!SSP1STATbits.BF);
-  result[0] = SSP1BUF;
-  LATCbits.LATC3 = 1;
- } else {
-  LATCbits.LATC3 = 0;
-  for (uint8_t i = 0; i < n; i++) {
-            while (SSP1STATbits.BF) {
-                SSP1BUF;
-            }
-   SSP1BUF = bytes[i];
-   while (!SSP1STATbits.BF) {
 
-            }
 
-            if (SSP1CON1bits.WCOL) {
-                SSP1CON1bits.WCOL = 0;
-                result[i] = 0xFF;
-            } else {
-                result[i] = SSP1BUF;
-            }
-  }
-  LATCbits.LATC3 = 1;
+
+
+typedef union {
+ struct {
+  uint8_t : 1;
+  uint8_t RF_PWR : 2;
+  uint8_t RF_DR_HIGH : 1;
+  uint8_t PLL_HIGH : 1;
+  uint8_t RF_DR_LOW : 1;
+  uint8_t : 1;
+  uint8_t CONT_WAVE : 1;
+ };
+ struct {
+  uint8_t w : 8;
+ };
+} RF_SETUPbits_t;
+
+typedef union {
+ struct {
+  uint8_t PRIM_RX : 1;
+  uint8_t PWR_UP : 1;
+  uint8_t CRCO : 1;
+  uint8_t EN_CRC : 1;
+  uint8_t MASK_MAX_RT : 1;
+  uint8_t MASK_TX_DS : 1;
+  uint8_t MASK_RX_DR : 1;
+ };
+ struct {
+  uint8_t w : 8;
+ };
+} CONFIGbits_t;
+
+typedef enum {
+ RECEIVER = 0,
+ TRANSMITTER
+} Radio_t;
+
+typedef enum {
+ RF_DR_1Mbps = 0,
+ RF_DR_2Mbps,
+ RF_DR_250Kbps
+} RF_DR_t;
+
+typedef enum {
+ RF_PWR_18dBm = 0,
+ RF_PWR_12dBm,
+ RF_PWR_6dBm,
+ RF_PWR_0dBm
+} RF_PWR_t;
+
+typedef enum {
+ RX,
+ TX,
+ Standby2,
+ Standby1,
+ PowerDown
+} Mode;
+
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+void FlushTX(void);
+void FlushRX(void);
+void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+void SetupPayloadSize(uint8_t size, uint8_t *result);
+void FeatureTest(uint8_t *result);
+void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
+_Bool ReadRXFIFO(uint8_t *result);
+void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void ce(Level_t level);
+# 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
+
+
+
+
+
+
+
+typedef union {
+ struct {
+  uint8_t TX_FULL : 1;
+  uint8_t RX_P_NO : 3;
+  uint8_t MAX_RT : 1;
+  uint8_t TX_DS : 1;
+  uint8_t RX_DR : 1;
+ };
+ struct {
+  uint8_t w : 8;
+ };
+} SPISTATUSbits_t;
+
+typedef enum {
+ ES_INIT = 0,
+ ES_STATUS_FLAGS,
+ ES_HANDLE_PAYLOAD,
+ ES_CONTROL_UPDATE
+} ES_EventType_t;
+
+typedef struct ES_Event {
+  ES_EventType_t EventType;
+  uint16_t EventParam;
+} ES_Event_t;
+
+typedef enum {
+    COLLECT_ADC_DATA,
+    TRANSMIT_ADC_DATA,
+            CLEAR_INTERRUPT,
+            DONE,
+} State_t;
+
+
+Radio_t InitTransmitService();
+ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
+
+
+void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
+# 5 "SourceFiles/main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
+# 25 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 421 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct __locale_struct * locale_t;
+# 26 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 2 3
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+
+
+
+
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
+# 6 "SourceFiles/main.c" 2
+
+
+#pragma config WDTE = OFF
+#pragma config FEXTOSC = OFF
+#pragma config RSTOSC = HFINT1
+#pragma config WDTE = OFF
+#pragma config MCLRE = ON
+
+
+
+
+Radio_t radioType = RECEIVER;
+SPISTATUSbits_t SPI_STATUSbits;
+uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
+
+int main(int argc, char** argv) {
+
+ TRISAbits.TRISA0 = 0;
+ LATAbits.LATA0 = 0;
+
+
+ TRISAbits.TRISA1 = 0;
+ ce(LOW);
+
+
+ TRISAbits.TRISA5 = 1;
+    ANSELAbits.ANSA5 = 0;
+ if (PORTAbits.RA5) {
+  radioType = TRANSMITTER;
  }
- delay(45);
-}
 
-void delay (volatile int length) {
- while (length >= 0) {
-     length--;
+
+ if (1) {
+  TRISCbits.TRISC5 = 1;
+        ANSELCbits.ANSC5 = 0;
+
  }
-}
 
-void cs(Level_t level) {
-    if (level == HIGH) {
+
+ if (1) {
+
+        TRISCbits.TRISC0 = 0;
+        RC0PPS = 0b11000;
+
+
+        TRISCbits.TRISC1 = 1;
+        ANSELCbits.ANSC1 = 0;
+        SSP1DATPPS = 0b10001;
+
+
+        TRISAbits.TRISA4 = 0;
+        RA4PPS = 0b11001;
+
+
+        TRISCbits.TRISC3 = 0;
         LATCbits.LATC3 = 1;
-    } else if (level == LOW) {
-        LATCbits.LATC3 = 0;
-    }
-}
 
-void sendNOP(uint8_t *result) {
-    uint8_t bytes[1] = {0xFF};
-    SendSPI(bytes, result, 1);
+
+        SSP1CON1bits.SSPEN = 1;
+
+        SSP1CON1bits.SSPM = 0b0000;
+
+        SSP1STATbits.SMP = 1;
+
+        SSP1STATbits.CKE = 1;
+
+        SSP1CON1bits.CKP = 0;
+ }
+
+
+ _Bool radioStarted = 1;
+ uint8_t result[2];
+ if (StartRadio(42, 6, result)) {
+  radioStarted = 1;
+ } else {
+        _Bool val = 1;
+        while (1) {
+            LATAbits.LATA0 = val;
+            val = ~val;
+            delay(1000);
+        }
+    }
+    SPI_STATUSbits.w = result[0];
+
+    if (radioStarted && radioType == RECEIVER) {
+
+
+  uint8_t databytes[2];
+        uint8_t result[2];
+        databytes[0] = 0x20 | 0x02;
+        databytes[1] = 0x01;
+        SendSPI(databytes, result, 2);
+  SPI_STATUSbits.w = result[0];
+
+
+  StartListening(address, 5, result);
+  SPI_STATUSbits.w = result[0];
+
+
+        databytes[0] = 0x20 | 0x07;
+  databytes[1] = 0x70;
+        SendSPI(databytes, result, 2);
+  SPI_STATUSbits.w = result[0];
+
+
+        T2CONbits.TMR2ON = 0;
+        T2CONbits.T2CKPS = 0b01;
+        TMR2 = 0;
+        PR2 = 125;
+        T2CONbits.TMR2ON = 1;
+
+
+        TRISCbits.TRISC3 = 0;
+        PWM5CONbits.PWM5EN = 0;
+        PWM5CONbits.PWM5POL = 0;
+        RC3PPS = 0b00010;
+        PWM5DCL = 0xC0;
+        PWM5DCH = 0x6F;
+        PWMTMRSbits.P5TSEL = 0b01;
+        PWM5CONbits.PWM5EN = 1;
+
+
+        TRISCbits.TRISC4 = 0;
+        PWM6CONbits.PWM6EN = 0;
+        PWM6CONbits.PWM6POL = 0;
+        RC4PPS = 0b00011;
+        PWM6DCL = 0x00;
+        PWM6DCH = 0x00;
+        PWMTMRSbits.P6TSEL = 0b01;
+        PWM6CONbits.PWM6EN = 1;
+ }
+
+
+ if (radioStarted && radioType == TRANSMITTER) {
+
+        uint8_t databytes[6];
+  uint8_t result[6];
+        databytes[0] = 0x20 | 0x0A;
+        databytes[1] = address[0];
+        databytes[2] = address[1];
+        databytes[3] = address[2];
+        databytes[4] = address[3];
+        databytes[5] = address[4];
+        SendSPI(databytes, result, 5 + 1);
+        databytes[0] = 0x20 | 0x10;
+        SendSPI(databytes, result, 5 + 1);
+  SPI_STATUSbits.w = result[0];
+
+
+  ChangeRadioMode(Standby1, 1, result);
+  SPI_STATUSbits.w = result[0];
+
+
+        ANSELCbits.ANSC4 = 1;
+  TRISCbits.TRISC4 = 1;
+
+        ADCON0bits.ADON = 0;
+        ADCON1bits.ADCS = 0b110;
+        ADCON1bits.ADNREF = 0;
+        ADCON1bits.ADPREF = 0;
+        ADCON0bits.CHS = 0x14;
+        ADCON1bits.ADFM = 0;
+        ADCON0bits.ADON = 1;
+    }
+
+    _Bool val = 1;
+    uint8_t bytes[4];
+    State_t currentState = COLLECT_ADC_DATA;
+    while (1) {
+        if (radioType == TRANSMITTER) {
+            switch (currentState) {
+                case COLLECT_ADC_DATA: {
+                    if (!ADCON0bits.GO_nDONE) {
+                        if (ADCON0bits.CHS == 0x14) {
+                            bytes[0] = ADRESH;
+                            bytes[1] = ADRESL;
+                            ADCON0bits.CHS = 0x12;
+                        } else {
+                            bytes[2] = ADRESH;
+                            bytes[3] = ADRESL;
+                            ADCON0bits.CHS = 0x14;
+                            currentState = TRANSMIT_ADC_DATA;
+                        }
+                        ADCON0bits.GO_nDONE = 1;
+                    }
+                    break;
+                }
+
+                case TRANSMIT_ADC_DATA: {
+                    packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
+                    sendNOP(result);
+                    SPI_STATUSbits.w = result[0];
+                    transmitPayload(SPI_STATUSbits);
+                    currentState = CLEAR_INTERRUPT;
+                    break;
+                }
+
+                case CLEAR_INTERRUPT: {
+                    if (!PORTCbits.RC5) {
+                        bytes[0] = 0x20 | 0x07;
+                        bytes[1] = 0x70;
+                        while (1) {
+                            SendSPI(bytes, result, 2);
+                            sendNOP(result);
+                            uint8_t bruh = result[0] & 0x70;
+                            if (!bruh) {
+                                break;
+                            }
+                        }
+                        currentState = DONE;
+                    }
+                    break;
+                }
+
+                case DONE: {
+                    if (!PORTCbits.RC5) {
+                        bytes[0] = 0x20 | 0x07;
+                        bytes[1] = 0x70;
+                        SendSPI(bytes, result, 2);
+                    }
+
+
+
+
+
+                    break;
+                }
+            }
+        } else {
+
+        }
+    }
+    return 1;
 }

@@ -1,54 +1,299 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"55 SourceFiles/../HeaderFiles/SPI.h
-[; ;SourceFiles/../HeaderFiles/SPI.h: 55: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
-[v _SendSPI `(v ~T0 @X0 0 ef3`*uc`*uc`uc ]
-"2242 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2242:     struct {
+"17 SourceFiles/main.c
+[; ;SourceFiles/main.c: 17:  TRISAbits.TRISA5 = 1;
+[c E6701 0 1 .. ]
+[n E6701 . RECEIVER TRANSMITTER  ]
+"12 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 12:  struct {
+[s S930 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S930 . TX_FULL RX_P_NO MAX_RT TX_DS RX_DR ]
+"19
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 19:  struct {
+[s S931 :8 `uc 1 ]
+[n S931 . w ]
+"11
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 11: typedef union {
+[u S929 `S930 1 `S931 1 ]
+[n S929 . . . ]
+[p mainexit ]
+"1505 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1505:     struct {
+[s S86 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S86 . TRISA0 TRISA1 TRISA2 . TRISA4 TRISA5 ]
+"1504
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1504: typedef union {
+[u S85 `S86 1 ]
+[n S85 . . ]
+"1514
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1514: extern volatile TRISAbits_t TRISAbits __attribute__((address(0x08C)));
+[v _TRISAbits `VS85 ~T0 @X0 0 e@140 ]
+"2197
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2197:     struct {
 [s S117 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S117 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 ]
-"2241
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2241: typedef union {
+[n S117 . LATA0 LATA1 LATA2 . LATA4 LATA5 ]
+"2196
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2196: typedef union {
 [u S116 `S117 1 ]
 [n S116 . . ]
+"2206
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2206: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
+[v _LATAbits `VS116 ~T0 @X0 0 e@268 ]
+"28 SourceFiles/main.c
+[; ;SourceFiles/main.c: 28:  }
+[c E6656 0 1 .. ]
+[n E6656 . LOW HIGH  ]
+"74 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 74: void ce(Level_t level);
+[v _ce `(v ~T0 @X0 0 ef1`E6656 ]
+"2785 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2785:     struct {
+[s S144 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S144 . ANSA0 ANSA1 ANSA2 . ANSA4 ANSA5 ]
+"2784
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2784: typedef union {
+[u S143 `S144 1 ]
+[n S143 . . ]
+"2794
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2794: extern volatile ANSELAbits_t ANSELAbits __attribute__((address(0x18C)));
+[v _ANSELAbits `VS143 ~T0 @X0 0 e@396 ]
+"390
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 390:     struct {
+[s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S35 . RA0 RA1 RA2 RA3 RA4 RA5 ]
+"389
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 389: typedef union {
+[u S34 `S35 1 ]
+[n S34 . . ]
+"399
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 399: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x00C)));
+[v _PORTAbits `VS34 ~T0 @X0 0 e@12 ]
+"1550
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1550:     struct {
+[s S88 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S88 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 ]
+"1549
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1549: typedef union {
+[u S87 `S88 1 ]
+[n S87 . . ]
+"1559
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1559: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x08E)));
+[v _TRISCbits `VS87 ~T0 @X0 0 e@142 ]
+"2830
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2830:     struct {
+[s S146 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S146 . ANSC0 ANSC1 ANSC2 ANSC3 ANSC4 ANSC5 ]
+"2829
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2829: typedef union {
+[u S145 `S146 1 ]
+[n S145 . . ]
+"2839
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2839: extern volatile ANSELCbits_t ANSELCbits __attribute__((address(0x18E)));
+[v _ANSELCbits `VS145 ~T0 @X0 0 e@398 ]
+"13963
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 13963: extern volatile unsigned char RC0PPS __attribute__((address(0xEA0)));
+[v _RC0PPS `Vuc ~T0 @X0 0 e@3744 ]
+"13207
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 13207: extern volatile unsigned char SSP1DATPPS __attribute__((address(0xE21)));
+[v _SSP1DATPPS `Vuc ~T0 @X0 0 e@3617 ]
+"13859
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 13859: extern volatile unsigned char RA4PPS __attribute__((address(0xE94)));
+[v _RA4PPS `Vuc ~T0 @X0 0 e@3732 ]
+"2242
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2242:     struct {
+[s S119 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S119 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 ]
+"2241
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2241: typedef union {
+[u S118 `S119 1 ]
+[n S118 . . ]
 "2251
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2251: extern volatile LATCbits_t LATCbits __attribute__((address(0x10E)));
-[v _LATCbits `VS116 ~T0 @X0 0 e@270 ]
-"3829
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 3829: extern volatile unsigned char SSP1BUF __attribute__((address(0x211)));
-[v _SSP1BUF `Vuc ~T0 @X0 0 e@529 ]
-"4602
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4602:     struct {
-[s S228 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S228 . BF UA R_nW S P D_nA CKE SMP ]
-"4601
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4601: typedef union {
-[u S227 `S228 1 ]
-[n S227 . . ]
-"4613
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4613: extern volatile SSP1STATbits_t SSP1STATbits __attribute__((address(0x214)));
-[v _SSP1STATbits `VS227 ~T0 @X0 0 e@532 ]
+[v _LATCbits `VS118 ~T0 @X0 0 e@270 ]
 "4732
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4732:     struct {
-[s S232 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S232 . SSPM CKP SSPEN SSPOV WCOL ]
+[s S234 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S234 . SSPM CKP SSPEN SSPOV WCOL ]
 "4739
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4739:     struct {
-[s S233 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S233 . SSPM0 SSPM1 SSPM2 SSPM3 ]
+[s S235 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S235 . SSPM0 SSPM1 SSPM2 SSPM3 ]
 "4731
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4731: typedef union {
-[u S231 `S232 1 `S233 1 ]
-[n S231 . . . ]
+[u S233 `S234 1 `S235 1 ]
+[n S233 . . . ]
 "4746
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4746: extern volatile SSP1CON1bits_t SSP1CON1bits __attribute__((address(0x215)));
-[v _SSP1CON1bits `VS231 ~T0 @X0 0 e@533 ]
+[v _SSP1CON1bits `VS233 ~T0 @X0 0 e@533 ]
+"4602
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4602:     struct {
+[s S230 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S230 . BF UA R_nW S P D_nA CKE SMP ]
+"4601
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4601: typedef union {
+[u S229 `S230 1 ]
+[n S229 . . ]
+"4613
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4613: extern volatile SSP1STATbits_t SSP1STATbits __attribute__((address(0x214)));
+[v _SSP1STATbits `VS229 ~T0 @X0 0 e@532 ]
+"64 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 64: _Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+[v _StartRadio `(a ~T0 @X0 0 ef3`uc`uc`*uc ]
 "57 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 57: void delay (volatile int length);
 [v _delay `(v ~T0 @X0 0 ef1`Vi ]
-"44 SourceFiles/SPI.c
-[; ;SourceFiles/SPI.c: 44: void cs(Level_t level) {
-[c E6335 0 1 .. ]
-[n E6335 . LOW HIGH  ]
+"55
+[; ;SourceFiles/../HeaderFiles/SPI.h: 55: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
+[v _SendSPI `(v ~T0 @X0 0 ef3`*uc`*uc`uc ]
+"73 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 73: void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+[v _StartListening `(v ~T0 @X0 0 ef3`*uc`uc`*uc ]
+"1434 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1434:     struct {
+[s S83 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S83 . T2CKPS TMR2ON T2OUTPS ]
+"1439
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1439:     struct {
+[s S84 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S84 . T2CKPS0 T2CKPS1 . T2OUTPS0 T2OUTPS1 T2OUTPS2 T2OUTPS3 ]
+"1433
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1433: typedef union {
+[u S82 `S83 1 `S84 1 ]
+[n S82 . . . ]
+"1449
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1449: extern volatile T2CONbits_t T2CONbits __attribute__((address(0x01F)));
+[v _T2CONbits `VS82 ~T0 @X0 0 e@31 ]
+"1388
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1388: extern volatile unsigned char TMR2 __attribute__((address(0x01D)));
+[v _TMR2 `Vuc ~T0 @X0 0 e@29 ]
+"1408
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1408: extern volatile unsigned char PR2 __attribute__((address(0x01E)));
+[v _PR2 `Vuc ~T0 @X0 0 e@30 ]
+"8477
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8477:     struct {
+[s S421 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S421 . . PWM5POL PWM5OUT . PWM5EN ]
+"8476
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8476: typedef union {
+[u S420 `S421 1 ]
+[n S420 . . ]
+"8485
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8485: extern volatile PWM5CONbits_t PWM5CONbits __attribute__((address(0x619)));
+[v _PWM5CONbits `VS420 ~T0 @X0 0 e@1561 ]
+"14119
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14119: extern volatile unsigned char RC3PPS __attribute__((address(0xEA3)));
+[v _RC3PPS `Vuc ~T0 @X0 0 e@3747 ]
+"8360
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8360: extern volatile unsigned char PWM5DCL __attribute__((address(0x617)));
+[v _PWM5DCL `Vuc ~T0 @X0 0 e@1559 ]
+"8396
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8396: extern volatile unsigned char PWM5DCH __attribute__((address(0x618)));
+[v _PWM5DCH `Vuc ~T0 @X0 0 e@1560 ]
+"8710
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8710:     struct {
+[s S435 :2 `uc 1 :2 `uc 1 ]
+[n S435 . P5TSEL P6TSEL ]
+"8714
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8714:     struct {
+[s S436 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S436 . P5TSEL0 P5TSEL1 P6TSEL0 P6TSEL1 ]
+"8709
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8709: typedef union {
+[u S434 `S435 1 `S436 1 ]
+[n S434 . . . ]
+"8721
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8721: extern volatile PWMTMRSbits_t PWMTMRSbits __attribute__((address(0x61F)));
+[v _PWMTMRSbits `VS434 ~T0 @X0 0 e@1567 ]
+"8649
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8649:     struct {
+[s S431 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S431 . . PWM6POL PWM6OUT . PWM6EN ]
+"8648
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8648: typedef union {
+[u S430 `S431 1 ]
+[n S430 . . ]
+"8657
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8657: extern volatile PWM6CONbits_t PWM6CONbits __attribute__((address(0x61C)));
+[v _PWM6CONbits `VS430 ~T0 @X0 0 e@1564 ]
+"14171
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14171: extern volatile unsigned char RC4PPS __attribute__((address(0xEA4)));
+[v _RC4PPS `Vuc ~T0 @X0 0 e@3748 ]
+"8532
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8532: extern volatile unsigned char PWM6DCL __attribute__((address(0x61A)));
+[v _PWM6DCL `Vuc ~T0 @X0 0 e@1562 ]
+"8568
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8568: extern volatile unsigned char PWM6DCH __attribute__((address(0x61B)));
+[v _PWM6DCH `Vuc ~T0 @X0 0 e@1563 ]
+"155 SourceFiles/main.c
+[; ;SourceFiles/main.c: 155:     }
+[c E6716 0 1 2 3 4 .. ]
+[n E6716 . RX TX Standby2 Standby1 PowerDown  ]
+"68 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 68: void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+[v _ChangeRadioMode `(v ~T0 @X0 0 ef3`E6716`uc`*uc ]
+"1987 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1987:     struct {
+[s S107 :1 `uc 1 :1 `uc 1 :6 `uc 1 ]
+[n S107 . ADON GO_nDONE CHS ]
+"1992
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1992:     struct {
+[s S108 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S108 . . ADGO CHS0 CHS1 CHS2 CHS3 CHS4 CHS5 ]
+"2002
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2002:     struct {
+[s S109 :1 `uc 1 :1 `uc 1 ]
+[n S109 . . GO ]
+"1986
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1986: typedef union {
+[u S106 `S107 1 `S108 1 `S109 1 ]
+[n S106 . . . . ]
+"2007
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2007: extern volatile ADCON0bits_t ADCON0bits __attribute__((address(0x09D)));
+[v _ADCON0bits `VS106 ~T0 @X0 0 e@157 ]
+"2073
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2073:     struct {
+[s S111 :2 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S111 . ADPREF ADNREF . ADCS ADFM ]
+"2080
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2080:     struct {
+[s S112 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S112 . ADPREF0 ADPREF1 . ADCS0 ADCS1 ADCS2 ]
+"2072
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2072: typedef union {
+[u S110 `S111 1 `S112 1 ]
+[n S110 . . . ]
+"2089
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2089: extern volatile ADCON1bits_t ADCON1bits __attribute__((address(0x09E)));
+[v _ADCON1bits `VS110 ~T0 @X0 0 e@158 ]
+"173 SourceFiles/main.c
+[; ;SourceFiles/main.c: 173:                             currentState = TRANSMIT_ADC_DATA;
+[c E6776 0 1 2 3 .. ]
+[n E6776 . COLLECT_ADC_DATA TRANSMIT_ADC_DATA CLEAR_INTERRUPT DONE  ]
+"1961 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1961: extern volatile unsigned char ADRESH __attribute__((address(0x09C)));
+[v _ADRESH `Vuc ~T0 @X0 0 e@156 ]
+"1941
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1941: extern volatile unsigned char ADRESL __attribute__((address(0x09B)));
+[v _ADRESL `Vuc ~T0 @X0 0 e@155 ]
+"48 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 48: void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+[v _packagePayload `(v ~T0 @X0 0 ef4`uc`uc`uc`uc ]
+"56 SourceFiles/../HeaderFiles/SPI.h
+[; ;SourceFiles/../HeaderFiles/SPI.h: 56: void sendNOP(uint8_t *result);
+[v _sendNOP `(v ~T0 @X0 0 ef1`*uc ]
+"49 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 49: void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
+[v _transmitPayload `(v ~T0 @X0 0 ef1`S929 ]
+"440 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 440:     struct {
+[s S37 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S37 . RC0 RC1 RC2 RC3 RC4 RC5 ]
+"439
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 439: typedef union {
+[u S36 `S37 1 ]
+[n S36 . . ]
+"449
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 449: extern volatile PORTCbits_t PORTCbits __attribute__((address(0x00E)));
+[v _PORTCbits `VS36 ~T0 @X0 0 e@14 ]
 "54 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 54: __asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
@@ -1057,240 +1302,591 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18767
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 18767: __asm("TOSH equ 0FEFh");
 [; <" TOSH equ 0FEFh ;# ">
-"3 SourceFiles/SPI.c
-[; ;SourceFiles/SPI.c: 3: void ReadRegister(uint8_t reg, uint8_t *result) {
-[v _ReadRegister `(v ~T0 @X0 1 ef2`uc`*uc ]
-{
-[e :U _ReadRegister ]
-[v _reg `uc ~T0 @X0 1 r1 ]
-[v _result `*uc ~T0 @X0 1 r2 ]
-[f ]
-[v F6355 `uc ~T0 @X0 -> 2 `i s ]
-[i F6355
+"8 SourceFiles/main.c
+[; ;SourceFiles/main.c: 8: 
+[p x WDTE  =  OFF            ]
+"9
+[; ;SourceFiles/main.c: 9:  TRISAbits.TRISA0 = 0;
+[p x FEXTOSC  =  OFF         ]
+"10
+[; ;SourceFiles/main.c: 10:  LATAbits.LATA0 = 0;
+[p x RSTOSC  =  HFINT1       ]
+"11
+[; ;SourceFiles/main.c: 11: 
+[p x WDTE  =  OFF            ]
+"12
+[; ;SourceFiles/main.c: 12: 
+[p x MCLRE  =  ON            ]
+"17
+[; ;SourceFiles/main.c: 17:  TRISAbits.TRISA5 = 1;
+[v _radioType `E6701 ~T0 @X0 1 e ]
+[i _radioType
+. `E6701 0
+]
+"18
+[; ;SourceFiles/main.c: 18:     ANSELAbits.ANSA5 = 0;
+[v _SPI_STATUSbits `S929 ~T0 @X0 1 e ]
+"19
+[; ;SourceFiles/main.c: 19:  if (PORTAbits.RA5) {
+[v _address `uc ~T0 @X0 -> 5 `i e ]
+[i _address
 :U ..
-"4
-[; ;SourceFiles/SPI.c: 4:  uint8_t bytes[] = {0x00 | reg, 0xFF};
--> -> 0 `i `uc
--> -> 0 `i `uc
+-> -> 48 `i `uc
+-> -> 48 `i `uc
+-> -> 48 `i `uc
+-> -> 49 `i `uc
+-> -> 49 `i `uc
 ..
 ]
-[v _bytes `uc ~T0 @X0 -> 2 `i a ]
-[e = _bytes F6355 ]
-[e ; = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 0 `i -> _reg `i `uc = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 255 `i `uc ]
-"5
-[; ;SourceFiles/SPI.c: 5:  SendSPI(bytes, result, 2);
-[e ( _SendSPI (3 , , &U _bytes _result -> -> 2 `i `uc ]
-"6
-[; ;SourceFiles/SPI.c: 6: }
-[e :UE 921 ]
-}
-"8
-[; ;SourceFiles/SPI.c: 8: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
-[v _SendSPI `(v ~T0 @X0 1 ef3`*uc`*uc`uc ]
-{
-[e :U _SendSPI ]
-[v _bytes `*uc ~T0 @X0 1 r1 ]
-[v _result `*uc ~T0 @X0 1 r2 ]
-[v _n `uc ~T0 @X0 1 r3 ]
-[f ]
-"9
-[; ;SourceFiles/SPI.c: 9:  if (n == 1) {
-[e $ ! == -> _n `i -> 1 `i 923  ]
-{
-"10
-[; ;SourceFiles/SPI.c: 10:   LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"11
-[; ;SourceFiles/SPI.c: 11:   SSP1BUF = bytes[0];
-[e = _SSP1BUF *U + _bytes * -> -> 0 `i `x -> -> # *U _bytes `i `x ]
-"12
-[; ;SourceFiles/SPI.c: 12:   while (!SSP1STATbits.BF);
-[e $U 924  ]
-[e :U 925 ]
-[e :U 924 ]
-[e $ ! != -> . . _SSP1STATbits 0 0 `i -> 0 `i 925  ]
-[e :U 926 ]
-"13
-[; ;SourceFiles/SPI.c: 13:   result[0] = SSP1BUF;
-[e = *U + _result * -> -> 0 `i `x -> -> # *U _result `i `x _SSP1BUF ]
-"14
-[; ;SourceFiles/SPI.c: 14:   LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"15
-[; ;SourceFiles/SPI.c: 15:  } else {
-}
-[e $U 927  ]
-[e :U 923 ]
-{
-"16
-[; ;SourceFiles/SPI.c: 16:   LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"17
-[; ;SourceFiles/SPI.c: 17:   for (uint8_t i = 0; i < n; i++) {
-{
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $U 931  ]
-[e :U 928 ]
-{
-"18
-[; ;SourceFiles/SPI.c: 18:             while (SSP1STATbits.BF) {
-[e $U 932  ]
-[e :U 933 ]
-{
-"19
-[; ;SourceFiles/SPI.c: 19:                 SSP1BUF;
-[e _SSP1BUF ]
-"20
-[; ;SourceFiles/SPI.c: 20:             }
-}
-[e :U 932 ]
-"18
-[; ;SourceFiles/SPI.c: 18:             while (SSP1STATbits.BF) {
-[e $ != -> . . _SSP1STATbits 0 0 `i -> 0 `i 933  ]
-[e :U 934 ]
+[v $root$_main `(v ~T0 @X0 0 e ]
 "21
-[; ;SourceFiles/SPI.c: 21:    SSP1BUF = bytes[i];
-[e = _SSP1BUF *U + _bytes * -> _i `ux -> -> # *U _bytes `ui `ux ]
-"22
-[; ;SourceFiles/SPI.c: 22:    while (!SSP1STATbits.BF) {
-[e $U 935  ]
-[e :U 936 ]
+[; ;SourceFiles/main.c: 21:  }
+[v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
+[e :U _main ]
+[v _argc `i ~T0 @X0 1 r1 ]
+[v _argv `**uc ~T0 @X0 1 r2 ]
+[f ]
+"23
+[; ;SourceFiles/main.c: 23: 
+[e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
 "24
-[; ;SourceFiles/SPI.c: 24:             }
+[; ;SourceFiles/main.c: 24:  if (1) {
+[e = . . _LATAbits 0 0 -> -> 0 `i `uc ]
+"27
+[; ;SourceFiles/main.c: 27: 
+[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
+"28
+[; ;SourceFiles/main.c: 28:  }
+[e ( _ce (1 . `E6656 0 ]
+"31
+[; ;SourceFiles/main.c: 31:  if (1) {
+[e = . . _TRISAbits 0 5 -> -> 1 `i `uc ]
+"32
+[; ;SourceFiles/main.c: 32: 
+[e = . . _ANSELAbits 0 5 -> -> 0 `i `uc ]
+"33
+[; ;SourceFiles/main.c: 33:         TRISCbits.TRISC0 = 0;
+[e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 935  ]
+{
+"34
+[; ;SourceFiles/main.c: 34:         RC0PPS = 0b11000;
+[e = _radioType . `E6701 1 ]
+"35
+[; ;SourceFiles/main.c: 35: 
 }
 [e :U 935 ]
-"22
-[; ;SourceFiles/SPI.c: 22:    while (!SSP1STATbits.BF) {
-[e $ ! != -> . . _SSP1STATbits 0 0 `i -> 0 `i 936  ]
-[e :U 937 ]
-"26
-[; ;SourceFiles/SPI.c: 26:             if (SSP1CON1bits.WCOL) {
-[e $ ! != -> . . _SSP1CON1bits 0 4 `i -> 0 `i 938  ]
+"38
+[; ;SourceFiles/main.c: 38:         ANSELCbits.ANSC1 = 0;
+[e $ ! != -> 1 `i -> 0 `i 936  ]
 {
-"27
-[; ;SourceFiles/SPI.c: 27:                 SSP1CON1bits.WCOL = 0;
-[e = . . _SSP1CON1bits 0 4 -> -> 0 `i `uc ]
-"28
-[; ;SourceFiles/SPI.c: 28:                 result[i] = 0xFF;
-[e = *U + _result * -> _i `ux -> -> # *U _result `ui `ux -> -> 255 `i `uc ]
-"29
-[; ;SourceFiles/SPI.c: 29:             } else {
+"39
+[; ;SourceFiles/main.c: 39:         SSP1DATPPS = 0b10001;
+[e = . . _TRISCbits 0 5 -> -> 1 `i `uc ]
+"40
+[; ;SourceFiles/main.c: 40: 
+[e = . . _ANSELCbits 0 5 -> -> 0 `i `uc ]
+"42
+[; ;SourceFiles/main.c: 42:         TRISAbits.TRISA4 = 0;
+}
+[e :U 936 ]
+"45
+[; ;SourceFiles/main.c: 45: 
+[e $ ! != -> 1 `i -> 0 `i 937  ]
+{
+"47
+[; ;SourceFiles/main.c: 47:         LATCbits.LATC3 = 1;
+[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
+"48
+[; ;SourceFiles/main.c: 48: 
+[e = _RC0PPS -> -> 24 `i `uc ]
+"51
+[; ;SourceFiles/main.c: 51: 
+[e = . . _TRISCbits 0 1 -> -> 1 `i `uc ]
+"52
+[; ;SourceFiles/main.c: 52:         SSP1CON1bits.SSPM = 0b0000;
+[e = . . _ANSELCbits 0 1 -> -> 0 `i `uc ]
+"53
+[; ;SourceFiles/main.c: 53: 
+[e = _SSP1DATPPS -> -> 17 `i `uc ]
+"56
+[; ;SourceFiles/main.c: 56:         SSP1STATbits.CKE = 1;
+[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
+"57
+[; ;SourceFiles/main.c: 57: 
+[e = _RA4PPS -> -> 25 `i `uc ]
+"60
+[; ;SourceFiles/main.c: 60: 
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+"61
+[; ;SourceFiles/main.c: 61: 
+[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
+"64
+[; ;SourceFiles/main.c: 64:  if (StartRadio(42, 6, result)) {
+[e = . . _SSP1CON1bits 0 2 -> -> 1 `i `uc ]
+"66
+[; ;SourceFiles/main.c: 66:  } else {
+[e = . . _SSP1CON1bits 0 0 -> -> 0 `i `uc ]
+"68
+[; ;SourceFiles/main.c: 68:         while (1) {
+[e = . . _SSP1STATbits 0 7 -> -> 1 `i `uc ]
+"70
+[; ;SourceFiles/main.c: 70:             val = ~val;
+[e = . . _SSP1STATbits 0 6 -> -> 1 `i `uc ]
+"72
+[; ;SourceFiles/main.c: 72:         }
+[e = . . _SSP1CON1bits 0 1 -> -> 0 `i `uc ]
+"73
+[; ;SourceFiles/main.c: 73:     }
+}
+[e :U 937 ]
+"76
+[; ;SourceFiles/main.c: 76:     if (radioStarted && radioType == RECEIVER) {
+[v _radioStarted `a ~T0 @X0 1 a ]
+[e = _radioStarted -> -> 1 `i `a ]
+"77
+[; ;SourceFiles/main.c: 77: 
+[v _result `uc ~T0 @X0 -> 2 `i a ]
+"78
+[; ;SourceFiles/main.c: 78: 
+[e $ ! != -> ( _StartRadio (3 , , -> -> 42 `i `uc -> -> 6 `i `uc &U _result `i -> 0 `i 938  ]
+{
+"79
+[; ;SourceFiles/main.c: 79:   uint8_t databytes[2];
+[e = _radioStarted -> -> 1 `i `a ]
+"80
+[; ;SourceFiles/main.c: 80:         uint8_t result[2];
 }
 [e $U 939  ]
 [e :U 938 ]
 {
-"30
-[; ;SourceFiles/SPI.c: 30:                 result[i] = SSP1BUF;
-[e = *U + _result * -> _i `ux -> -> # *U _result `ui `ux _SSP1BUF ]
-"31
-[; ;SourceFiles/SPI.c: 31:             }
-}
-[e :U 939 ]
-"32
-[; ;SourceFiles/SPI.c: 32:   }
-}
-[e ++ _i -> -> 1 `i `uc ]
-[e :U 931 ]
-[e $ < -> _i `i -> _n `i 928  ]
-[e :U 929 ]
-}
-"33
-[; ;SourceFiles/SPI.c: 33:   LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"34
-[; ;SourceFiles/SPI.c: 34:  }
-}
-[e :U 927 ]
-"35
-[; ;SourceFiles/SPI.c: 35:  delay(45);
-[e ( _delay (1 -> 45 `i ]
-"36
-[; ;SourceFiles/SPI.c: 36: }
-[e :UE 922 ]
-}
-"38
-[; ;SourceFiles/SPI.c: 38: void delay (volatile int length) {
-[v _delay `(v ~T0 @X0 1 ef1`Vi ]
+"81
+[; ;SourceFiles/main.c: 81:         databytes[0] = 0x20 | 0x02;
+[v _val `a ~T0 @X0 1 a ]
+[e = _val -> -> 1 `i `a ]
+"82
+[; ;SourceFiles/main.c: 82:         databytes[1] = 0x01;
+[e :U 941 ]
 {
-[e :U _delay ]
-[v _length `Vi ~T0 @X0 1 r1 ]
-[f ]
-"39
-[; ;SourceFiles/SPI.c: 39:  while (length >= 0) {
+"83
+[; ;SourceFiles/main.c: 83:         SendSPI(databytes, result, 2);
+[e = . . _LATAbits 0 0 -> _val `uc ]
+"84
+[; ;SourceFiles/main.c: 84:   SPI_STATUSbits.w = result[0];
+[e = _val -> ~ -> _val `i `a ]
+"85
+[; ;SourceFiles/main.c: 85: 
+[e ( _delay (1 -> 1000 `i ]
+"86
+[; ;SourceFiles/main.c: 86: 
+}
+[e :U 940 ]
 [e $U 941  ]
 [e :U 942 ]
-{
-"40
-[; ;SourceFiles/SPI.c: 40:      length--;
-[e -- _length -> -> 1 `i `Vi ]
-"41
-[; ;SourceFiles/SPI.c: 41:  }
+"87
+[; ;SourceFiles/main.c: 87:   StartListening(address, 5, result);
 }
-[e :U 941 ]
-"39
-[; ;SourceFiles/SPI.c: 39:  while (length >= 0) {
-[e $ >= _length -> 0 `i 942  ]
+[e :U 939 ]
+"88
+[; ;SourceFiles/main.c: 88:   SPI_STATUSbits.w = result[0];
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"90
+[; ;SourceFiles/main.c: 90: 
+[e $ ! && != -> _radioStarted `i -> 0 `i == -> _radioType `ui -> . `E6701 0 `ui 943  ]
+{
+"93
+[; ;SourceFiles/main.c: 93:         SendSPI(databytes, result, 2);
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+"94
+[; ;SourceFiles/main.c: 94:   SPI_STATUSbits.w = result[0];
+[v _result `uc ~T0 @X0 -> 2 `i a ]
+"95
+[; ;SourceFiles/main.c: 95: 
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 2 `i `uc ]
+"96
+[; ;SourceFiles/main.c: 96: 
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 1 `i `uc ]
+"97
+[; ;SourceFiles/main.c: 97:         T2CONbits.TMR2ON = 0;
+[e ( _SendSPI (3 , , &U _databytes &U _result -> -> 2 `i `uc ]
+"98
+[; ;SourceFiles/main.c: 98:         T2CONbits.T2CKPS = 0b01;
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"101
+[; ;SourceFiles/main.c: 101:         T2CONbits.TMR2ON = 1;
+[e ( _StartListening (3 , , &U _address -> -> 5 `i `uc &U _result ]
+"102
+[; ;SourceFiles/main.c: 102: 
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"105
+[; ;SourceFiles/main.c: 105:         PWM5CONbits.PWM5EN = 0;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"106
+[; ;SourceFiles/main.c: 106:         PWM5CONbits.PWM5POL = 0;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 112 `i `uc ]
+"107
+[; ;SourceFiles/main.c: 107:         RC3PPS = 0b00010;
+[e ( _SendSPI (3 , , &U _databytes &U _result -> -> 2 `i `uc ]
+"108
+[; ;SourceFiles/main.c: 108:         PWM5DCL = 0xC0;
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"111
+[; ;SourceFiles/main.c: 111:         PWM5CONbits.PWM5EN = 1;
+[e = . . _T2CONbits 0 1 -> -> 0 `i `uc ]
+"112
+[; ;SourceFiles/main.c: 112: 
+[e = . . _T2CONbits 0 0 -> -> 1 `i `uc ]
+"113
+[; ;SourceFiles/main.c: 113: 
+[e = _TMR2 -> -> 0 `i `uc ]
+"114
+[; ;SourceFiles/main.c: 114:         TRISCbits.TRISC4 = 0;
+[e = _PR2 -> -> 125 `i `uc ]
+"115
+[; ;SourceFiles/main.c: 115:         PWM6CONbits.PWM6EN = 0;
+[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
+"118
+[; ;SourceFiles/main.c: 118:         PWM6DCL = 0x00;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+"119
+[; ;SourceFiles/main.c: 119:         PWM6DCH = 0x00;
+[e = . . _PWM5CONbits 0 4 -> -> 0 `i `uc ]
+"120
+[; ;SourceFiles/main.c: 120:         PWMTMRSbits.P6TSEL = 0b01;
+[e = . . _PWM5CONbits 0 1 -> -> 0 `i `uc ]
+"121
+[; ;SourceFiles/main.c: 121:         PWM6CONbits.PWM6EN = 1;
+[e = _RC3PPS -> -> 2 `i `uc ]
+"122
+[; ;SourceFiles/main.c: 122:  }
+[e = _PWM5DCL -> -> 192 `i `uc ]
+"123
+[; ;SourceFiles/main.c: 123: 
+[e = _PWM5DCH -> -> 111 `i `uc ]
+"124
+[; ;SourceFiles/main.c: 124: 
+[e = . . _PWMTMRSbits 0 0 -> -> 1 `i `uc ]
+"125
+[; ;SourceFiles/main.c: 125:  if (radioStarted && radioType == TRANSMITTER) {
+[e = . . _PWM5CONbits 0 4 -> -> 1 `i `uc ]
+"128
+[; ;SourceFiles/main.c: 128:   uint8_t result[6];
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+"129
+[; ;SourceFiles/main.c: 129:         databytes[0] = 0x20 | 0x0A;
+[e = . . _PWM6CONbits 0 4 -> -> 0 `i `uc ]
+"130
+[; ;SourceFiles/main.c: 130:         databytes[1] = address[0];
+[e = . . _PWM6CONbits 0 1 -> -> 0 `i `uc ]
+"131
+[; ;SourceFiles/main.c: 131:         databytes[2] = address[1];
+[e = _RC4PPS -> -> 3 `i `uc ]
+"132
+[; ;SourceFiles/main.c: 132:         databytes[3] = address[2];
+[e = _PWM6DCL -> -> 0 `i `uc ]
+"133
+[; ;SourceFiles/main.c: 133:         databytes[4] = address[3];
+[e = _PWM6DCH -> -> 0 `i `uc ]
+"134
+[; ;SourceFiles/main.c: 134:         databytes[5] = address[4];
+[e = . . _PWMTMRSbits 0 1 -> -> 1 `i `uc ]
+"135
+[; ;SourceFiles/main.c: 135:         SendSPI(databytes, result, 5 + 1);
+[e = . . _PWM6CONbits 0 4 -> -> 1 `i `uc ]
+"136
+[; ;SourceFiles/main.c: 136:         databytes[0] = 0x20 | 0x10;
+}
 [e :U 943 ]
-"42
-[; ;SourceFiles/SPI.c: 42: }
-[e :UE 940 ]
-}
-"44
-[; ;SourceFiles/SPI.c: 44: void cs(Level_t level) {
-[v _cs `(v ~T0 @X0 1 ef1`E6335 ]
+"139
+[; ;SourceFiles/main.c: 139: 
+[e $ ! && != -> _radioStarted `i -> 0 `i == -> _radioType `ui -> . `E6701 1 `ui 944  ]
 {
-[e :U _cs ]
-[v _level `E6335 ~T0 @X0 1 r1 ]
-[f ]
-"45
-[; ;SourceFiles/SPI.c: 45:     if (level == HIGH) {
-[e $ ! == -> _level `ui -> . `E6335 1 `ui 945  ]
-{
-"46
-[; ;SourceFiles/SPI.c: 46:         LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"47
-[; ;SourceFiles/SPI.c: 47:     } else if (level == LOW) {
+"141
+[; ;SourceFiles/main.c: 141:   ChangeRadioMode(Standby1, 1, result);
+[v _databytes `uc ~T0 @X0 -> 6 `i a ]
+"142
+[; ;SourceFiles/main.c: 142:   SPI_STATUSbits.w = result[0];
+[v _result `uc ~T0 @X0 -> 6 `i a ]
+"143
+[; ;SourceFiles/main.c: 143: 
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 10 `i `uc ]
+"144
+[; ;SourceFiles/main.c: 144: 
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + &U _address * -> -> -> 0 `i `ui `ux -> -> # *U &U _address `ui `ux ]
+"145
+[; ;SourceFiles/main.c: 145:         ANSELCbits.ANSC4 = 1;
+[e = *U + &U _databytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + &U _address * -> -> -> 1 `i `ui `ux -> -> # *U &U _address `ui `ux ]
+"146
+[; ;SourceFiles/main.c: 146:   TRISCbits.TRISC4 = 1;
+[e = *U + &U _databytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + &U _address * -> -> -> 2 `i `ui `ux -> -> # *U &U _address `ui `ux ]
+"147
+[; ;SourceFiles/main.c: 147: 
+[e = *U + &U _databytes * -> -> -> 4 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + &U _address * -> -> -> 3 `i `ui `ux -> -> # *U &U _address `ui `ux ]
+"148
+[; ;SourceFiles/main.c: 148:         ADCON0bits.ADON = 0;
+[e = *U + &U _databytes * -> -> -> 5 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + &U _address * -> -> -> 4 `i `ui `ux -> -> # *U &U _address `ui `ux ]
+"149
+[; ;SourceFiles/main.c: 149:         ADCON1bits.ADCS = 0b110;
+[e ( _SendSPI (3 , , &U _databytes &U _result -> + -> 5 `i -> 1 `i `uc ]
+"150
+[; ;SourceFiles/main.c: 150:         ADCON1bits.ADNREF = 0;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 16 `i `uc ]
+"151
+[; ;SourceFiles/main.c: 151:         ADCON1bits.ADPREF = 0;
+[e ( _SendSPI (3 , , &U _databytes &U _result -> + -> 5 `i -> 1 `i `uc ]
+"152
+[; ;SourceFiles/main.c: 152:         ADCON0bits.CHS = 0x14;
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"155
+[; ;SourceFiles/main.c: 155:     }
+[e ( _ChangeRadioMode (3 , , . `E6716 3 -> -> 1 `i `uc &U _result ]
+"156
+[; ;SourceFiles/main.c: 156: 
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"159
+[; ;SourceFiles/main.c: 159:     State_t currentState = COLLECT_ADC_DATA;
+[e = . . _ANSELCbits 0 4 -> -> 1 `i `uc ]
+"160
+[; ;SourceFiles/main.c: 160:     while (1) {
+[e = . . _TRISCbits 0 4 -> -> 1 `i `uc ]
+"162
+[; ;SourceFiles/main.c: 162:             switch (currentState) {
+[e = . . _ADCON0bits 0 0 -> -> 0 `i `uc ]
+"163
+[; ;SourceFiles/main.c: 163:                 case COLLECT_ADC_DATA: {
+[e = . . _ADCON1bits 0 3 -> -> 6 `i `uc ]
+"164
+[; ;SourceFiles/main.c: 164:                     if (!ADCON0bits.GO_nDONE) {
+[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
+"165
+[; ;SourceFiles/main.c: 165:                         if (ADCON0bits.CHS == 0x14) {
+[e = . . _ADCON1bits 0 0 -> -> 0 `i `uc ]
+"166
+[; ;SourceFiles/main.c: 166:                             bytes[0] = ADRESH;
+[e = . . _ADCON0bits 0 2 -> -> 20 `i `uc ]
+"167
+[; ;SourceFiles/main.c: 167:                             bytes[1] = ADRESL;
+[e = . . _ADCON1bits 0 4 -> -> 0 `i `uc ]
+"168
+[; ;SourceFiles/main.c: 168:                             ADCON0bits.CHS = 0x12;
+[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+"169
+[; ;SourceFiles/main.c: 169:                         } else {
 }
-[e $U 946  ]
-[e :U 945 ]
-[e $ ! == -> _level `ui -> . `E6335 0 `ui 947  ]
-{
-"48
-[; ;SourceFiles/SPI.c: 48:         LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"49
-[; ;SourceFiles/SPI.c: 49:     }
-}
-[e :U 947 ]
+[e :U 944 ]
+"171
+[; ;SourceFiles/main.c: 171:                             bytes[3] = ADRESL;
+[v _val `a ~T0 @X0 1 a ]
+[e = _val -> -> 1 `i `a ]
+"172
+[; ;SourceFiles/main.c: 172:                             ADCON0bits.CHS = 0x14;
+[v _bytes `uc ~T0 @X0 -> 4 `i a ]
+"173
+[; ;SourceFiles/main.c: 173:                             currentState = TRANSMIT_ADC_DATA;
+[v _currentState `E6776 ~T0 @X0 1 a ]
+[e = _currentState . `E6776 0 ]
+"174
+[; ;SourceFiles/main.c: 174:                         }
 [e :U 946 ]
-"50
-[; ;SourceFiles/SPI.c: 50: }
-[e :UE 944 ]
-}
-"52
-[; ;SourceFiles/SPI.c: 52: void sendNOP(uint8_t *result) {
-[v _sendNOP `(v ~T0 @X0 1 ef1`*uc ]
 {
-[e :U _sendNOP ]
-[v _result `*uc ~T0 @X0 1 r1 ]
-[f ]
-[v F6368 `uc ~T0 @X0 -> -> 1 `i `ux s ]
-[i F6368
-:U ..
-"53
-[; ;SourceFiles/SPI.c: 53:     uint8_t bytes[1] = {0xFF};
--> -> 255 `i `uc
-..
-]
-[v _bytes `uc ~T0 @X0 -> -> 1 `i `ux a ]
-[e = _bytes F6368 ]
-"54
-[; ;SourceFiles/SPI.c: 54:     SendSPI(bytes, result, 1);
-[e ( _SendSPI (3 , , &U _bytes _result -> -> 1 `i `uc ]
-"55
-[; ;SourceFiles/SPI.c: 55: }
-[e :UE 948 ]
+"175
+[; ;SourceFiles/main.c: 175:                         ADCON0bits.GO_nDONE = 1;
+[e $ ! == -> _radioType `ui -> . `E6701 1 `ui 948  ]
+{
+"176
+[; ;SourceFiles/main.c: 176:                     }
+[e $U 950  ]
+{
+"177
+[; ;SourceFiles/main.c: 177:                     break;
+[e :U 951 ]
+{
+"178
+[; ;SourceFiles/main.c: 178:                 }
+[e $ ! ! != -> . . _ADCON0bits 0 1 `i -> 0 `i 952  ]
+{
+"179
+[; ;SourceFiles/main.c: 179: 
+[e $ ! == -> . . _ADCON0bits 0 2 `i -> 20 `i 953  ]
+{
+"180
+[; ;SourceFiles/main.c: 180:                 case TRANSMIT_ADC_DATA: {
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
+"181
+[; ;SourceFiles/main.c: 181:                     packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
+"182
+[; ;SourceFiles/main.c: 182:                     sendNOP(result);
+[e = . . _ADCON0bits 0 2 -> -> 18 `i `uc ]
+"183
+[; ;SourceFiles/main.c: 183:                     SPI_STATUSbits.w = result[0];
+}
+[e $U 954  ]
+[e :U 953 ]
+{
+"184
+[; ;SourceFiles/main.c: 184:                     transmitPayload(SPI_STATUSbits);
+[e = *U + &U _bytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
+"185
+[; ;SourceFiles/main.c: 185:                     currentState = CLEAR_INTERRUPT;
+[e = *U + &U _bytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
+"186
+[; ;SourceFiles/main.c: 186:                     break;
+[e = . . _ADCON0bits 0 2 -> -> 20 `i `uc ]
+"187
+[; ;SourceFiles/main.c: 187:                 }
+[e = _currentState . `E6776 1 ]
+"188
+[; ;SourceFiles/main.c: 188: 
+}
+[e :U 954 ]
+"189
+[; ;SourceFiles/main.c: 189:                 case CLEAR_INTERRUPT: {
+[e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
+"190
+[; ;SourceFiles/main.c: 190:                     if (!PORTCbits.RC5) {
+}
+[e :U 952 ]
+"191
+[; ;SourceFiles/main.c: 191:                         bytes[0] = 0x20 | 0x07;
+[e $U 949  ]
+"192
+[; ;SourceFiles/main.c: 192:                         bytes[1] = 0x70;
+}
+"194
+[; ;SourceFiles/main.c: 194:                             SendSPI(bytes, result, 2);
+[e :U 955 ]
+{
+"195
+[; ;SourceFiles/main.c: 195:                             sendNOP(result);
+[e ( _packagePayload (4 , , , *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux *U + &U _bytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _bytes `ui `ux *U + &U _bytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _bytes `ui `ux ]
+"196
+[; ;SourceFiles/main.c: 196:                             uint8_t bruh = result[0] & 0x70;
+[e ( _sendNOP (1 &U _result ]
+"197
+[; ;SourceFiles/main.c: 197:                             if (!bruh) {
+[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"198
+[; ;SourceFiles/main.c: 198:                                 break;
+[e ( _transmitPayload (1 _SPI_STATUSbits ]
+"199
+[; ;SourceFiles/main.c: 199:                             }
+[e = _currentState . `E6776 2 ]
+"200
+[; ;SourceFiles/main.c: 200:                         }
+[e $U 949  ]
+"201
+[; ;SourceFiles/main.c: 201:                         currentState = DONE;
+}
+"203
+[; ;SourceFiles/main.c: 203:                     break;
+[e :U 956 ]
+{
+"204
+[; ;SourceFiles/main.c: 204:                 }
+[e $ ! ! != -> . . _PORTCbits 0 5 `i -> 0 `i 957  ]
+{
+"205
+[; ;SourceFiles/main.c: 205: 
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"206
+[; ;SourceFiles/main.c: 206:                 case DONE: {
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 112 `i `uc ]
+"207
+[; ;SourceFiles/main.c: 207:                     if (!PORTCbits.RC5) {
+[e :U 959 ]
+{
+"208
+[; ;SourceFiles/main.c: 208:                         bytes[0] = 0x20 | 0x07;
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
+"209
+[; ;SourceFiles/main.c: 209:                         bytes[1] = 0x70;
+[e ( _sendNOP (1 &U _result ]
+"210
+[; ;SourceFiles/main.c: 210:                         SendSPI(bytes, result, 2);
+[v _bruh `uc ~T0 @X0 1 a ]
+[e = _bruh -> & -> *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 112 `i `uc ]
+"211
+[; ;SourceFiles/main.c: 211:                     }
+[e $ ! ! != -> _bruh `i -> 0 `i 961  ]
+{
+"212
+[; ;SourceFiles/main.c: 212: 
+[e $U 960  ]
+"213
+[; ;SourceFiles/main.c: 213: 
+}
+[e :U 961 ]
+"214
+[; ;SourceFiles/main.c: 214: 
+}
+[e :U 958 ]
+[e $U 959  ]
+[e :U 960 ]
+"215
+[; ;SourceFiles/main.c: 215: 
+[e = _currentState . `E6776 3 ]
+"216
+[; ;SourceFiles/main.c: 216: 
+}
+[e :U 957 ]
+"217
+[; ;SourceFiles/main.c: 217:                     break;
+[e $U 949  ]
+"218
+[; ;SourceFiles/main.c: 218:                 }
+}
+"220
+[; ;SourceFiles/main.c: 220:         } else {
+[e :U 962 ]
+{
+"221
+[; ;SourceFiles/main.c: 221: 
+[e $ ! ! != -> . . _PORTCbits 0 5 `i -> 0 `i 963  ]
+{
+"222
+[; ;SourceFiles/main.c: 222:         }
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"223
+[; ;SourceFiles/main.c: 223:     }
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 112 `i `uc ]
+"224
+[; ;SourceFiles/main.c: 224:     return 1;
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
+"225
+[; ;SourceFiles/main.c: 225: }
+}
+[e :U 963 ]
+"231
+[e $U 949  ]
+"232
+}
+"233
+}
+[e $U 949  ]
+[e :U 950 ]
+[e [\ -> _currentState `ui , $ -> . `E6776 0 `ui 951
+ , $ -> . `E6776 1 `ui 955
+ , $ -> . `E6776 2 `ui 956
+ , $ -> . `E6776 3 `ui 962
+ 949 ]
+[e :U 949 ]
+"234
+}
+[e $U 964  ]
+[e :U 948 ]
+{
+"236
+}
+[e :U 964 ]
+"237
+}
+[e :U 945 ]
+[e $U 946  ]
+[e :U 947 ]
+"238
+[e ) -> 1 `i ]
+[e $UE 934  ]
+"239
+[e :UE 934 ]
 }

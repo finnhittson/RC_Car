@@ -46,6 +46,13 @@
 #define DYNPD				0x1C
 #define FEATURE				0x1D
 
+typedef enum {
+	LOW = 0,
+	HIGH
+} Level_t;
+
 void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
+void sendNOP(uint8_t *result);
 void delay (volatile int length);
+void cs(Level_t level);

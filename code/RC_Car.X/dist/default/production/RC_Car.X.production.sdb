@@ -1,0 +1,625 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F18326 ]
+[d frameptr 6 ]
+"17 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/main.c
+[e E6701 . `uc
+RECEIVER 0
+TRANSMITTER 1
+]
+"28
+[e E6656 . `uc
+LOW 0
+HIGH 1
+]
+"155
+[e E6716 . `uc
+RX 0
+TX 1
+Standby2 2
+Standby1 3
+PowerDown 4
+]
+"173
+[e E6776 . `uc
+COLLECT_ADC_DATA 0
+TRANSMIT_ADC_DATA 1
+CLEAR_INTERRUPT 2
+DONE 3
+]
+"44 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/SPI.c
+[e E6335 . `uc
+LOW 0
+HIGH 1
+]
+"12 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/nRF24L01.c
+[e E6384 . `uc
+RF_DR_1Mbps 0
+RF_DR_2Mbps 1
+RF_DR_250Kbps 2
+]
+[e E6389 . `uc
+RF_PWR_18dBm 0
+RF_PWR_12dBm 1
+RF_PWR_6dBm 2
+RF_PWR_0dBm 3
+]
+"55
+[e E6395 . `uc
+RX 0
+TX 1
+Standby2 2
+Standby1 3
+PowerDown 4
+]
+"66
+[e E6335 . `uc
+LOW 0
+HIGH 1
+]
+"25 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/TransmitService.c
+[e E6380 . `uc
+RECEIVER 0
+TRANSMITTER 1
+]
+"34
+[e E6445 . `uc
+ES_INIT 0
+ES_STATUS_FLAGS 1
+ES_HANDLE_PAYLOAD 2
+ES_CONTROL_UPDATE 3
+]
+"148
+[e E6335 . `uc
+LOW 0
+HIGH 1
+]
+"5 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"21 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/main.c
+[v _main main `(i  1 e 2 0 ]
+"4 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/nRF24L01.c
+[v _StartRadio StartRadio `(a  1 e 1 0 ]
+"66
+[v _ce ce `(v  1 e 1 0 ]
+"74
+[v _FlushRX FlushRX `(v  1 e 1 0 ]
+"80
+[v _FlushTX FlushTX `(v  1 e 1 0 ]
+"86
+[v _RFSetup RFSetup `(v  1 e 1 0 ]
+"99
+[v _ChangeRadioMode ChangeRadioMode `(v  1 e 1 0 ]
+"156
+[v _SetupPayloadSize SetupPayloadSize `(v  1 e 1 0 ]
+"178
+[v _FeatureTest FeatureTest `(v  1 e 1 0 ]
+"210
+[v _SetupRetries SetupRetries `(v  1 e 1 0 ]
+"221
+[v _ReadRXFIFO ReadRXFIFO `(a  1 e 1 0 ]
+"242
+[v _StartListening StartListening `(v  1 e 1 0 ]
+"3 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/SPI.c
+[v _ReadRegister ReadRegister `(v  1 e 1 0 ]
+"8
+[v _SendSPI SendSPI `(v  1 e 1 0 ]
+"38
+[v _delay delay `(v  1 e 1 0 ]
+"52
+[v _sendNOP sendNOP `(v  1 e 1 0 ]
+"134 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/TransmitService.c
+[v _transmitPayload transmitPayload `(v  1 e 1 0 ]
+"153
+[v _packagePayload packagePayload `(v  1 e 1 0 ]
+[s S95 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+]
+"399 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[u S102 . 1 `S95 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES102  1 e 1 @12 ]
+[s S430 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+]
+"449
+[u S437 . 1 `S430 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES437  1 e 1 @14 ]
+"1388
+[v _TMR2 TMR2 `VEuc  1 e 1 @29 ]
+"1408
+[v _PR2 PR2 `VEuc  1 e 1 @30 ]
+[s S239 . 1 `uc 1 T2CKPS 1 0 :2:0 
+`uc 1 TMR2ON 1 0 :1:2 
+`uc 1 T2OUTPS 1 0 :4:3 
+]
+"1449
+[s S243 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+`uc 1 T2CKPS1 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 T2OUTPS0 1 0 :1:3 
+`uc 1 T2OUTPS1 1 0 :1:4 
+`uc 1 T2OUTPS2 1 0 :1:5 
+`uc 1 T2OUTPS3 1 0 :1:6 
+]
+[u S251 . 1 `S239 1 . 1 0 `S243 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES251  1 e 1 @31 ]
+[s S36 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+]
+"1514
+[u S43 . 1 `S36 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES43  1 e 1 @140 ]
+[s S112 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+]
+"1559
+[u S119 . 1 `S112 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES119  1 e 1 @142 ]
+"1941
+[v _ADRESL ADRESL `VEuc  1 e 1 @155 ]
+"1961
+[v _ADRESH ADRESH `VEuc  1 e 1 @156 ]
+[s S338 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :6:2 
+]
+"2007
+[s S342 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 ADGO 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+`uc 1 CHS4 1 0 :1:6 
+`uc 1 CHS5 1 0 :1:7 
+]
+[s S351 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+]
+[u S354 . 1 `S338 1 . 1 0 `S342 1 . 1 0 `S351 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES354  1 e 1 @157 ]
+[s S375 . 1 `uc 1 ADPREF 1 0 :2:0 
+`uc 1 ADNREF 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 ADCS 1 0 :3:4 
+`uc 1 ADFM 1 0 :1:7 
+]
+"2089
+[s S381 . 1 `uc 1 ADPREF0 1 0 :1:0 
+`uc 1 ADPREF1 1 0 :1:1 
+`uc 1 . 1 0 :2:2 
+`uc 1 ADCS0 1 0 :1:4 
+`uc 1 ADCS1 1 0 :1:5 
+`uc 1 ADCS2 1 0 :1:6 
+]
+[u S388 . 1 `S375 1 . 1 0 `S381 1 . 1 0 ]
+[v _ADCON1bits ADCON1bits `VES388  1 e 1 @158 ]
+[s S53 . 1 `uc 1 LATA0 1 0 :1:0 
+`uc 1 LATA1 1 0 :1:1 
+`uc 1 LATA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 LATA4 1 0 :1:4 
+`uc 1 LATA5 1 0 :1:5 
+]
+"2206
+[u S60 . 1 `S53 1 . 1 0 ]
+[v _LATAbits LATAbits `VES60  1 e 1 @268 ]
+[s S149 . 1 `uc 1 LATC0 1 0 :1:0 
+`uc 1 LATC1 1 0 :1:1 
+`uc 1 LATC2 1 0 :1:2 
+`uc 1 LATC3 1 0 :1:3 
+`uc 1 LATC4 1 0 :1:4 
+`uc 1 LATC5 1 0 :1:5 
+]
+"2251
+[u S156 . 1 `S149 1 . 1 0 ]
+[v _LATCbits LATCbits `VES156  1 e 1 @270 ]
+[s S78 . 1 `uc 1 ANSA0 1 0 :1:0 
+`uc 1 ANSA1 1 0 :1:1 
+`uc 1 ANSA2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 ANSA4 1 0 :1:4 
+`uc 1 ANSA5 1 0 :1:5 
+]
+"2794
+[u S85 . 1 `S78 1 . 1 0 ]
+[v _ANSELAbits ANSELAbits `VES85  1 e 1 @396 ]
+[s S129 . 1 `uc 1 ANSC0 1 0 :1:0 
+`uc 1 ANSC1 1 0 :1:1 
+`uc 1 ANSC2 1 0 :1:2 
+`uc 1 ANSC3 1 0 :1:3 
+`uc 1 ANSC4 1 0 :1:4 
+`uc 1 ANSC5 1 0 :1:5 
+]
+"2839
+[u S136 . 1 `S129 1 . 1 0 ]
+[v _ANSELCbits ANSELCbits `VES136  1 e 1 @398 ]
+"3829
+[v _SSP1BUF SSP1BUF `VEuc  1 e 1 @529 ]
+[s S192 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+"4613
+[u S201 . 1 `S192 1 . 1 0 ]
+[v _SSP1STATbits SSP1STATbits `VES201  1 e 1 @532 ]
+[s S166 . 1 `uc 1 SSPM 1 0 :4:0 
+`uc 1 CKP 1 0 :1:4 
+`uc 1 SSPEN 1 0 :1:5 
+`uc 1 SSPOV 1 0 :1:6 
+`uc 1 WCOL 1 0 :1:7 
+]
+"4746
+[s S172 . 1 `uc 1 SSPM0 1 0 :1:0 
+`uc 1 SSPM1 1 0 :1:1 
+`uc 1 SSPM2 1 0 :1:2 
+`uc 1 SSPM3 1 0 :1:3 
+]
+[u S177 . 1 `S166 1 . 1 0 `S172 1 . 1 0 ]
+[v _SSP1CON1bits SSP1CON1bits `VES177  1 e 1 @533 ]
+"8360
+[v _PWM5DCL PWM5DCL `VEuc  1 e 1 @1559 ]
+"8396
+[v _PWM5DCH PWM5DCH `VEuc  1 e 1 @1560 ]
+[s S269 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 PWM5POL 1 0 :1:4 
+`uc 1 PWM5OUT 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 PWM5EN 1 0 :1:7 
+]
+"8485
+[u S275 . 1 `S269 1 . 1 0 ]
+[v _PWM5CONbits PWM5CONbits `VES275  1 e 1 @1561 ]
+"8532
+[v _PWM6DCL PWM6DCL `VEuc  1 e 1 @1562 ]
+"8568
+[v _PWM6DCH PWM6DCH `VEuc  1 e 1 @1563 ]
+[s S307 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 PWM6POL 1 0 :1:4 
+`uc 1 PWM6OUT 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 PWM6EN 1 0 :1:7 
+]
+"8657
+[u S313 . 1 `S307 1 . 1 0 ]
+[v _PWM6CONbits PWM6CONbits `VES313  1 e 1 @1564 ]
+[s S287 . 1 `uc 1 P5TSEL 1 0 :2:0 
+`uc 1 P6TSEL 1 0 :2:2 
+]
+"8721
+[s S290 . 1 `uc 1 P5TSEL0 1 0 :1:0 
+`uc 1 P5TSEL1 1 0 :1:1 
+`uc 1 P6TSEL0 1 0 :1:2 
+`uc 1 P6TSEL1 1 0 :1:3 
+]
+[u S295 . 1 `S287 1 . 1 0 `S290 1 . 1 0 ]
+[v _PWMTMRSbits PWMTMRSbits `VES295  1 e 1 @1567 ]
+"13207
+[v _SSP1DATPPS SSP1DATPPS `VEuc  1 e 1 @3617 ]
+"13859
+[v _RA4PPS RA4PPS `VEuc  1 e 1 @3732 ]
+"13963
+[v _RC0PPS RC0PPS `VEuc  1 e 1 @3744 ]
+"14119
+[v _RC3PPS RC3PPS `VEuc  1 e 1 @3747 ]
+"14171
+[v _RC4PPS RC4PPS `VEuc  1 e 1 @3748 ]
+[s S25 . 1 `uc 1 TX_FULL 1 0 :1:0 
+`uc 1 RX_P_NO 1 0 :3:1 
+`uc 1 MAX_RT 1 0 :1:4 
+`uc 1 TX_DS 1 0 :1:5 
+`uc 1 RX_DR 1 0 :1:6 
+]
+"18 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/main.c
+[s S31 . 1 `uc 1 w 1 0 :8:0 
+]
+[u S33 . 1 `S25 1 . 1 0 `S31 1 . 1 0 ]
+[v _SPI_STATUSbits SPI_STATUSbits `S33  1 e 1 0 ]
+"23 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/TransmitService.c
+[v _address address `[5]uc  1 e 5 0 ]
+"24
+[v _payload payload `[7]uc  1 e 7 0 ]
+"25
+[v _radioType radioType `E6701  1 e 1 0 ]
+"26
+[v _motorSpeed motorSpeed `uc  1 s 1 motorSpeed ]
+"27
+[v _servoPos servoPos `uc  1 s 1 servoPos ]
+"28
+[v _readyToTransmit readyToTransmit `a  1 e 1 0 ]
+"21 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/main.c
+[v _main main `(i  1 e 2 0 ]
+{
+"210
+[v main@bruh bruh `uc  1 a 1 32 ]
+"141
+[v main@databytes_541 databytes `[6]uc  1 a 6 26 ]
+"142
+[v main@result_542 result `[6]uc  1 a 6 20 ]
+"94
+[v main@result_525 result `[2]uc  1 a 2 41 ]
+"93
+[v main@databytes databytes `[2]uc  1 a 2 35 ]
+"81
+[v main@val val `a  1 a 1 34 ]
+"172
+[v main@bytes bytes `[4]uc  1 a 4 37 ]
+"77
+[v main@result result `[2]uc  1 a 2 43 ]
+"173
+[v main@currentState currentState `E6776  1 a 1 33 ]
+"239
+} 0
+"134 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/TransmitService.c
+[v _transmitPayload transmitPayload `(v  1 e 1 0 ]
+{
+[s S25 . 1 `uc 1 TX_FULL 1 0 :1:0 
+`uc 1 RX_P_NO 1 0 :3:1 
+`uc 1 MAX_RT 1 0 :1:4 
+`uc 1 TX_DS 1 0 :1:5 
+`uc 1 RX_DR 1 0 :1:6 
+]
+[s S31 . 1 `uc 1 w 1 0 :8:0 
+]
+[u S33 . 1 `S25 1 . 1 0 `S31 1 . 1 0 ]
+[v transmitPayload@SPI_STATUSbits SPI_STATUSbits `S33  1 p 1 wreg ]
+"140
+[v transmitPayload@result result `[2]uc  1 a 2 10 ]
+"139
+[v transmitPayload@databytes databytes `[2]uc  1 a 2 8 ]
+"146
+[v transmitPayload@result_884 result `[7]uc  1 a 7 0 ]
+"134
+[v transmitPayload@SPI_STATUSbits SPI_STATUSbits `S33  1 p 1 wreg ]
+[v transmitPayload@SPI_STATUSbits SPI_STATUSbits `S33  1 p 1 7 ]
+"151
+} 0
+"52 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/SPI.c
+[v _sendNOP sendNOP `(v  1 e 1 0 ]
+{
+"53
+[v sendNOP@bytes bytes `[1]uc  1 a 1 7 ]
+"52
+[v sendNOP@result result `*.4uc  1 p 1 6 ]
+[v sendNOP@F6368 F6368 `[1]uc  1 s 1 F6368 ]
+"55
+} 0
+"153 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/TransmitService.c
+[v _packagePayload packagePayload `(v  1 e 1 0 ]
+{
+[v packagePayload@bytes1 bytes1 `uc  1 p 1 wreg ]
+"154
+[v packagePayload@checksum checksum `uc  1 a 1 5 ]
+"153
+[v packagePayload@bytes1 bytes1 `uc  1 p 1 wreg ]
+[v packagePayload@bytes2 bytes2 `uc  1 p 1 0 ]
+[v packagePayload@bytes3 bytes3 `uc  1 p 1 1 ]
+[v packagePayload@bytes4 bytes4 `uc  1 p 1 2 ]
+[v packagePayload@bytes1 bytes1 `uc  1 p 1 6 ]
+"162
+} 0
+"4 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/nRF24L01.c
+[v _StartRadio StartRadio `(a  1 e 1 0 ]
+{
+[v StartRadio@channel channel `uc  1 p 1 wreg ]
+"6
+[v StartRadio@databytes databytes `[2]uc  1 a 2 12 ]
+"5
+[v StartRadio@ReturnVal ReturnVal `a  1 a 1 11 ]
+"4
+[v StartRadio@channel channel `uc  1 p 1 wreg ]
+[v StartRadio@payloadSize payloadSize `uc  1 p 1 8 ]
+[v StartRadio@result result `*.4uc  1 p 1 9 ]
+[v StartRadio@channel channel `uc  1 p 1 10 ]
+"64
+} 0
+"210
+[v _SetupRetries SetupRetries `(v  1 e 1 0 ]
+{
+"215
+[v SetupRetries@databytes databytes `[2]uc  1 a 2 2 ]
+"211
+[v SetupRetries@ARDbin ARDbin `us  1 a 2 0 ]
+"210
+[v SetupRetries@autoReTXDelay autoReTXDelay `us  1 p 2 7 ]
+[v SetupRetries@autoReTXCount autoReTXCount `uc  1 p 1 9 ]
+[v SetupRetries@result result `*.4uc  1 p 1 10 ]
+"219
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
+"11
+[v ___lwdiv@counter counter `uc  1 a 1 6 ]
+"5
+[v ___lwdiv@divisor divisor `ui  1 p 2 0 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
+"30
+} 0
+"156 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/nRF24L01.c
+[v _SetupPayloadSize SetupPayloadSize `(v  1 e 1 0 ]
+{
+[v SetupPayloadSize@size size `uc  1 p 1 wreg ]
+"157
+[v SetupPayloadSize@databytes databytes `[2]uc  1 a 2 8 ]
+"156
+[v SetupPayloadSize@size size `uc  1 p 1 wreg ]
+[v SetupPayloadSize@result result `*.4uc  1 p 1 6 ]
+"158
+[v SetupPayloadSize@size size `uc  1 p 1 7 ]
+"176
+} 0
+"86
+[v _RFSetup RFSetup `(v  1 e 1 0 ]
+{
+[v RFSetup@datarate datarate `E6384  1 p 1 wreg ]
+"93
+[v RFSetup@databytes databytes `[2]uc  1 a 2 0 ]
+[s S686 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 RF_PWR 1 0 :2:1 
+`uc 1 RF_DR_HIGH 1 0 :1:3 
+`uc 1 PLL_HIGH 1 0 :1:4 
+`uc 1 RF_DR_LOW 1 0 :1:5 
+`uc 1 . 1 0 :1:6 
+`uc 1 CONT_WAVE 1 0 :1:7 
+]
+"88
+[s S31 . 1 `uc 1 w 1 0 :8:0 
+]
+[u S696 . 1 `S686 1 . 1 0 `S31 1 . 1 0 ]
+[v RFSetup@Setup Setup `S696  1 a 1 3 ]
+"86
+[v RFSetup@datarate datarate `E6384  1 p 1 wreg ]
+[v RFSetup@power power `E6389  1 p 1 10 ]
+[v RFSetup@result result `*.4uc  1 p 1 11 ]
+[v RFSetup@datarate datarate `E6384  1 p 1 2 ]
+"97
+} 0
+"80
+[v _FlushTX FlushTX `(v  1 e 1 0 ]
+{
+"82
+[v FlushTX@result result `[1]uc  1 a 1 7 ]
+"81
+[v FlushTX@bytes bytes `[1]uc  1 a 1 6 ]
+"80
+[v FlushTX@F6446 F6446 `[1]uc  1 s 1 F6446 ]
+"84
+} 0
+"74
+[v _FlushRX FlushRX `(v  1 e 1 0 ]
+{
+"76
+[v FlushRX@result result `[1]uc  1 a 1 7 ]
+"75
+[v FlushRX@bytes bytes `[1]uc  1 a 1 6 ]
+"74
+[v FlushRX@F6442 F6442 `[1]uc  1 s 1 F6442 ]
+"78
+} 0
+"178
+[v _FeatureTest FeatureTest `(v  1 e 1 0 ]
+{
+"200
+[v FeatureTest@databytes databytes `[2]uc  1 a 2 2 ]
+"186
+[v FeatureTest@FeaturesAfter FeaturesAfter `[2]uc  1 a 2 6 ]
+"179
+[v FeatureTest@FeaturesBefore FeaturesBefore `[2]uc  1 a 2 4 ]
+"183
+[v FeatureTest@bytes bytes `[2]uc  1 a 2 0 ]
+"178
+[v FeatureTest@result result `*.4uc  1 p 1 10 ]
+"180
+[v FeatureTest@F6469 F6469 `[2]uc  1 s 2 F6469 ]
+"199
+[v FeatureTest@F6472 F6472 `[2]uc  1 s 2 F6472 ]
+"208
+} 0
+"3 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/SPI.c
+[v _ReadRegister ReadRegister `(v  1 e 1 0 ]
+{
+[v ReadRegister@reg reg `uc  1 p 1 wreg ]
+"4
+[v ReadRegister@bytes bytes `[2]uc  1 a 2 8 ]
+"3
+[v ReadRegister@reg reg `uc  1 p 1 wreg ]
+[v ReadRegister@result result `*.4uc  1 p 1 6 ]
+[v ReadRegister@reg reg `uc  1 p 1 7 ]
+"6
+} 0
+"242 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/nRF24L01.c
+[v _StartListening StartListening `(v  1 e 1 0 ]
+{
+"247
+[v StartListening@databytes databytes `[6]uc  1 a 6 3 ]
+"242
+[v StartListening@address address `*.4uc  1 p 1 0 ]
+[v StartListening@addressWidth addressWidth `uc  1 p 1 1 ]
+[v StartListening@result result `*.4uc  1 p 1 2 ]
+"260
+} 0
+"99
+[v _ChangeRadioMode ChangeRadioMode `(v  1 e 1 0 ]
+{
+[v ChangeRadioMode@newMode newMode `E6395  1 p 1 wreg ]
+"149
+[v ChangeRadioMode@databytes databytes `[2]uc  1 a 2 11 ]
+[s S699 . 1 `uc 1 PRIM_RX 1 0 :1:0 
+`uc 1 PWR_UP 1 0 :1:1 
+`uc 1 CRCO 1 0 :1:2 
+`uc 1 EN_CRC 1 0 :1:3 
+`uc 1 MASK_MAX_RT 1 0 :1:4 
+`uc 1 MASK_TX_DS 1 0 :1:5 
+`uc 1 MASK_RX_DR 1 0 :1:6 
+]
+"100
+[s S31 . 1 `uc 1 w 1 0 :8:0 
+]
+[u S709 . 1 `S699 1 . 1 0 `S31 1 . 1 0 ]
+[v ChangeRadioMode@CONFIGbits CONFIGbits `S709  1 a 1 13 ]
+"99
+[v ChangeRadioMode@newMode newMode `E6395  1 p 1 wreg ]
+[v ChangeRadioMode@CRCbytes CRCbytes `uc  1 p 1 6 ]
+[v ChangeRadioMode@result result `*.4uc  1 p 1 7 ]
+[v ChangeRadioMode@F6459 F6459 `S709  1 s 1 F6459 ]
+[v ChangeRadioMode@newMode newMode `E6395  1 p 1 10 ]
+"154
+} 0
+"66
+[v _ce ce `(v  1 e 1 0 ]
+{
+[v ce@Level Level `E6335  1 p 1 wreg ]
+[v ce@Level Level `E6335  1 p 1 wreg ]
+[v ce@Level Level `E6335  1 p 1 0 ]
+"72
+} 0
+"8 C:\Users\pig\Documents\GitHub\RC_Car\code\RC_Car.X\SourceFiles/SPI.c
+[v _SendSPI SendSPI `(v  1 e 1 0 ]
+{
+"17
+[v SendSPI@i i `uc  1 a 1 5 ]
+"8
+[v SendSPI@bytes bytes `*.4uc  1 p 1 2 ]
+[v SendSPI@result result `*.4uc  1 p 1 3 ]
+[v SendSPI@n n `uc  1 p 1 4 ]
+"36
+} 0
+"38
+[v _delay delay `(v  1 e 1 0 ]
+{
+[v delay@length length `VEi  1 p 2 0 ]
+"42
+} 0

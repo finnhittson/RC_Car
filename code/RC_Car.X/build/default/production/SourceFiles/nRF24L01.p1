@@ -1,54 +1,83 @@
 Version 4.0 HI-TECH Software Intermediate Code
+"71 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 71: void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
+[v _SetupRetries `(v ~T0 @X0 0 ef3`us`uc`*uc ]
+"12 SourceFiles/nRF24L01.c
+[; ;SourceFiles/nRF24L01.c: 12:  RFSetup(RF_DR_1Mbps, RF_PWR_18dBm, result);
+[c E6384 0 1 2 .. ]
+[n E6384 . RF_DR_1Mbps RF_DR_2Mbps RF_DR_250Kbps  ]
+[c E6389 0 1 2 3 .. ]
+[n E6389 . RF_PWR_18dBm RF_PWR_12dBm RF_PWR_6dBm RF_PWR_0dBm  ]
+"67 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 67: void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
+[v _RFSetup `(v ~T0 @X0 0 ef3`E6384`E6389`*uc ]
+"70
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 70: void FeatureTest(uint8_t *result);
+[v _FeatureTest `(v ~T0 @X0 0 ef1`*uc ]
 "55 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 55: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 [v _SendSPI `(v ~T0 @X0 0 ef3`*uc`*uc`uc ]
-"2242 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2242:     struct {
-[s S117 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S117 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 ]
-"2241
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2241: typedef union {
-[u S116 `S117 1 ]
-[n S116 . . ]
-"2251
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2251: extern volatile LATCbits_t LATCbits __attribute__((address(0x10E)));
-[v _LATCbits `VS116 ~T0 @X0 0 e@270 ]
-"3829
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 3829: extern volatile unsigned char SSP1BUF __attribute__((address(0x211)));
-[v _SSP1BUF `Vuc ~T0 @X0 0 e@529 ]
-"4602
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4602:     struct {
-[s S228 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S228 . BF UA R_nW S P D_nA CKE SMP ]
-"4601
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4601: typedef union {
-[u S227 `S228 1 ]
-[n S227 . . ]
-"4613
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4613: extern volatile SSP1STATbits_t SSP1STATbits __attribute__((address(0x214)));
-[v _SSP1STATbits `VS227 ~T0 @X0 0 e@532 ]
-"4732
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4732:     struct {
-[s S232 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S232 . SSPM CKP SSPEN SSPOV WCOL ]
-"4739
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4739:     struct {
-[s S233 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S233 . SSPM0 SSPM1 SSPM2 SSPM3 ]
-"4731
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4731: typedef union {
-[u S231 `S232 1 `S233 1 ]
-[n S231 . . . ]
-"4746
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4746: extern volatile SSP1CON1bits_t SSP1CON1bits __attribute__((address(0x215)));
-[v _SSP1CON1bits `VS231 ~T0 @X0 0 e@533 ]
+"69 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 69: void SetupPayloadSize(uint8_t size, uint8_t *result);
+[v _SetupPayloadSize `(v ~T0 @X0 0 ef2`uc`*uc ]
+"66
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 66: void FlushRX(void);
+[v _FlushRX `(v ~T0 @X0 0 ef ]
+"65
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 65: void FlushTX(void);
+[v _FlushTX `(v ~T0 @X0 0 ef ]
+"55 SourceFiles/nRF24L01.c
+[; ;SourceFiles/nRF24L01.c: 55:  ChangeRadioMode(PowerDown, 1, result);
+[c E6395 0 1 2 3 4 .. ]
+[n E6395 . RX TX Standby2 Standby1 PowerDown  ]
+"68 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 68: void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+[v _ChangeRadioMode `(v ~T0 @X0 0 ef3`E6395`uc`*uc ]
+"54 SourceFiles/../HeaderFiles/SPI.h
+[; ;SourceFiles/../HeaderFiles/SPI.h: 54: void ReadRegister(uint8_t reg, uint8_t *result);
+[v _ReadRegister `(v ~T0 @X0 0 ef2`uc`*uc ]
+"66 SourceFiles/nRF24L01.c
+[; ;SourceFiles/nRF24L01.c: 66: void ce(Level_t Level) {
+[c E6335 0 1 .. ]
+[n E6335 . LOW HIGH  ]
+"2197 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2197:     struct {
+[s S115 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S115 . LATA0 LATA1 LATA2 . LATA4 LATA5 ]
+"2196
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2196: typedef union {
+[u S114 `S115 1 ]
+[n S114 . . ]
+"2206
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2206: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
+[v _LATAbits `VS114 ~T0 @X0 0 e@268 ]
+"9 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 9:  struct {
+[s S922 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S922 . . RF_PWR RF_DR_HIGH PLL_HIGH RF_DR_LOW . CONT_WAVE ]
+"18
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 18:  struct {
+[s S923 :8 `uc 1 ]
+[n S923 . w ]
+"8
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 8: typedef union {
+[u S921 `S922 1 `S923 1 ]
+[n S921 . . . ]
+"24
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 24:  struct {
+[s S925 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S925 . PRIM_RX PWR_UP CRCO EN_CRC MASK_MAX_RT MASK_TX_DS MASK_RX_DR ]
+"33
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 33:  struct {
+[s S926 :8 `uc 1 ]
+[n S926 . w ]
+"23
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 23: typedef union {
+[u S924 `S925 1 `S926 1 ]
+[n S924 . . . ]
 "57 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 57: void delay (volatile int length);
 [v _delay `(v ~T0 @X0 0 ef1`Vi ]
-"44 SourceFiles/SPI.c
-[; ;SourceFiles/SPI.c: 44: void cs(Level_t level) {
-[c E6335 0 1 .. ]
-[n E6335 . LOW HIGH  ]
 "54 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 54: __asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
@@ -1057,240 +1086,735 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18767
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 18767: __asm("TOSH equ 0FEFh");
 [; <" TOSH equ 0FEFh ;# ">
-"3 SourceFiles/SPI.c
-[; ;SourceFiles/SPI.c: 3: void ReadRegister(uint8_t reg, uint8_t *result) {
-[v _ReadRegister `(v ~T0 @X0 1 ef2`uc`*uc ]
+"4 SourceFiles/nRF24L01.c
+[; ;SourceFiles/nRF24L01.c: 4: _Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
+[v _StartRadio `(a ~T0 @X0 1 ef3`uc`uc`*uc ]
 {
-[e :U _ReadRegister ]
-[v _reg `uc ~T0 @X0 1 r1 ]
-[v _result `*uc ~T0 @X0 1 r2 ]
+[e :U _StartRadio ]
+[v _channel `uc ~T0 @X0 1 r1 ]
+[v _payloadSize `uc ~T0 @X0 1 r2 ]
+[v _result `*uc ~T0 @X0 1 r3 ]
 [f ]
-[v F6355 `uc ~T0 @X0 -> 2 `i s ]
-[i F6355
-:U ..
-"4
-[; ;SourceFiles/SPI.c: 4:  uint8_t bytes[] = {0x00 | reg, 0xFF};
--> -> 0 `i `uc
--> -> 0 `i `uc
-..
-]
-[v _bytes `uc ~T0 @X0 -> 2 `i a ]
-[e = _bytes F6355 ]
-[e ; = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 0 `i -> _reg `i `uc = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 255 `i `uc ]
 "5
-[; ;SourceFiles/SPI.c: 5:  SendSPI(bytes, result, 2);
-[e ( _SendSPI (3 , , &U _bytes _result -> -> 2 `i `uc ]
+[; ;SourceFiles/nRF24L01.c: 5:  _Bool ReturnVal = 0;
+[v _ReturnVal `a ~T0 @X0 1 a ]
+[e = _ReturnVal -> -> 0 `i `a ]
 "6
-[; ;SourceFiles/SPI.c: 6: }
-[e :UE 921 ]
-}
-"8
-[; ;SourceFiles/SPI.c: 8: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
-[v _SendSPI `(v ~T0 @X0 1 ef3`*uc`*uc`uc ]
-{
-[e :U _SendSPI ]
-[v _bytes `*uc ~T0 @X0 1 r1 ]
-[v _result `*uc ~T0 @X0 1 r2 ]
-[v _n `uc ~T0 @X0 1 r3 ]
-[f ]
+[; ;SourceFiles/nRF24L01.c: 6:  uint8_t databytes[2];
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
 "9
-[; ;SourceFiles/SPI.c: 9:  if (n == 1) {
-[e $ ! == -> _n `i -> 1 `i 923  ]
-{
-"10
-[; ;SourceFiles/SPI.c: 10:   LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"11
-[; ;SourceFiles/SPI.c: 11:   SSP1BUF = bytes[0];
-[e = _SSP1BUF *U + _bytes * -> -> 0 `i `x -> -> # *U _bytes `i `x ]
+[; ;SourceFiles/nRF24L01.c: 9:  SetupRetries(1500, 15, result);
+[e ( _SetupRetries (3 , , -> -> 1500 `i `us -> -> 15 `i `uc _result ]
 "12
-[; ;SourceFiles/SPI.c: 12:   while (!SSP1STATbits.BF);
-[e $U 924  ]
-[e :U 925 ]
-[e :U 924 ]
-[e $ ! != -> . . _SSP1STATbits 0 0 `i -> 0 `i 925  ]
-[e :U 926 ]
-"13
-[; ;SourceFiles/SPI.c: 13:   result[0] = SSP1BUF;
-[e = *U + _result * -> -> 0 `i `x -> -> # *U _result `i `x _SSP1BUF ]
-"14
-[; ;SourceFiles/SPI.c: 14:   LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
+[; ;SourceFiles/nRF24L01.c: 12:  RFSetup(RF_DR_1Mbps, RF_PWR_18dBm, result);
+[e ( _RFSetup (3 , , . `E6384 0 . `E6389 0 _result ]
 "15
-[; ;SourceFiles/SPI.c: 15:  } else {
-}
-[e $U 927  ]
-[e :U 923 ]
-{
-"16
-[; ;SourceFiles/SPI.c: 16:   LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"17
-[; ;SourceFiles/SPI.c: 17:   for (uint8_t i = 0; i < n; i++) {
-{
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $U 931  ]
-[e :U 928 ]
-{
+[; ;SourceFiles/nRF24L01.c: 15:  FeatureTest(result);
+[e ( _FeatureTest (1 _result ]
 "18
-[; ;SourceFiles/SPI.c: 18:             while (SSP1STATbits.BF) {
-[e $U 932  ]
-[e :U 933 ]
-{
+[; ;SourceFiles/nRF24L01.c: 18:  databytes[0] = 0x20 | 0x1C;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 28 `i `uc ]
 "19
-[; ;SourceFiles/SPI.c: 19:                 SSP1BUF;
-[e _SSP1BUF ]
+[; ;SourceFiles/nRF24L01.c: 19:     databytes[1] = 0x00;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 0 `i `uc ]
 "20
-[; ;SourceFiles/SPI.c: 20:             }
+[; ;SourceFiles/nRF24L01.c: 20:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"23
+[; ;SourceFiles/nRF24L01.c: 23:     databytes[0] = 0x20 | 0x01;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 1 `i `uc ]
+"24
+[; ;SourceFiles/nRF24L01.c: 24:  databytes[1] = 0x3F;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 63 `i `uc ]
+"25
+[; ;SourceFiles/nRF24L01.c: 25:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"28
+[; ;SourceFiles/nRF24L01.c: 28:     databytes[0] = 0x20 | 0x02;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 2 `i `uc ]
+"29
+[; ;SourceFiles/nRF24L01.c: 29:  databytes[1] = 0x03;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 3 `i `uc ]
+"30
+[; ;SourceFiles/nRF24L01.c: 30:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"33
+[; ;SourceFiles/nRF24L01.c: 33:  SetupPayloadSize(payloadSize, result);
+[e ( _SetupPayloadSize (2 , _payloadSize _result ]
+"36
+[; ;SourceFiles/nRF24L01.c: 36:     databytes[0] = 0x20 | 0x03;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 3 `i `uc ]
+"37
+[; ;SourceFiles/nRF24L01.c: 37:  databytes[1] = 0x03;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 3 `i `uc ]
+"38
+[; ;SourceFiles/nRF24L01.c: 38:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"41
+[; ;SourceFiles/nRF24L01.c: 41:     databytes[0] = 0x20 | 0x05;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 5 `i `uc ]
+"42
+[; ;SourceFiles/nRF24L01.c: 42:  databytes[1] = channel & 0x7F;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> & -> _channel `i -> 127 `i `uc ]
+"43
+[; ;SourceFiles/nRF24L01.c: 43:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"46
+[; ;SourceFiles/nRF24L01.c: 46:     databytes[0] = 0x20 | 0x07;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"47
+[; ;SourceFiles/nRF24L01.c: 47:  databytes[1] = 0x70;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 112 `i `uc ]
+"48
+[; ;SourceFiles/nRF24L01.c: 48:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"51
+[; ;SourceFiles/nRF24L01.c: 51:  FlushRX();
+[e ( _FlushRX ..  ]
+"52
+[; ;SourceFiles/nRF24L01.c: 52:  FlushTX();
+[e ( _FlushTX ..  ]
+"55
+[; ;SourceFiles/nRF24L01.c: 55:  ChangeRadioMode(PowerDown, 1, result);
+[e ( _ChangeRadioMode (3 , , . `E6395 4 -> -> 1 `i `uc _result ]
+"58
+[; ;SourceFiles/nRF24L01.c: 58:  ReadRegister(0x00, result);
+[e ( _ReadRegister (2 , -> -> 0 `i `uc _result ]
+"59
+[; ;SourceFiles/nRF24L01.c: 59:     if (result[1] & 0x0c) {
+[e $ ! != & -> *U + _result * -> -> 1 `i `x -> -> # *U _result `i `x `i -> 12 `i -> 0 `i 928  ]
+{
+"60
+[; ;SourceFiles/nRF24L01.c: 60:         ReturnVal = 1;
+[e = _ReturnVal -> -> 1 `i `a ]
+"61
+[; ;SourceFiles/nRF24L01.c: 61:     }
+}
+[e :U 928 ]
+"63
+[; ;SourceFiles/nRF24L01.c: 63:  return ReturnVal;
+[e ) _ReturnVal ]
+[e $UE 927  ]
+"64
+[; ;SourceFiles/nRF24L01.c: 64: }
+[e :UE 927 ]
+}
+"66
+[; ;SourceFiles/nRF24L01.c: 66: void ce(Level_t Level) {
+[v _ce `(v ~T0 @X0 1 ef1`E6335 ]
+{
+[e :U _ce ]
+[v _Level `E6335 ~T0 @X0 1 r1 ]
+[f ]
+"67
+[; ;SourceFiles/nRF24L01.c: 67:  if (Level == LOW) {
+[e $ ! == -> _Level `ui -> . `E6335 0 `ui 930  ]
+{
+"68
+[; ;SourceFiles/nRF24L01.c: 68:   LATAbits.LATA1 = 0;
+[e = . . _LATAbits 0 1 -> -> 0 `i `uc ]
+"69
+[; ;SourceFiles/nRF24L01.c: 69:  } else if (Level == HIGH) {
+}
+[e $U 931  ]
+[e :U 930 ]
+[e $ ! == -> _Level `ui -> . `E6335 1 `ui 932  ]
+{
+"70
+[; ;SourceFiles/nRF24L01.c: 70:   LATAbits.LATA1 = 1;
+[e = . . _LATAbits 0 1 -> -> 1 `i `uc ]
+"71
+[; ;SourceFiles/nRF24L01.c: 71:  }
 }
 [e :U 932 ]
-"18
-[; ;SourceFiles/SPI.c: 18:             while (SSP1STATbits.BF) {
-[e $ != -> . . _SSP1STATbits 0 0 `i -> 0 `i 933  ]
-[e :U 934 ]
-"21
-[; ;SourceFiles/SPI.c: 21:    SSP1BUF = bytes[i];
-[e = _SSP1BUF *U + _bytes * -> _i `ux -> -> # *U _bytes `ui `ux ]
-"22
-[; ;SourceFiles/SPI.c: 22:    while (!SSP1STATbits.BF) {
-[e $U 935  ]
-[e :U 936 ]
-{
-"24
-[; ;SourceFiles/SPI.c: 24:             }
-}
-[e :U 935 ]
-"22
-[; ;SourceFiles/SPI.c: 22:    while (!SSP1STATbits.BF) {
-[e $ ! != -> . . _SSP1STATbits 0 0 `i -> 0 `i 936  ]
-[e :U 937 ]
-"26
-[; ;SourceFiles/SPI.c: 26:             if (SSP1CON1bits.WCOL) {
-[e $ ! != -> . . _SSP1CON1bits 0 4 `i -> 0 `i 938  ]
-{
-"27
-[; ;SourceFiles/SPI.c: 27:                 SSP1CON1bits.WCOL = 0;
-[e = . . _SSP1CON1bits 0 4 -> -> 0 `i `uc ]
-"28
-[; ;SourceFiles/SPI.c: 28:                 result[i] = 0xFF;
-[e = *U + _result * -> _i `ux -> -> # *U _result `ui `ux -> -> 255 `i `uc ]
-"29
-[; ;SourceFiles/SPI.c: 29:             } else {
-}
-[e $U 939  ]
-[e :U 938 ]
-{
-"30
-[; ;SourceFiles/SPI.c: 30:                 result[i] = SSP1BUF;
-[e = *U + _result * -> _i `ux -> -> # *U _result `ui `ux _SSP1BUF ]
-"31
-[; ;SourceFiles/SPI.c: 31:             }
-}
-[e :U 939 ]
-"32
-[; ;SourceFiles/SPI.c: 32:   }
-}
-[e ++ _i -> -> 1 `i `uc ]
 [e :U 931 ]
-[e $ < -> _i `i -> _n `i 928  ]
-[e :U 929 ]
+"72
+[; ;SourceFiles/nRF24L01.c: 72: }
+[e :UE 929 ]
 }
-"33
-[; ;SourceFiles/SPI.c: 33:   LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"34
-[; ;SourceFiles/SPI.c: 34:  }
-}
-[e :U 927 ]
-"35
-[; ;SourceFiles/SPI.c: 35:  delay(45);
-[e ( _delay (1 -> 45 `i ]
-"36
-[; ;SourceFiles/SPI.c: 36: }
-[e :UE 922 ]
-}
-"38
-[; ;SourceFiles/SPI.c: 38: void delay (volatile int length) {
-[v _delay `(v ~T0 @X0 1 ef1`Vi ]
+"74
+[; ;SourceFiles/nRF24L01.c: 74: void FlushRX(void) {
+[v _FlushRX `(v ~T0 @X0 1 ef ]
 {
-[e :U _delay ]
-[v _length `Vi ~T0 @X0 1 r1 ]
+[e :U _FlushRX ]
 [f ]
-"39
-[; ;SourceFiles/SPI.c: 39:  while (length >= 0) {
-[e $U 941  ]
-[e :U 942 ]
-{
-"40
-[; ;SourceFiles/SPI.c: 40:      length--;
-[e -- _length -> -> 1 `i `Vi ]
-"41
-[; ;SourceFiles/SPI.c: 41:  }
-}
-[e :U 941 ]
-"39
-[; ;SourceFiles/SPI.c: 39:  while (length >= 0) {
-[e $ >= _length -> 0 `i 942  ]
-[e :U 943 ]
-"42
-[; ;SourceFiles/SPI.c: 42: }
-[e :UE 940 ]
-}
-"44
-[; ;SourceFiles/SPI.c: 44: void cs(Level_t level) {
-[v _cs `(v ~T0 @X0 1 ef1`E6335 ]
-{
-[e :U _cs ]
-[v _level `E6335 ~T0 @X0 1 r1 ]
-[f ]
-"45
-[; ;SourceFiles/SPI.c: 45:     if (level == HIGH) {
-[e $ ! == -> _level `ui -> . `E6335 1 `ui 945  ]
-{
-"46
-[; ;SourceFiles/SPI.c: 46:         LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-"47
-[; ;SourceFiles/SPI.c: 47:     } else if (level == LOW) {
-}
-[e $U 946  ]
-[e :U 945 ]
-[e $ ! == -> _level `ui -> . `E6335 0 `ui 947  ]
-{
-"48
-[; ;SourceFiles/SPI.c: 48:         LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
-"49
-[; ;SourceFiles/SPI.c: 49:     }
-}
-[e :U 947 ]
-[e :U 946 ]
-"50
-[; ;SourceFiles/SPI.c: 50: }
-[e :UE 944 ]
-}
-"52
-[; ;SourceFiles/SPI.c: 52: void sendNOP(uint8_t *result) {
-[v _sendNOP `(v ~T0 @X0 1 ef1`*uc ]
-{
-[e :U _sendNOP ]
-[v _result `*uc ~T0 @X0 1 r1 ]
-[f ]
-[v F6368 `uc ~T0 @X0 -> -> 1 `i `ux s ]
-[i F6368
+[v F6442 `uc ~T0 @X0 -> -> 1 `i `ux s ]
+[i F6442
 :U ..
-"53
-[; ;SourceFiles/SPI.c: 53:     uint8_t bytes[1] = {0xFF};
--> -> 255 `i `uc
+"75
+[; ;SourceFiles/nRF24L01.c: 75:  uint8_t bytes[] = {0xE2};
+-> -> 226 `i `uc
 ..
 ]
 [v _bytes `uc ~T0 @X0 -> -> 1 `i `ux a ]
-[e = _bytes F6368 ]
-"54
-[; ;SourceFiles/SPI.c: 54:     SendSPI(bytes, result, 1);
-[e ( _SendSPI (3 , , &U _bytes _result -> -> 1 `i `uc ]
-"55
-[; ;SourceFiles/SPI.c: 55: }
-[e :UE 948 ]
+[e = _bytes F6442 ]
+"76
+[; ;SourceFiles/nRF24L01.c: 76:  uint8_t result[1];
+[v _result `uc ~T0 @X0 -> -> 1 `i `ux a ]
+"77
+[; ;SourceFiles/nRF24L01.c: 77:  SendSPI(bytes, result, 1);
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 1 `i `uc ]
+"78
+[; ;SourceFiles/nRF24L01.c: 78: }
+[e :UE 933 ]
+}
+"80
+[; ;SourceFiles/nRF24L01.c: 80: void FlushTX(void) {
+[v _FlushTX `(v ~T0 @X0 1 ef ]
+{
+[e :U _FlushTX ]
+[f ]
+[v F6446 `uc ~T0 @X0 -> -> 1 `i `ux s ]
+[i F6446
+:U ..
+"81
+[; ;SourceFiles/nRF24L01.c: 81:  uint8_t bytes[] = {0xE1};
+-> -> 225 `i `uc
+..
+]
+[v _bytes `uc ~T0 @X0 -> -> 1 `i `ux a ]
+[e = _bytes F6446 ]
+"82
+[; ;SourceFiles/nRF24L01.c: 82:  uint8_t result[1];
+[v _result `uc ~T0 @X0 -> -> 1 `i `ux a ]
+"83
+[; ;SourceFiles/nRF24L01.c: 83:  SendSPI(bytes, result, 1);
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 1 `i `uc ]
+"84
+[; ;SourceFiles/nRF24L01.c: 84: }
+[e :UE 934 ]
+}
+"86
+[; ;SourceFiles/nRF24L01.c: 86: void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
+[v _RFSetup `(v ~T0 @X0 1 ef3`E6384`E6389`*uc ]
+{
+[e :U _RFSetup ]
+[v _datarate `E6384 ~T0 @X0 1 r1 ]
+[v _power `E6389 ~T0 @X0 1 r2 ]
+[v _result `*uc ~T0 @X0 1 r3 ]
+[f ]
+"87
+[; ;SourceFiles/nRF24L01.c: 87:  ReadRegister(0x06, result);
+[e ( _ReadRegister (2 , -> -> 6 `i `uc _result ]
+"88
+[; ;SourceFiles/nRF24L01.c: 88:  RF_SETUPbits_t Setup;
+[v _Setup `S921 ~T0 @X0 1 a ]
+"89
+[; ;SourceFiles/nRF24L01.c: 89:  Setup.w = result[1];
+[e = . . _Setup 1 0 *U + _result * -> -> 1 `i `x -> -> # *U _result `i `x ]
+"90
+[; ;SourceFiles/nRF24L01.c: 90:  Setup.RF_PWR = power;
+[e = . . _Setup 0 1 -> _power `uc ]
+"91
+[; ;SourceFiles/nRF24L01.c: 91:  Setup.RF_DR_LOW = (datarate & 0x02) >> 1;
+[e = . . _Setup 0 4 -> >> & -> _datarate `ui -> -> 2 `i `ui -> 1 `i `uc ]
+"92
+[; ;SourceFiles/nRF24L01.c: 92:  Setup.RF_DR_HIGH = datarate & 0x01;
+[e = . . _Setup 0 2 -> & -> _datarate `ui -> -> 1 `i `ui `uc ]
+"93
+[; ;SourceFiles/nRF24L01.c: 93:  uint8_t databytes[2];
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+"94
+[; ;SourceFiles/nRF24L01.c: 94:     databytes[0] = 0x20 | 0x06;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 6 `i `uc ]
+"95
+[; ;SourceFiles/nRF24L01.c: 95:     databytes[1] = Setup.w;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux . . _Setup 1 0 ]
+"96
+[; ;SourceFiles/nRF24L01.c: 96:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"97
+[; ;SourceFiles/nRF24L01.c: 97: }
+[e :UE 935 ]
+}
+"99
+[; ;SourceFiles/nRF24L01.c: 99: void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
+[v _ChangeRadioMode `(v ~T0 @X0 1 ef3`E6395`uc`*uc ]
+{
+[e :U _ChangeRadioMode ]
+[v _newMode `E6395 ~T0 @X0 1 r1 ]
+[v _CRCbytes `uc ~T0 @X0 1 r2 ]
+[v _result `*uc ~T0 @X0 1 r3 ]
+[f ]
+[v F6459 `S924 ~T0 @X0 1 s ]
+[i F6459
+:U 0
+:U ..
+:U ..
+:U ..
+"100
+[; ;SourceFiles/nRF24L01.c: 100:  CONFIGbits_t CONFIGbits = {0};
+-> -> 0 `i `uc
+..
+..
+..
+..
+]
+[v _CONFIGbits `S924 ~T0 @X0 1 a ]
+[e = _CONFIGbits F6459 ]
+"101
+[; ;SourceFiles/nRF24L01.c: 101:  CONFIGbits.EN_CRC = 1;
+[e = . . _CONFIGbits 0 3 -> -> 1 `i `uc ]
+"102
+[; ;SourceFiles/nRF24L01.c: 102:  CONFIGbits.CRCO = CRCbytes;
+[e = . . _CONFIGbits 0 2 _CRCbytes ]
+"103
+[; ;SourceFiles/nRF24L01.c: 103:  CONFIGbits.MASK_RX_DR = 0;
+[e = . . _CONFIGbits 0 6 -> -> 0 `i `uc ]
+"104
+[; ;SourceFiles/nRF24L01.c: 104:  CONFIGbits.MASK_TX_DS = 0;
+[e = . . _CONFIGbits 0 5 -> -> 0 `i `uc ]
+"105
+[; ;SourceFiles/nRF24L01.c: 105:  CONFIGbits.MASK_MAX_RT = 0;
+[e = . . _CONFIGbits 0 4 -> -> 0 `i `uc ]
+"106
+[; ;SourceFiles/nRF24L01.c: 106:  switch (newMode) {
+[e $U 938  ]
+{
+"107
+[; ;SourceFiles/nRF24L01.c: 107:  case RX:
+[e :U 939 ]
+"108
+[; ;SourceFiles/nRF24L01.c: 108:   {
+{
+"109
+[; ;SourceFiles/nRF24L01.c: 109:    CONFIGbits.PWR_UP = 1;
+[e = . . _CONFIGbits 0 1 -> -> 1 `i `uc ]
+"110
+[; ;SourceFiles/nRF24L01.c: 110:    CONFIGbits.PRIM_RX = 1;
+[e = . . _CONFIGbits 0 0 -> -> 1 `i `uc ]
+"111
+[; ;SourceFiles/nRF24L01.c: 111:    ce(HIGH);
+[e ( _ce (1 . `E6335 1 ]
+"112
+[; ;SourceFiles/nRF24L01.c: 112:    break;
+[e $U 937  ]
+"113
+[; ;SourceFiles/nRF24L01.c: 113:   }
+}
+"115
+[; ;SourceFiles/nRF24L01.c: 115:  case TX:
+[e :U 940 ]
+"116
+[; ;SourceFiles/nRF24L01.c: 116:   {
+{
+"117
+[; ;SourceFiles/nRF24L01.c: 117:    CONFIGbits.PWR_UP = 1;
+[e = . . _CONFIGbits 0 1 -> -> 1 `i `uc ]
+"118
+[; ;SourceFiles/nRF24L01.c: 118:    CONFIGbits.PRIM_RX = 0;
+[e = . . _CONFIGbits 0 0 -> -> 0 `i `uc ]
+"119
+[; ;SourceFiles/nRF24L01.c: 119:    ce(HIGH);
+[e ( _ce (1 . `E6335 1 ]
+"120
+[; ;SourceFiles/nRF24L01.c: 120:    break;
+[e $U 937  ]
+"121
+[; ;SourceFiles/nRF24L01.c: 121:   }
+}
+"123
+[; ;SourceFiles/nRF24L01.c: 123:  case Standby2:
+[e :U 941 ]
+"124
+[; ;SourceFiles/nRF24L01.c: 124:   {
+{
+"127
+[; ;SourceFiles/nRF24L01.c: 127:    CONFIGbits.PWR_UP = 1;
+[e = . . _CONFIGbits 0 1 -> -> 1 `i `uc ]
+"128
+[; ;SourceFiles/nRF24L01.c: 128:    CONFIGbits.PRIM_RX = 0;
+[e = . . _CONFIGbits 0 0 -> -> 0 `i `uc ]
+"129
+[; ;SourceFiles/nRF24L01.c: 129:    ce(HIGH);
+[e ( _ce (1 . `E6335 1 ]
+"130
+[; ;SourceFiles/nRF24L01.c: 130:    break;
+[e $U 937  ]
+"131
+[; ;SourceFiles/nRF24L01.c: 131:   }
+}
+"133
+[; ;SourceFiles/nRF24L01.c: 133:  case Standby1:
+[e :U 942 ]
+"134
+[; ;SourceFiles/nRF24L01.c: 134:   {
+{
+"135
+[; ;SourceFiles/nRF24L01.c: 135:    CONFIGbits.PWR_UP = 1;
+[e = . . _CONFIGbits 0 1 -> -> 1 `i `uc ]
+"136
+[; ;SourceFiles/nRF24L01.c: 136:    CONFIGbits.PRIM_RX = 0;
+[e = . . _CONFIGbits 0 0 -> -> 0 `i `uc ]
+"137
+[; ;SourceFiles/nRF24L01.c: 137:    ce(LOW);
+[e ( _ce (1 . `E6335 0 ]
+"138
+[; ;SourceFiles/nRF24L01.c: 138:    break;
+[e $U 937  ]
+"139
+[; ;SourceFiles/nRF24L01.c: 139:   }
+}
+"141
+[; ;SourceFiles/nRF24L01.c: 141:  case PowerDown:
+[e :U 943 ]
+"142
+[; ;SourceFiles/nRF24L01.c: 142:   {
+{
+"143
+[; ;SourceFiles/nRF24L01.c: 143:    CONFIGbits.PWR_UP = 0;
+[e = . . _CONFIGbits 0 1 -> -> 0 `i `uc ]
+"144
+[; ;SourceFiles/nRF24L01.c: 144:    CONFIGbits.PRIM_RX = 0;
+[e = . . _CONFIGbits 0 0 -> -> 0 `i `uc ]
+"145
+[; ;SourceFiles/nRF24L01.c: 145:    ce(LOW);
+[e ( _ce (1 . `E6335 0 ]
+"146
+[; ;SourceFiles/nRF24L01.c: 146:    break;
+[e $U 937  ]
+"147
+[; ;SourceFiles/nRF24L01.c: 147:   }
+}
+"148
+[; ;SourceFiles/nRF24L01.c: 148:  }
+}
+[e $U 937  ]
+[e :U 938 ]
+[e [\ -> _newMode `ui , $ -> . `E6395 0 `ui 939
+ , $ -> . `E6395 1 `ui 940
+ , $ -> . `E6395 2 `ui 941
+ , $ -> . `E6395 3 `ui 942
+ , $ -> . `E6395 4 `ui 943
+ 937 ]
+[e :U 937 ]
+"149
+[; ;SourceFiles/nRF24L01.c: 149:  uint8_t databytes[2];
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+"150
+[; ;SourceFiles/nRF24L01.c: 150:     databytes[0] = 0x20 | 0x00;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 0 `i `uc ]
+"151
+[; ;SourceFiles/nRF24L01.c: 151:     databytes[1] = CONFIGbits.w;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux . . _CONFIGbits 1 0 ]
+"152
+[; ;SourceFiles/nRF24L01.c: 152:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"153
+[; ;SourceFiles/nRF24L01.c: 153:  delay(10000);
+[e ( _delay (1 -> 10000 `i ]
+"154
+[; ;SourceFiles/nRF24L01.c: 154: }
+[e :UE 936 ]
+}
+"156
+[; ;SourceFiles/nRF24L01.c: 156: void SetupPayloadSize(uint8_t size, uint8_t *result) {
+[v _SetupPayloadSize `(v ~T0 @X0 1 ef2`uc`*uc ]
+{
+[e :U _SetupPayloadSize ]
+[v _size `uc ~T0 @X0 1 r1 ]
+[v _result `*uc ~T0 @X0 1 r2 ]
+[f ]
+"157
+[; ;SourceFiles/nRF24L01.c: 157:  uint8_t databytes[2];
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+"158
+[; ;SourceFiles/nRF24L01.c: 158:     databytes[0] = 0x20 | 0x11;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 17 `i `uc ]
+"159
+[; ;SourceFiles/nRF24L01.c: 159:     databytes[1] = size;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux _size ]
+"160
+[; ;SourceFiles/nRF24L01.c: 160:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"162
+[; ;SourceFiles/nRF24L01.c: 162:     databytes[0] = 0x20 | 0x12;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 18 `i `uc ]
+"163
+[; ;SourceFiles/nRF24L01.c: 163:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"165
+[; ;SourceFiles/nRF24L01.c: 165:     databytes[0] = 0x20 | 0x13;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 19 `i `uc ]
+"166
+[; ;SourceFiles/nRF24L01.c: 166:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"168
+[; ;SourceFiles/nRF24L01.c: 168:     databytes[0] = 0x20 | 0x14;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 20 `i `uc ]
+"169
+[; ;SourceFiles/nRF24L01.c: 169:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"171
+[; ;SourceFiles/nRF24L01.c: 171:     databytes[0] = 0x20 | 0x15;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 21 `i `uc ]
+"172
+[; ;SourceFiles/nRF24L01.c: 172:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"174
+[; ;SourceFiles/nRF24L01.c: 174:     databytes[0] = 0x20 | 0x16;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 22 `i `uc ]
+"175
+[; ;SourceFiles/nRF24L01.c: 175:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"176
+[; ;SourceFiles/nRF24L01.c: 176: }
+[e :UE 944 ]
+}
+"178
+[; ;SourceFiles/nRF24L01.c: 178: void FeatureTest(uint8_t *result) {
+[v _FeatureTest `(v ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _FeatureTest ]
+[v _result `*uc ~T0 @X0 1 r1 ]
+[f ]
+"179
+[; ;SourceFiles/nRF24L01.c: 179:  uint8_t FeaturesBefore[2];
+[v _FeaturesBefore `uc ~T0 @X0 -> 2 `i a ]
+"180
+[; ;SourceFiles/nRF24L01.c: 180:  ReadRegister(0x1D, FeaturesBefore);
+[e ( _ReadRegister (2 , -> -> 29 `i `uc &U _FeaturesBefore ]
+[v F6469 `uc ~T0 @X0 -> 2 `i s ]
+[i F6469
+:U ..
+"183
+[; ;SourceFiles/nRF24L01.c: 183:  uint8_t bytes[] = {0x50, 0x73};
+-> -> 80 `i `uc
+-> -> 115 `i `uc
+..
+]
+[v _bytes `uc ~T0 @X0 -> 2 `i a ]
+[e = _bytes F6469 ]
+"184
+[; ;SourceFiles/nRF24L01.c: 184:  SendSPI(bytes, result, 2);
+[e ( _SendSPI (3 , , &U _bytes _result -> -> 2 `i `uc ]
+"186
+[; ;SourceFiles/nRF24L01.c: 186:  uint8_t FeaturesAfter[2];
+[v _FeaturesAfter `uc ~T0 @X0 -> 2 `i a ]
+"187
+[; ;SourceFiles/nRF24L01.c: 187:  ReadRegister(0x1D, FeaturesAfter);
+[e ( _ReadRegister (2 , -> -> 29 `i `uc &U _FeaturesAfter ]
+"189
+[; ;SourceFiles/nRF24L01.c: 189:  if (0) {
+[e $ ! != -> 0 `i -> 0 `i 946  ]
+{
+"192
+[; ;SourceFiles/nRF24L01.c: 192:   if (FeaturesBefore[1] == FeaturesAfter[1]) {
+[e $ ! == -> *U + &U _FeaturesBefore * -> -> -> 1 `i `ui `ux -> -> # *U &U _FeaturesBefore `ui `ux `i -> *U + &U _FeaturesAfter * -> -> -> 1 `i `ui `ux -> -> # *U &U _FeaturesAfter `ui `ux `i 947  ]
+{
+"194
+[; ;SourceFiles/nRF24L01.c: 194:   } else {
+}
+[e $U 948  ]
+[e :U 947 ]
+{
+"196
+[; ;SourceFiles/nRF24L01.c: 196:   }
+}
+[e :U 948 ]
+"197
+[; ;SourceFiles/nRF24L01.c: 197:  }
+}
+[e :U 946 ]
+"199
+[; ;SourceFiles/nRF24L01.c: 199:     if (FeaturesAfter[1]) {
+[e $ ! != -> *U + &U _FeaturesAfter * -> -> -> 1 `i `ui `ux -> -> # *U &U _FeaturesAfter `ui `ux `i -> 0 `i 949  ]
+{
+[v F6472 `uc ~T0 @X0 -> 2 `i s ]
+[i F6472
+:U ..
+"200
+[; ;SourceFiles/nRF24L01.c: 200:         uint8_t databytes[2] = {0x50, 0x73};
+-> -> 80 `i `uc
+-> -> 115 `i `uc
+..
+]
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+[e = _databytes F6472 ]
+"201
+[; ;SourceFiles/nRF24L01.c: 201:   if (FeaturesBefore[1] == FeaturesAfter[1]) {
+[e $ ! == -> *U + &U _FeaturesBefore * -> -> -> 1 `i `ui `ux -> -> # *U &U _FeaturesBefore `ui `ux `i -> *U + &U _FeaturesAfter * -> -> -> 1 `i `ui `ux -> -> # *U &U _FeaturesAfter `ui `ux `i 950  ]
+{
+"202
+[; ;SourceFiles/nRF24L01.c: 202:    SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"203
+[; ;SourceFiles/nRF24L01.c: 203:   }
+}
+[e :U 950 ]
+"204
+[; ;SourceFiles/nRF24L01.c: 204:         databytes[0] = 0x1D;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 29 `i `uc ]
+"205
+[; ;SourceFiles/nRF24L01.c: 205:   databytes[1] = 0x00;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 0 `i `uc ]
+"206
+[; ;SourceFiles/nRF24L01.c: 206:   SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"207
+[; ;SourceFiles/nRF24L01.c: 207:     }
+}
+[e :U 949 ]
+"208
+[; ;SourceFiles/nRF24L01.c: 208: }
+[e :UE 945 ]
+}
+"210
+[; ;SourceFiles/nRF24L01.c: 210: void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result) {
+[v _SetupRetries `(v ~T0 @X0 1 ef3`us`uc`*uc ]
+{
+[e :U _SetupRetries ]
+[v _autoReTXDelay `us ~T0 @X0 1 r1 ]
+[v _autoReTXCount `uc ~T0 @X0 1 r2 ]
+[v _result `*uc ~T0 @X0 1 r3 ]
+[f ]
+"211
+[; ;SourceFiles/nRF24L01.c: 211:  uint16_t ARDbin = autoReTXDelay / 250 - 1;
+[v _ARDbin `us ~T0 @X0 1 a ]
+[e = _ARDbin -> - / -> _autoReTXDelay `ui -> -> 250 `i `ui -> -> 1 `i `ui `us ]
+"212
+[; ;SourceFiles/nRF24L01.c: 212:  if (autoReTXDelay > 4000) {
+[e $ ! > -> _autoReTXDelay `ui -> -> 4000 `i `ui 952  ]
+{
+"213
+[; ;SourceFiles/nRF24L01.c: 213:   ARDbin = 15;
+[e = _ARDbin -> -> 15 `i `us ]
+"214
+[; ;SourceFiles/nRF24L01.c: 214:  }
+}
+[e :U 952 ]
+"215
+[; ;SourceFiles/nRF24L01.c: 215:  uint8_t databytes[2];
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+"216
+[; ;SourceFiles/nRF24L01.c: 216:     databytes[0] = 0x20 | 0x04;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 4 `i `uc ]
+"217
+[; ;SourceFiles/nRF24L01.c: 217:     databytes[1] = (uint8_t)(ARDbin << 4 | autoReTXCount);
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | << -> _ARDbin `ui -> 4 `i -> _autoReTXCount `ui `uc ]
+"218
+[; ;SourceFiles/nRF24L01.c: 218:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"219
+[; ;SourceFiles/nRF24L01.c: 219: }
+[e :UE 951 ]
+}
+"221
+[; ;SourceFiles/nRF24L01.c: 221: _Bool ReadRXFIFO(uint8_t *result) {
+[v _ReadRXFIFO `(a ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _ReadRXFIFO ]
+[v _result `*uc ~T0 @X0 1 r1 ]
+[f ]
+"222
+[; ;SourceFiles/nRF24L01.c: 222:  _Bool ReturnVal = 0;
+[v _ReturnVal `a ~T0 @X0 1 a ]
+[e = _ReturnVal -> -> 0 `i `a ]
+"223
+[; ;SourceFiles/nRF24L01.c: 223:  uint8_t bytes[6 + 1];
+[v _bytes `uc ~T0 @X0 -> 7 `i a ]
+"224
+[; ;SourceFiles/nRF24L01.c: 224:  bytes[0] = 0x61;
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 97 `i `uc ]
+"225
+[; ;SourceFiles/nRF24L01.c: 225:  for (int i = 1; i < 6 + 1; i++) {
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 1 `i ]
+[e $ < _i + -> 6 `i -> 1 `i 954  ]
+[e $U 955  ]
+[e :U 954 ]
+{
+"226
+[; ;SourceFiles/nRF24L01.c: 226:   bytes[i] = 0xFF;
+[e = *U + &U _bytes * -> -> _i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 255 `i `uc ]
+"227
+[; ;SourceFiles/nRF24L01.c: 227:  }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i + -> 6 `i -> 1 `i 954  ]
+[e :U 955 ]
+}
+"228
+[; ;SourceFiles/nRF24L01.c: 228:  SendSPI(bytes, result, 6 + 1);
+[e ( _SendSPI (3 , , &U _bytes _result -> + -> 6 `i -> 1 `i `uc ]
+"231
+[; ;SourceFiles/nRF24L01.c: 231:  uint8_t databytes[2];
+[v _databytes `uc ~T0 @X0 -> 2 `i a ]
+"232
+[; ;SourceFiles/nRF24L01.c: 232:     databytes[0] = 0x20 | 0x07;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"233
+[; ;SourceFiles/nRF24L01.c: 233:     databytes[1] = 0x70;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 112 `i `uc ]
+"234
+[; ;SourceFiles/nRF24L01.c: 234:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"236
+[; ;SourceFiles/nRF24L01.c: 236:  if (result[1] + result[2] + result[3] + result[4] == 0xFF) {
+[e $ ! == + + + -> *U + _result * -> -> 1 `i `x -> -> # *U _result `i `x `i -> *U + _result * -> -> 2 `i `x -> -> # *U _result `i `x `i -> *U + _result * -> -> 3 `i `x -> -> # *U _result `i `x `i -> *U + _result * -> -> 4 `i `x -> -> # *U _result `i `x `i -> 255 `i 957  ]
+{
+"237
+[; ;SourceFiles/nRF24L01.c: 237:   ReturnVal = 1;
+[e = _ReturnVal -> -> 1 `i `a ]
+"238
+[; ;SourceFiles/nRF24L01.c: 238:  }
+}
+[e :U 957 ]
+"239
+[; ;SourceFiles/nRF24L01.c: 239:  return ReturnVal;
+[e ) _ReturnVal ]
+[e $UE 953  ]
+"240
+[; ;SourceFiles/nRF24L01.c: 240: }
+[e :UE 953 ]
+}
+"242
+[; ;SourceFiles/nRF24L01.c: 242: void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result) {
+[v _StartListening `(v ~T0 @X0 1 ef3`*uc`uc`*uc ]
+{
+[e :U _StartListening ]
+[v _address `*uc ~T0 @X0 1 r1 ]
+[v _addressWidth `uc ~T0 @X0 1 r2 ]
+[v _result `*uc ~T0 @X0 1 r3 ]
+[f ]
+"244
+[; ;SourceFiles/nRF24L01.c: 244:  ChangeRadioMode(RX, 1, result);
+[e ( _ChangeRadioMode (3 , , . `E6395 0 -> -> 1 `i `uc _result ]
+"247
+[; ;SourceFiles/nRF24L01.c: 247:     uint8_t databytes[6];
+[v _databytes `uc ~T0 @X0 -> 6 `i a ]
+"248
+[; ;SourceFiles/nRF24L01.c: 248:     databytes[0] = 0x20 | 0x07;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"249
+[; ;SourceFiles/nRF24L01.c: 249:     databytes[1] = 0x70;
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 112 `i `uc ]
+"250
+[; ;SourceFiles/nRF24L01.c: 250:     SendSPI(databytes, result, 2);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 2 `i `uc ]
+"253
+[; ;SourceFiles/nRF24L01.c: 253:     databytes[0] = 0x20 | 0x0A;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 10 `i `uc ]
+"254
+[; ;SourceFiles/nRF24L01.c: 254:     databytes[1] = address[0];
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 0 `i `x -> -> # *U _address `i `x ]
+"255
+[; ;SourceFiles/nRF24L01.c: 255:     databytes[2] = address[1];
+[e = *U + &U _databytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 1 `i `x -> -> # *U _address `i `x ]
+"256
+[; ;SourceFiles/nRF24L01.c: 256:     databytes[3] = address[2];
+[e = *U + &U _databytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 2 `i `x -> -> # *U _address `i `x ]
+"257
+[; ;SourceFiles/nRF24L01.c: 257:     databytes[4] = address[3];
+[e = *U + &U _databytes * -> -> -> 4 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 3 `i `x -> -> # *U _address `i `x ]
+"258
+[; ;SourceFiles/nRF24L01.c: 258:     databytes[5] = address[4];
+[e = *U + &U _databytes * -> -> -> 5 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 4 `i `x -> -> # *U _address `i `x ]
+"259
+[; ;SourceFiles/nRF24L01.c: 259:     SendSPI(databytes, result, 6);
+[e ( _SendSPI (3 , , &U _databytes _result -> -> 6 `i `uc ]
+"260
+[; ;SourceFiles/nRF24L01.c: 260: }
+[e :UE 958 ]
 }

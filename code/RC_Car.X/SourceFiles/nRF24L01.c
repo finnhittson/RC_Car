@@ -39,7 +39,7 @@ bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
 
 	// set channel
     databytes[0] = W_REGISTER | RF_CH;
-	databytes[1] = channel & 0x7F;
+	databytes[1] = channel & 0x7F; // only use first 7 bits
     SendSPI(databytes, result, 2);
 
 	// clear status interrupts
@@ -56,28 +56,31 @@ bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
 
 	// read CONFIG register to ensure proper setting
 	ReadRegister(CONFIG, result);
-	CONFIGbits_t CONFIGReg;
-	CONFIGReg.w = result[1];
-
-	if (CONFIGReg.EN_CRC && CONFIGReg.CRCO) { // && CONFIGReg.PWR_UP
-		ReturnVal = true;
-	}
+    if (result[1] & 0x0c) {
+        ReturnVal = true;
+    }
 
 	return ReturnVal;
+}
+
+void ce(Level_t Level) {
+	if (Level == LOW) {
+		LATAbits.LATA1 = 0;
+	} else if (Level == HIGH) {
+		LATAbits.LATA1 = 1;
+	}
 }
 
 void FlushRX(void) {
 	uint8_t bytes[] = {FLUSH_RX};
 	uint8_t result[1];
 	SendSPI(bytes, result, 1);
-	delay(DELAY_TIME);
 }
 
 void FlushTX(void) {
 	uint8_t bytes[] = {FLUSH_TX};
 	uint8_t result[1];
 	SendSPI(bytes, result, 1);
-	delay(DELAY_TIME);
 }
 
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
@@ -105,7 +108,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 		{
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 1;
-			LATAbits.LATA4 = 1;
+			ce(HIGH);
 			break;
 		}
 
@@ -113,7 +116,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 		{
 			CONFIGbits.PWR_UP = 1;
 			CONFIGbits.PRIM_RX = 0;
-			LATAbits.LATA4 = 1;
+			ce(HIGH);
 			break;
 		}
 
@@ -123,7 +126,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 			// otherwise will go into TX mode
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 0;
-			LATAbits.LATA4 = 1;
+			ce(HIGH);
 			break;
 		}
 
@@ -131,7 +134,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 		{
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 0;
-			LATAbits.LATA4 = 0;
+			ce(LOW);
 			break;
 		}
 
@@ -139,7 +142,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 		{
 			CONFIGbits.PWR_UP = 0;			
 			CONFIGbits.PRIM_RX = 0;
-			LATAbits.LATA4 = 0;
+			ce(LOW);
 			break;
 		}
 	}
@@ -176,6 +179,7 @@ void FeatureTest(uint8_t *result) {
 	uint8_t FeaturesBefore[2];
 	ReadRegister(FEATURE, FeaturesBefore);
 
+	// see datasheet for nRF24L01 for this mystery command
 	uint8_t bytes[] = {ACTIVATE, 0x73};
 	SendSPI(bytes, result, 2);
 
