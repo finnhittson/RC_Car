@@ -5,32 +5,20 @@ Version 4.0 HI-TECH Software Intermediate Code
 [n E6380 . RECEIVER TRANSMITTER  ]
 "34
 [; ;SourceFiles/TransmitService.c: 34:  ES_Event_t ThisEvent;
-[c E6445 0 1 2 3 .. ]
-[n E6445 . ES_INIT ES_STATUS_FLAGS ES_HANDLE_PAYLOAD ES_CONTROL_UPDATE  ]
+[c E6441 0 1 2 3 .. ]
+[n E6441 . ES_INIT ES_STATUS_FLAGS ES_HANDLE_PAYLOAD ES_CONTROL_UPDATE  ]
 "31 SourceFiles/../HeaderFiles/TransmitService.h
 [; ;SourceFiles/../HeaderFiles/TransmitService.h: 31: typedef struct ES_Event {
-[s S930 `E6445 1 `us 1 ]
+[s S930 `E6441 1 `us 1 ]
 [n S930 ES_Event EventType EventParam ]
 "72 SourceFiles/../HeaderFiles/nRF24L01.h
 [; ;SourceFiles/../HeaderFiles/nRF24L01.h: 72: _Bool ReadRXFIFO(uint8_t *result);
 [v _ReadRXFIFO `(a ~T0 @X0 0 ef1`*uc ]
-"12 SourceFiles/../HeaderFiles/TransmitService.h
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 12:  struct {
-[s S928 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S928 . TX_FULL RX_P_NO MAX_RT TX_DS RX_DR ]
-"19
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 19:  struct {
-[s S929 :8 `uc 1 ]
-[n S929 . w ]
-"11
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 11: typedef union {
-[u S927 `S928 1 `S929 1 ]
-[n S927 . . . ]
 "55 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 55: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 [v _SendSPI `(v ~T0 @X0 0 ef3`*uc`*uc`uc ]
-"148 SourceFiles/TransmitService.c
-[; ;SourceFiles/TransmitService.c: 148:  ce(HIGH);
+"147 SourceFiles/TransmitService.c
+[; ;SourceFiles/TransmitService.c: 147:  ce(HIGH);
 [c E6335 0 1 .. ]
 [n E6335 . LOW HIGH  ]
 "74 SourceFiles/../HeaderFiles/nRF24L01.h
@@ -1256,10 +1244,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e $U 933  ]
 [e :U 934 ]
-[e [\ -> . _ThisEvent 0 `ui , $ -> . `E6445 0 `ui 935
- , $ -> . `E6445 1 `ui 936
- , $ -> . `E6445 2 `ui 937
- , $ -> . `E6445 3 `ui 945
+[e [\ -> . _ThisEvent 0 `ui , $ -> . `E6441 0 `ui 935
+ , $ -> . `E6441 1 `ui 936
+ , $ -> . `E6441 2 `ui 937
+ , $ -> . `E6441 3 `ui 945
  947 ]
 [e :U 933 ]
 "127
@@ -1271,18 +1259,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 932 ]
 }
 "134
-[; ;SourceFiles/TransmitService.c: 134: void transmitPayload(SPISTATUSbits_t SPI_STATUSbits) {
-[v _transmitPayload `(v ~T0 @X0 1 ef1`S927 ]
+[; ;SourceFiles/TransmitService.c: 134: void transmitPayload(uint8_t statusBits) {
+[v _transmitPayload `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _transmitPayload ]
-[v _SPI_STATUSbits `S927 ~T0 @X0 1 r1 ]
+[v _statusBits `uc ~T0 @X0 1 r1 ]
 [f ]
 "135
 [; ;SourceFiles/TransmitService.c: 135:  readyToTransmit = 0;
 [e = _readyToTransmit -> -> 0 `i `a ]
 "137
-[; ;SourceFiles/TransmitService.c: 137:  if (SPI_STATUSbits.w & 0x70) {
-[e $ ! != & -> . . _SPI_STATUSbits 1 0 `i -> 112 `i -> 0 `i 949  ]
+[; ;SourceFiles/TransmitService.c: 137:  if (statusBits & 0x70) {
+[e $ ! != & -> _statusBits `i -> 112 `i -> 0 `i 949  ]
 {
 "139
 [; ;SourceFiles/TransmitService.c: 139:   uint8_t databytes[2];
@@ -1300,33 +1288,30 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;SourceFiles/TransmitService.c: 143:         SendSPI(databytes, result, 2);
 [e ( _SendSPI (3 , , &U _databytes &U _result -> -> 2 `i `uc ]
 "144
-[; ;SourceFiles/TransmitService.c: 144:   SPI_STATUSbits.w = result[0];
-[e = . . _SPI_STATUSbits 1 0 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
-"145
-[; ;SourceFiles/TransmitService.c: 145:  }
+[; ;SourceFiles/TransmitService.c: 144:  }
 }
 [e :U 949 ]
-"146
-[; ;SourceFiles/TransmitService.c: 146:  uint8_t result[6 + 1];
+"145
+[; ;SourceFiles/TransmitService.c: 145:  uint8_t result[6 + 1];
 [v _result `uc ~T0 @X0 -> 7 `i a ]
-"147
-[; ;SourceFiles/TransmitService.c: 147:  SendSPI(payload, result, 6 + 1);
+"146
+[; ;SourceFiles/TransmitService.c: 146:  SendSPI(payload, result, 6 + 1);
 [e ( _SendSPI (3 , , &U _payload &U _result -> + -> 6 `i -> 1 `i `uc ]
-"148
-[; ;SourceFiles/TransmitService.c: 148:  ce(HIGH);
+"147
+[; ;SourceFiles/TransmitService.c: 147:  ce(HIGH);
 [e ( _ce (1 . `E6335 1 ]
-"149
-[; ;SourceFiles/TransmitService.c: 149:  delay(45);
+"148
+[; ;SourceFiles/TransmitService.c: 148:  delay(45);
 [e ( _delay (1 -> 45 `i ]
-"150
-[; ;SourceFiles/TransmitService.c: 150:  ce(LOW);
+"149
+[; ;SourceFiles/TransmitService.c: 149:  ce(LOW);
 [e ( _ce (1 . `E6335 0 ]
-"151
-[; ;SourceFiles/TransmitService.c: 151: }
+"150
+[; ;SourceFiles/TransmitService.c: 150: }
 [e :UE 948 ]
 }
-"153
-[; ;SourceFiles/TransmitService.c: 153: void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
+"152
+[; ;SourceFiles/TransmitService.c: 152: void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
 [v _packagePayload `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
 {
 [e :U _packagePayload ]
@@ -1335,32 +1320,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _bytes3 `uc ~T0 @X0 1 r3 ]
 [v _bytes4 `uc ~T0 @X0 1 r4 ]
 [f ]
-"154
-[; ;SourceFiles/TransmitService.c: 154:  uint8_t checksum = 0xFF - (0x01 + bytes1 + bytes2 + bytes3 + bytes4);
+"153
+[; ;SourceFiles/TransmitService.c: 153:  uint8_t checksum = 0xFF - (0x01 + bytes1 + bytes2 + bytes3 + bytes4);
 [v _checksum `uc ~T0 @X0 1 a ]
 [e = _checksum -> - -> 255 `i + + + + -> 1 `i -> _bytes1 `i -> _bytes2 `i -> _bytes3 `i -> _bytes4 `i `uc ]
-"155
-[; ;SourceFiles/TransmitService.c: 155:  payload[0] = 0xA0;
+"154
+[; ;SourceFiles/TransmitService.c: 154:  payload[0] = 0xA0;
 [e = *U + &U _payload * -> -> -> 0 `i `ui `ux -> -> # *U &U _payload `ui `ux -> -> 160 `i `uc ]
-"156
-[; ;SourceFiles/TransmitService.c: 156:  payload[1] = 0x01;
+"155
+[; ;SourceFiles/TransmitService.c: 155:  payload[1] = 0x01;
 [e = *U + &U _payload * -> -> -> 1 `i `ui `ux -> -> # *U &U _payload `ui `ux -> -> 1 `i `uc ]
-"157
-[; ;SourceFiles/TransmitService.c: 157:  payload[2] = bytes1;
+"156
+[; ;SourceFiles/TransmitService.c: 156:  payload[2] = bytes1;
 [e = *U + &U _payload * -> -> -> 2 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes1 ]
-"158
-[; ;SourceFiles/TransmitService.c: 158:  payload[3] = bytes2;
+"157
+[; ;SourceFiles/TransmitService.c: 157:  payload[3] = bytes2;
 [e = *U + &U _payload * -> -> -> 3 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes2 ]
-"159
-[; ;SourceFiles/TransmitService.c: 159:  payload[4] = bytes3;
+"158
+[; ;SourceFiles/TransmitService.c: 158:  payload[4] = bytes3;
 [e = *U + &U _payload * -> -> -> 4 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes3 ]
-"160
-[; ;SourceFiles/TransmitService.c: 160:     payload[5] = bytes4;
+"159
+[; ;SourceFiles/TransmitService.c: 159:     payload[5] = bytes4;
 [e = *U + &U _payload * -> -> -> 5 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes4 ]
-"161
-[; ;SourceFiles/TransmitService.c: 161:     payload[6] = checksum;
+"160
+[; ;SourceFiles/TransmitService.c: 160:     payload[6] = checksum;
 [e = *U + &U _payload * -> -> -> 6 `i `ui `ux -> -> # *U &U _payload `ui `ux _checksum ]
-"162
-[; ;SourceFiles/TransmitService.c: 162: }
+"161
+[; ;SourceFiles/TransmitService.c: 161: }
 [e :UE 950 ]
 }

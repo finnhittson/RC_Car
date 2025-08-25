@@ -1,9 +1,10 @@
 #include "../HeaderFiles/nRF24L01.h"
 #include <stdbool.h>
 
-bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
+bool StartRadio(uint8_t channel, uint8_t payloadSize) {
 	bool ReturnVal = false;
 	uint8_t databytes[2];
+    uint8_t result[2];
 
 	// setup retries
 	SetupRetries(1500, 15, result);
@@ -52,7 +53,7 @@ bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
 	FlushTX();
 
 	// enable cyclic redundancy check with 2 bytes and power up
-	ChangeRadioMode(PowerDown, 1, result);
+	ChangeRadioMode(PowerDown, 1);
 
 	// read CONFIG register to ensure proper setting
 	ReadRegister(CONFIG, result);
@@ -96,7 +97,7 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
     SendSPI(databytes, result, 2);
 }
 
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 	CONFIGbits_t CONFIGbits = {0};
 	CONFIGbits.EN_CRC = 1;
 	CONFIGbits.CRCO = CRCbytes;
@@ -147,6 +148,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
 		}
 	}
 	uint8_t databytes[2];
+    uint8_t result[2];
     databytes[0] = W_REGISTER | CONFIG;
     databytes[1] = CONFIGbits.w;
     SendSPI(databytes, result, 2);
@@ -239,9 +241,10 @@ bool ReadRXFIFO(uint8_t *result) {
 	return ReturnVal;
 }
 
-void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result) {
+void StartListening(uint8_t *address) {
+    uint8_t result[2];
 	// power up radio to RX mode with 2 bytes cyclic redundancy check
-	ChangeRadioMode(RX, 1, result);
+	ChangeRadioMode(RX, 1);
 
 	// clear interrupts
     uint8_t databytes[6];

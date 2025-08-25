@@ -46,6 +46,6 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 // misc functions
 void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
-void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
+void transmitPayload(uint8_t statusBits);
 
 #endif /* ServTemplate_H */

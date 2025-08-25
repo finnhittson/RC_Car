@@ -10825,16 +10825,16 @@ typedef enum {
  PowerDown
 } Mode;
 
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool ReadRXFIFO(uint8_t *result);
-void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void StartListening(uint8_t *address);
 void ce(Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
 
@@ -10882,7 +10882,7 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 
 void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
-void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
+void transmitPayload(uint8_t statusBits);
 # 5 "SourceFiles/main.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
@@ -10955,8 +10955,10 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 
 
 Radio_t radioType = RECEIVER;
-SPISTATUSbits_t SPI_STATUSbits;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
+State_t currentState;
+uint8_t bytes[6];
+uint8_t result[2];
 
 int main(int argc, char** argv) {
 
@@ -11014,8 +11016,7 @@ int main(int argc, char** argv) {
 
 
  _Bool radioStarted = 1;
- uint8_t result[2];
- if (StartRadio(42, 6, result)) {
+ if (StartRadio(42, 6)) {
   radioStarted = 1;
  } else {
         _Bool val = 1;
@@ -11025,7 +11026,6 @@ int main(int argc, char** argv) {
             delay(1000);
         }
     }
-    SPI_STATUSbits.w = result[0];
 
     if (radioStarted && radioType == RECEIVER) {
 
@@ -11035,17 +11035,14 @@ int main(int argc, char** argv) {
         databytes[0] = 0x20 | 0x02;
         databytes[1] = 0x01;
         SendSPI(databytes, result, 2);
-  SPI_STATUSbits.w = result[0];
 
 
-  StartListening(address, 5, result);
-  SPI_STATUSbits.w = result[0];
+  StartListening(address);
 
 
         databytes[0] = 0x20 | 0x07;
   databytes[1] = 0x70;
         SendSPI(databytes, result, 2);
-  SPI_STATUSbits.w = result[0];
 
 
         T2CONbits.TMR2ON = 0;
@@ -11089,11 +11086,9 @@ int main(int argc, char** argv) {
         SendSPI(databytes, result, 5 + 1);
         databytes[0] = 0x20 | 0x10;
         SendSPI(databytes, result, 5 + 1);
-  SPI_STATUSbits.w = result[0];
 
 
-  ChangeRadioMode(Standby1, 1, result);
-  SPI_STATUSbits.w = result[0];
+  ChangeRadioMode(Standby1, 1);
 
 
         ANSELCbits.ANSC4 = 1;
@@ -11106,11 +11101,12 @@ int main(int argc, char** argv) {
         ADCON0bits.CHS = 0x14;
         ADCON1bits.ADFM = 0;
         ADCON0bits.ADON = 1;
+
+        currentState = COLLECT_ADC_DATA;
     }
 
     _Bool val = 1;
     uint8_t bytes[4];
-    State_t currentState = COLLECT_ADC_DATA;
     while (1) {
         if (radioType == TRANSMITTER) {
             switch (currentState) {
@@ -11134,8 +11130,7 @@ int main(int argc, char** argv) {
                 case TRANSMIT_ADC_DATA: {
                     packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
                     sendNOP(result);
-                    SPI_STATUSbits.w = result[0];
-                    transmitPayload(SPI_STATUSbits);
+                    transmitPayload(result[0]);
                     currentState = CLEAR_INTERRUPT;
                     break;
                 }
@@ -11147,8 +11142,7 @@ int main(int argc, char** argv) {
                         while (1) {
                             SendSPI(bytes, result, 2);
                             sendNOP(result);
-                            uint8_t bruh = result[0] & 0x70;
-                            if (!bruh) {
+                            if (!(result[0] & 0x70)) {
                                 break;
                             }
                         }
@@ -11158,16 +11152,9 @@ int main(int argc, char** argv) {
                 }
 
                 case DONE: {
-                    if (!PORTCbits.RC5) {
-                        bytes[0] = 0x20 | 0x07;
-                        bytes[1] = 0x70;
-                        SendSPI(bytes, result, 2);
-                    }
-
-
-
-
-
+                    LATAbits.LATA0 = val;
+                    val = ~val;
+                    currentState = COLLECT_ADC_DATA;
                     break;
                 }
             }

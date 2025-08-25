@@ -131,17 +131,16 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 private functions
 ***************************************************************************/
 
-void transmitPayload(SPISTATUSbits_t SPI_STATUSbits) {
+void transmitPayload(uint8_t statusBits) {
 	readyToTransmit = false;
 	// DB_printf("Writing payload to radio\n");
-	if (SPI_STATUSbits.w & 0x70) {
+	if (statusBits & 0x70) {
 		// clear STATUS register to allow for more transmissions
 		uint8_t databytes[2];
         uint8_t result[2];
         databytes[0] = W_REGISTER | SPI_STATUS;
         databytes[1] = 0x70;
         SendSPI(databytes, result, 2);
-		SPI_STATUSbits.w = result[0];
 	}
 	uint8_t result[PAYLOAD_SIZE + 1];
 	SendSPI(payload, result, PAYLOAD_SIZE + 1);

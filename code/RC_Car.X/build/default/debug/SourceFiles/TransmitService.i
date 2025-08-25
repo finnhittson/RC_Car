@@ -10682,16 +10682,16 @@ typedef enum {
  PowerDown
 } Mode;
 
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool ReadRXFIFO(uint8_t *result);
-void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void StartListening(uint8_t *address);
 void ce(Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
 
@@ -10739,7 +10739,7 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 
 void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
-void transmitPayload(SPISTATUSbits_t SPI_STATUSbits);
+void transmitPayload(uint8_t statusBits);
 # 6 "SourceFiles/TransmitService.c" 2
 # 23 "SourceFiles/TransmitService.c"
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
@@ -10840,17 +10840,16 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 
 
 
-void transmitPayload(SPISTATUSbits_t SPI_STATUSbits) {
+void transmitPayload(uint8_t statusBits) {
  readyToTransmit = 0;
 
- if (SPI_STATUSbits.w & 0x70) {
+ if (statusBits & 0x70) {
 
   uint8_t databytes[2];
         uint8_t result[2];
         databytes[0] = 0x20 | 0x07;
         databytes[1] = 0x70;
         SendSPI(databytes, result, 2);
-  SPI_STATUSbits.w = result[0];
  }
  uint8_t result[6 + 1];
  SendSPI(payload, result, 6 + 1);

@@ -15,9 +15,10 @@
 #define ADDRESS_WIDTH		5
 
 Radio_t radioType = RECEIVER;
-SPISTATUSbits_t SPI_STATUSbits;
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
 State_t currentState;
+uint8_t bytes[6];
+uint8_t result[2];
 
 int main(int argc, char** argv) {
     // LED configure (pin 13 - RA0)
@@ -74,9 +75,8 @@ int main(int argc, char** argv) {
 	}
     
     // start radio
-	bool radioStarted = true;
-	uint8_t result[2];    
-	if (StartRadio(CHANNEL, PAYLOAD_SIZE, result)) {
+	bool radioStarted = true;    
+	if (StartRadio(CHANNEL, PAYLOAD_SIZE)) {
 		radioStarted = true;
 	} else {
         bool val = true;
@@ -86,7 +86,6 @@ int main(int argc, char** argv) {
             delay(1000);
         }
     }
-    SPI_STATUSbits.w = result[0];
     
     if (radioStarted && radioType == RECEIVER) {
         // LATAbits.LATA0 = 1;
@@ -96,17 +95,14 @@ int main(int argc, char** argv) {
         databytes[0] = W_REGISTER | EN_RXADDR;
         databytes[1] = 0x01;
         SendSPI(databytes, result, 2);
-		SPI_STATUSbits.w = result[0];
 
 		// setup data pipe for receiving data
-		StartListening(address, ADDRESS_WIDTH, result);
-		SPI_STATUSbits.w = result[0];
+		StartListening(address);
 
 		// clear status register
         databytes[0] = W_REGISTER | SPI_STATUS;
 		databytes[1] = 0x70;
         SendSPI(databytes, result, 2);
-		SPI_STATUSbits.w = result[0];
 
         // configure timer 2 for PWM channels
         T2CONbits.TMR2ON = 0;       // turn off timer 2
@@ -150,11 +146,9 @@ int main(int argc, char** argv) {
         SendSPI(databytes, result, ADDRESS_WIDTH + 1);
         databytes[0] = W_REGISTER | TX_ADDR;
         SendSPI(databytes, result, ADDRESS_WIDTH + 1);
-		SPI_STATUSbits.w = result[0];
 
 		// power up radio
-		ChangeRadioMode(Standby1, 1, result);
-		SPI_STATUSbits.w = result[0];
+		ChangeRadioMode(Standby1, 1);
 
 		// configure analog input
         ANSELCbits.ANSC4 = 1;
@@ -196,8 +190,7 @@ int main(int argc, char** argv) {
                 case TRANSMIT_ADC_DATA: {
                     packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
                     sendNOP(result);
-                    SPI_STATUSbits.w = result[0];
-                    transmitPayload(SPI_STATUSbits);
+                    transmitPayload(result[0]);
                     currentState = CLEAR_INTERRUPT;
                     break;
                 }

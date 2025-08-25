@@ -61,14 +61,14 @@ typedef enum {
 	PowerDown
 } Mode;
 
-bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+bool StartRadio(uint8_t channel, uint8_t payloadSize);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 bool ReadRXFIFO(uint8_t *result);
-void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void StartListening(uint8_t *address);
 void ce(Level_t level);

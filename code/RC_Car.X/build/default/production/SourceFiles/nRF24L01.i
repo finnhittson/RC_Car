@@ -10673,24 +10673,25 @@ typedef enum {
  PowerDown
 } Mode;
 
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result);
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool ReadRXFIFO(uint8_t *result);
-void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result);
+void StartListening(uint8_t *address);
 void ce(Level_t level);
 # 1 "SourceFiles/nRF24L01.c" 2
 
 
 
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize) {
  _Bool ReturnVal = 0;
  uint8_t databytes[2];
+    uint8_t result[2];
 
 
  SetupRetries(1500, 15, result);
@@ -10739,7 +10740,7 @@ _Bool StartRadio(uint8_t channel, uint8_t payloadSize, uint8_t *result) {
  FlushTX();
 
 
- ChangeRadioMode(PowerDown, 1, result);
+ ChangeRadioMode(PowerDown, 1);
 
 
  ReadRegister(0x00, result);
@@ -10783,7 +10784,7 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
     SendSPI(databytes, result, 2);
 }
 
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
  CONFIGbits_t CONFIGbits = {0};
  CONFIGbits.EN_CRC = 1;
  CONFIGbits.CRCO = CRCbytes;
@@ -10834,6 +10835,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, uint8_t *result) {
   }
  }
  uint8_t databytes[2];
+    uint8_t result[2];
     databytes[0] = 0x20 | 0x00;
     databytes[1] = CONFIGbits.w;
     SendSPI(databytes, result, 2);
@@ -10926,9 +10928,10 @@ _Bool ReadRXFIFO(uint8_t *result) {
  return ReturnVal;
 }
 
-void StartListening(uint8_t *address, uint8_t addressWidth, uint8_t *result) {
+void StartListening(uint8_t *address) {
+    uint8_t result[2];
 
- ChangeRadioMode(RX, 1, result);
+ ChangeRadioMode(RX, 1);
 
 
     uint8_t databytes[6];
