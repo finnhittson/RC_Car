@@ -4202,22 +4202,22 @@
 	)
 	(global_label "IRQ"
 		(shape input)
-		(at 68.58 72.39 180)
+		(at 111.76 87.63 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "3762db32-dd45-41e6-bda2-eaa89539f4b2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 62.3895 72.39 0)
+			(at 117.9505 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -4378,22 +4378,22 @@
 	)
 	(global_label "STEER_TRIM"
 		(shape input)
-		(at 111.76 90.17 0)
+		(at 68.58 72.39 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "9ec4e243-798a-40e3-81b8-0b7e315cbc6b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 125.7517 90.17 0)
+			(at 54.5883 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -4422,7 +4422,7 @@
 	)
 	(global_label "SPEED"
 		(shape input)
-		(at 111.76 87.63 0)
+		(at 111.76 92.71 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4432,7 +4432,7 @@
 		)
 		(uuid "a84920af-4f8e-4323-b3d3-46e32c51ecae")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.7927 87.63 0)
+			(at 120.7927 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4576,7 +4576,7 @@
 	)
 	(global_label "STEER"
 		(shape input)
-		(at 111.76 92.71 0)
+		(at 111.76 90.17 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4586,7 +4586,7 @@
 		)
 		(uuid "e8dfddf5-2bfc-41e8-83a7-7c452f4a4c6e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 120.4903 92.71 0)
+			(at 120.4903 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4734,7 +4734,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0cd7cd3e-1f10-46da-866b-a8fd2c3e4170")
@@ -5093,7 +5093,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2ccde37f-3c6b-481f-80bb-7e2986f04843")
@@ -5331,7 +5331,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3e6cba0c-1d72-4721-b28c-41630bf40a98")
@@ -7581,7 +7581,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "95535cb1-9104-4258-b080-066cbfc4d4a0")
@@ -7815,11 +7815,77 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 210.82 144.78 0)
+		(at 92.075 168.91 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a0bd16ec-b829-405e-ace9-8840ffa3cd32")
+		(property "Reference" "#PWR033"
+			(at 92.075 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 92.075 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 92.075 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 92.075 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 92.075 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d483f793-e35d-4a38-8f96-6129535c3b99")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 210.82 144.78 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a382cddc-dc01-4b16-a950-5c3454005134")
@@ -8084,7 +8150,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b2bda7ba-4537-4cf6-aa1e-9a09039e35aa")
@@ -9105,7 +9171,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "dae14060-5c98-4b8e-b1ca-eceb8b5de21c")
@@ -9445,7 +9511,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f2ebc6d9-a186-4c57-8137-9fcf051589ff")
@@ -9512,7 +9578,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f3fd15b4-075a-4c44-8b81-bc7f7c5f6af9")
@@ -9567,6 +9633,109 @@
 			(project "transmitter"
 				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
 					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 92.075 166.37 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f66cdd79-3373-4201-a39d-20437b3da600")
+		(property "Reference" "H4"
+			(at 94.615 163.8299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole_Pad"
+			(at 94.615 166.3699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_2.5mm_Pad_TopBottom"
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole with connection"
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn" ""
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn PN" ""
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" ""
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier PN" ""
+			(at 92.075 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4bab0d49-e591-435f-922c-c9b9270c24f3")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -9710,7 +9879,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fdfe29f9-6103-4b7c-a3a6-38667b2aa46b")
