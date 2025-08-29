@@ -6226,16 +6226,15 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 76.2 95.25 90)
+		(at 68.58 95.25 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "7071eb82-143b-49e1-9dc5-abc9eed0805a")
 		(property "Reference" "#PWR027"
-			(at 80.01 95.25 0)
+			(at 72.39 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6244,7 +6243,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 72.39 95.2499 90)
+			(at 64.77 95.2499 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6253,7 +6252,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 76.2 95.25 0)
+			(at 68.58 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6262,7 +6261,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 76.2 95.25 0)
+			(at 68.58 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6271,7 +6270,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 76.2 95.25 0)
+			(at 68.58 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9041,6 +9040,110 @@
 			(project "transmitter"
 				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
 					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 72.39 95.25 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d25afbfe-b1b7-44a4-b8bb-eddba7c3902f")
+		(property "Reference" "R5"
+			(at 72.39 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 72.39 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal"
+			(at 72.39 97.028 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 72.39 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 72.39 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn" ""
+			(at 72.39 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn PN" ""
+			(at 72.39 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" ""
+			(at 72.39 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier PN" ""
+			(at 72.39 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "973292e2-a0fd-45f2-b480-6bbcb236c466")
+		)
+		(pin "1"
+			(uuid "2ad16e9a-de07-4cf3-9872-e57d25ec8840")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "R5")
 					(unit 1)
 				)
 			)
