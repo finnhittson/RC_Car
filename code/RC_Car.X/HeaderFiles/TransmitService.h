@@ -37,6 +37,8 @@ typedef enum {
     COLLECT_ADC_DATA,
     TRANSMIT_ADC_DATA,
             CLEAR_INTERRUPT,
+            READ_RX,
+            UPDATE_CONTROLS,
             DONE,
 } State_t;
 
@@ -45,7 +47,10 @@ Radio_t InitTransmitService();
 ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 // misc functions
-void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
 void transmitPayload(uint8_t statusBits);
+void setupSPI(void);
+void configureRX(uint8_t *address);
+void configureTX(uint8_t *address);
 
 #endif /* ServTemplate_H */

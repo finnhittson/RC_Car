@@ -41,14 +41,6 @@ void delay (volatile int length) {
 	}
 }
 
-void cs(Level_t level) {
-    if (level == HIGH) {
-        LATCbits.LATC3 = 1;
-    } else if (level == LOW) {
-        LATCbits.LATC3 = 0;
-    }
-}
-
 void sendNOP(uint8_t *result) {
     uint8_t bytes[1] = {SPI_NOP};
     SendSPI(bytes, result, 1);

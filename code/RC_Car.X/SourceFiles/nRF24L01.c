@@ -220,7 +220,7 @@ void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result
     SendSPI(databytes, result, 2);
 }
 
-bool ReadRXFIFO(uint8_t *result) {
+bool readRXFIFO(uint8_t *result) {
 	bool ReturnVal = false;
 	uint8_t bytes[PAYLOAD_SIZE + 1];
 	bytes[0] = R_RX_PAYLOAD;
@@ -228,14 +228,8 @@ bool ReadRXFIFO(uint8_t *result) {
 		bytes[i] = SPI_NOP;
 	}
 	SendSPI(bytes, result, PAYLOAD_SIZE + 1);
-
-	// clear interrupts
-	uint8_t databytes[2];
-    databytes[0] = W_REGISTER | SPI_STATUS;
-    databytes[1] = 0x70;
-    SendSPI(databytes, result, 2);
-
-	if (result[1] + result[2] + result[3] + result[4] == 0xFF) {
+	uint8_t checksum = result[1] + result[2] + result[3] + result[4] + result[5] + result[6];
+	if (checksum == 0xFF) {
 		ReturnVal = true;
 	}
 	return ReturnVal;
@@ -247,17 +241,17 @@ void StartListening(uint8_t *address) {
 	ChangeRadioMode(RX, 1);
 
 	// clear interrupts
-    uint8_t databytes[6];
-    databytes[0] = W_REGISTER | SPI_STATUS;
-    databytes[1] = 0x70;
-    SendSPI(databytes, result, 2);
+    uint8_t bytes[6];
+    bytes[0] = W_REGISTER | SPI_STATUS;
+    bytes[1] = 0x70;
+    SendSPI(bytes, result, 2);
 
 	// set address
-    databytes[0] = W_REGISTER | RX_ADDR_P0;
-    databytes[1] = address[0];
-    databytes[2] = address[1];
-    databytes[3] = address[2];
-    databytes[4] = address[3];
-    databytes[5] = address[4];
-    SendSPI(databytes, result, 6);
+    bytes[0] = W_REGISTER | RX_ADDR_P0;
+    bytes[1] = address[0];
+    bytes[2] = address[1];
+    bytes[3] = address[2];
+    bytes[4] = address[3];
+    bytes[5] = address[4];
+    SendSPI(bytes, result, 6);
 }

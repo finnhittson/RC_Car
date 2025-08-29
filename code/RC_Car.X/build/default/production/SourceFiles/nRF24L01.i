@@ -10606,7 +10606,6 @@ void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 void sendNOP(uint8_t *result);
 void delay (volatile int length);
-void cs(Level_t level);
 # 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
@@ -10681,7 +10680,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
-_Bool ReadRXFIFO(uint8_t *result);
+_Bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
 void ce(Level_t level);
 # 1 "SourceFiles/nRF24L01.c" 2
@@ -10907,7 +10906,7 @@ void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result
     SendSPI(databytes, result, 2);
 }
 
-_Bool ReadRXFIFO(uint8_t *result) {
+_Bool readRXFIFO(uint8_t *result) {
  _Bool ReturnVal = 0;
  uint8_t bytes[6 + 1];
  bytes[0] = 0x61;
@@ -10915,14 +10914,8 @@ _Bool ReadRXFIFO(uint8_t *result) {
   bytes[i] = 0xFF;
  }
  SendSPI(bytes, result, 6 + 1);
-
-
- uint8_t databytes[2];
-    databytes[0] = 0x20 | 0x07;
-    databytes[1] = 0x70;
-    SendSPI(databytes, result, 2);
-
- if (result[1] + result[2] + result[3] + result[4] == 0xFF) {
+ uint8_t checksum = result[1] + result[2] + result[3] + result[4] + result[5] + result[6];
+ if (checksum == 0xFF) {
   ReturnVal = 1;
  }
  return ReturnVal;
@@ -10934,17 +10927,17 @@ void StartListening(uint8_t *address) {
  ChangeRadioMode(RX, 1);
 
 
-    uint8_t databytes[6];
-    databytes[0] = 0x20 | 0x07;
-    databytes[1] = 0x70;
-    SendSPI(databytes, result, 2);
+    uint8_t bytes[6];
+    bytes[0] = 0x20 | 0x07;
+    bytes[1] = 0x70;
+    SendSPI(bytes, result, 2);
 
 
-    databytes[0] = 0x20 | 0x0A;
-    databytes[1] = address[0];
-    databytes[2] = address[1];
-    databytes[3] = address[2];
-    databytes[4] = address[3];
-    databytes[5] = address[4];
-    SendSPI(databytes, result, 6);
+    bytes[0] = 0x20 | 0x0A;
+    bytes[1] = address[0];
+    bytes[2] = address[1];
+    bytes[3] = address[2];
+    bytes[4] = address[3];
+    bytes[5] = address[4];
+    SendSPI(bytes, result, 6);
 }

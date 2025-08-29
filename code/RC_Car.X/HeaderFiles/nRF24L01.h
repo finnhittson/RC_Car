@@ -69,6 +69,6 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
-bool ReadRXFIFO(uint8_t *result);
+bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
 void ce(Level_t level);

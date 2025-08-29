@@ -10760,7 +10760,6 @@ void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 void sendNOP(uint8_t *result);
 void delay (volatile int length);
-void cs(Level_t level);
 # 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 
@@ -10833,7 +10832,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
-_Bool ReadRXFIFO(uint8_t *result);
+_Bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
 void ce(Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
@@ -10873,6 +10872,8 @@ typedef enum {
     COLLECT_ADC_DATA,
     TRANSMIT_ADC_DATA,
             CLEAR_INTERRUPT,
+            READ_RX,
+            UPDATE_CONTROLS,
             DONE,
 } State_t;
 
@@ -10881,8 +10882,11 @@ Radio_t InitTransmitService();
 ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 
-void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
 void transmitPayload(uint8_t statusBits);
+void setupSPI(void);
+void configureRX(uint8_t *address);
+void configureTX(uint8_t *address);
 # 5 "SourceFiles/main.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
@@ -10954,212 +10958,176 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 
 
 
+
+
 Radio_t radioType = RECEIVER;
+
 uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
+
 State_t currentState;
-uint8_t bytes[6];
-uint8_t result[2];
+
+_Bool val = 1;
+
+static _Bool prevSpinDir = 0;
+
+_Bool spinDir;
+
+
+uint8_t bytes[7];
+uint8_t result[7];
 
 int main(int argc, char** argv) {
 
  TRISAbits.TRISA0 = 0;
+
  LATAbits.LATA0 = 0;
 
 
  TRISAbits.TRISA1 = 0;
+
  ce(LOW);
 
 
+    TRISCbits.TRISC5 = 1;
+
+    ANSELCbits.ANSC5 = 0;
+
+
  TRISAbits.TRISA5 = 1;
+
     ANSELAbits.ANSA5 = 0;
+
+
+
  if (PORTAbits.RA5) {
   radioType = TRANSMITTER;
  }
 
 
- if (1) {
-  TRISCbits.TRISC5 = 1;
-        ANSELCbits.ANSC5 = 0;
-
- }
+    setupSPI();
 
 
- if (1) {
-
-        TRISCbits.TRISC0 = 0;
-        RC0PPS = 0b11000;
-
-
-        TRISCbits.TRISC1 = 1;
-        ANSELCbits.ANSC1 = 0;
-        SSP1DATPPS = 0b10001;
+    _Bool radioStarted = 1;
+    if (StartRadio(42, 6)) {
+        radioStarted = 1;
+    } else {
 
 
-        TRISAbits.TRISA4 = 0;
-        RA4PPS = 0b11001;
-
-
-        TRISCbits.TRISC3 = 0;
-        LATCbits.LATC3 = 1;
-
-
-        SSP1CON1bits.SSPEN = 1;
-
-        SSP1CON1bits.SSPM = 0b0000;
-
-        SSP1STATbits.SMP = 1;
-
-        SSP1STATbits.CKE = 1;
-
-        SSP1CON1bits.CKP = 0;
- }
-
-
- _Bool radioStarted = 1;
- if (StartRadio(42, 6)) {
-  radioStarted = 1;
- } else {
-        _Bool val = 1;
         while (1) {
             LATAbits.LATA0 = val;
             val = ~val;
-            delay(1000);
+            delay(10000);
         }
     }
 
+
+
+
     if (radioStarted && radioType == RECEIVER) {
+        configureRX(address);
 
-
-  uint8_t databytes[2];
-        uint8_t result[2];
-        databytes[0] = 0x20 | 0x02;
-        databytes[1] = 0x01;
-        SendSPI(databytes, result, 2);
-
-
-  StartListening(address);
-
-
-        databytes[0] = 0x20 | 0x07;
-  databytes[1] = 0x70;
-        SendSPI(databytes, result, 2);
-
-
-        T2CONbits.TMR2ON = 0;
-        T2CONbits.T2CKPS = 0b01;
-        TMR2 = 0;
-        PR2 = 125;
-        T2CONbits.TMR2ON = 1;
-
-
-        TRISCbits.TRISC3 = 0;
-        PWM5CONbits.PWM5EN = 0;
-        PWM5CONbits.PWM5POL = 0;
-        RC3PPS = 0b00010;
-        PWM5DCL = 0xC0;
-        PWM5DCH = 0x6F;
-        PWMTMRSbits.P5TSEL = 0b01;
-        PWM5CONbits.PWM5EN = 1;
-
-
-        TRISCbits.TRISC4 = 0;
-        PWM6CONbits.PWM6EN = 0;
-        PWM6CONbits.PWM6POL = 0;
-        RC4PPS = 0b00011;
-        PWM6DCL = 0x00;
-        PWM6DCH = 0x00;
-        PWMTMRSbits.P6TSEL = 0b01;
-        PWM6CONbits.PWM6EN = 1;
- }
-
-
- if (radioStarted && radioType == TRANSMITTER) {
-
-        uint8_t databytes[6];
-  uint8_t result[6];
-        databytes[0] = 0x20 | 0x0A;
-        databytes[1] = address[0];
-        databytes[2] = address[1];
-        databytes[3] = address[2];
-        databytes[4] = address[3];
-        databytes[5] = address[4];
-        SendSPI(databytes, result, 5 + 1);
-        databytes[0] = 0x20 | 0x10;
-        SendSPI(databytes, result, 5 + 1);
-
-
-  ChangeRadioMode(Standby1, 1);
-
-
-        ANSELCbits.ANSC4 = 1;
-  TRISCbits.TRISC4 = 1;
-
-        ADCON0bits.ADON = 0;
-        ADCON1bits.ADCS = 0b110;
-        ADCON1bits.ADNREF = 0;
-        ADCON1bits.ADPREF = 0;
-        ADCON0bits.CHS = 0x14;
-        ADCON1bits.ADFM = 0;
-        ADCON0bits.ADON = 1;
+        currentState = READ_RX;
+    } else if (radioStarted && radioType == TRANSMITTER) {
+        configureTX(address);
 
         currentState = COLLECT_ADC_DATA;
     }
 
-    _Bool val = 1;
-    uint8_t bytes[4];
     while (1) {
-        if (radioType == TRANSMITTER) {
-            switch (currentState) {
-                case COLLECT_ADC_DATA: {
-                    if (!ADCON0bits.GO_nDONE) {
-                        if (ADCON0bits.CHS == 0x14) {
-                            bytes[0] = ADRESH;
-                            bytes[1] = ADRESL;
-                            ADCON0bits.CHS = 0x12;
-                        } else {
-                            bytes[2] = ADRESH;
-                            bytes[3] = ADRESL;
-                            ADCON0bits.CHS = 0x14;
-                            currentState = TRANSMIT_ADC_DATA;
-                        }
-                        ADCON0bits.GO_nDONE = 1;
+        switch (currentState) {
+            case COLLECT_ADC_DATA: {
+                if (!ADCON0bits.GO_nDONE) {
+                    if (ADCON0bits.CHS == 0x14) {
+                        bytes[0] = ADRESH;
+                        bytes[1] = ADRESL;
+                        ADCON0bits.CHS = 0x12;
+                    } else {
+                        bytes[2] = ADRESH;
+                        bytes[3] = ADRESL;
+                        ADCON0bits.CHS = 0x14;
+                        packagePayload(0x01, bytes[0], bytes[1], bytes[2], bytes[3]);
+                        currentState = TRANSMIT_ADC_DATA;
                     }
-                    break;
+                    ADCON0bits.GO_nDONE = 1;
                 }
-
-                case TRANSMIT_ADC_DATA: {
-                    packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
-                    sendNOP(result);
-                    transmitPayload(result[0]);
-                    currentState = CLEAR_INTERRUPT;
-                    break;
-                }
-
-                case CLEAR_INTERRUPT: {
-                    if (!PORTCbits.RC5) {
-                        bytes[0] = 0x20 | 0x07;
-                        bytes[1] = 0x70;
-                        while (1) {
-                            SendSPI(bytes, result, 2);
-                            sendNOP(result);
-                            if (!(result[0] & 0x70)) {
-                                break;
-                            }
-                        }
-                        currentState = DONE;
-                    }
-                    break;
-                }
-
-                case DONE: {
-                    LATAbits.LATA0 = val;
-                    val = ~val;
-                    currentState = COLLECT_ADC_DATA;
-                    break;
-                }
+                break;
             }
-        } else {
 
+            case TRANSMIT_ADC_DATA: {
+                sendNOP(result);
+                transmitPayload(result[0]);
+                currentState = CLEAR_INTERRUPT;
+                break;
+            }
+
+            case CLEAR_INTERRUPT: {
+                if (!PORTCbits.RC5) {
+                    sendNOP(result);
+                    bytes[0] = 0x20 | 0x07;
+                    bytes[1] = 0x70;
+                    while (1) {
+                        SendSPI(bytes, result, 2);
+                        sendNOP(result);
+                        if (!(result[0] & 0x70)) {
+                            break;
+                        }
+                    }
+                    currentState = DONE;
+                }
+                break;
+            }
+
+            case DONE: {
+                LATAbits.LATA0 = 1;
+
+                break;
+            }
+
+            case READ_RX: {
+                if (!PORTCbits.RC5) {
+                    sendNOP(result);
+                    if (result[0] & 0x40) {
+                        currentState = UPDATE_CONTROLS;
+                    }
+                    uint8_t thingie[] = {0x20 | 0x07, 0x70};
+                    SendSPI(thingie, result, 2);
+                }
+                break;
+            }
+
+            case UPDATE_CONTROLS: {
+                _Bool validData = readRXFIFO(result);
+                if (validData && result[1] == 0x01) {
+                    uint16_t motorSpeed = (uint16_t)(((result[1] << 8) | result[2]) - 512);
+                    if (motorSpeed > 512) {
+                        motorSpeed *= 2;
+                        spinDir = 1;
+                    } else {
+                        motorSpeed *= (uint16_t)(-2);
+                        spinDir = 0;
+                    }
+                    PWM5CONbits.PWM5EN = 0;
+                    if (spinDir != prevSpinDir) {
+                        if (spinDir) {
+                            RC2PPS = 0b00010;
+                            LATCbits.LATC4 = 0;
+                        } else {
+                            RC4PPS = 0b00010;
+                            LATCbits.LATC2 = 0;
+                        }
+                        prevSpinDir = spinDir;
+                    }
+
+
+
+                    PWM5DCL = 0xC0;
+                    PWM5DCH = 0x3F;
+                    PWM5CONbits.PWM5EN = 1;
+# 190 "SourceFiles/main.c"
+                }
+                currentState = DONE;
+                break;
+            }
         }
     }
     return 1;

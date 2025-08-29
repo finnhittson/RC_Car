@@ -10605,7 +10605,6 @@ void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 void sendNOP(uint8_t *result);
 void delay (volatile int length);
-void cs(Level_t level);
 # 1 "SourceFiles/SPI.c" 2
 
 
@@ -10648,14 +10647,6 @@ void delay (volatile int length) {
  while (length >= 0) {
      length--;
  }
-}
-
-void cs(Level_t level) {
-    if (level == HIGH) {
-        LATCbits.LATC3 = 1;
-    } else if (level == LOW) {
-        LATCbits.LATC3 = 0;
-    }
 }
 
 void sendNOP(uint8_t *result) {

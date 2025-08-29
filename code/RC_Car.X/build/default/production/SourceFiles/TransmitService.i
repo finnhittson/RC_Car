@@ -10615,7 +10615,6 @@ void ReadRegister(uint8_t reg, uint8_t *result);
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 void sendNOP(uint8_t *result);
 void delay (volatile int length);
-void cs(Level_t level);
 # 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
@@ -10690,7 +10689,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
-_Bool ReadRXFIFO(uint8_t *result);
+_Bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
 void ce(Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
@@ -10730,6 +10729,8 @@ typedef enum {
     COLLECT_ADC_DATA,
     TRANSMIT_ADC_DATA,
             CLEAR_INTERRUPT,
+            READ_RX,
+            UPDATE_CONTROLS,
             DONE,
 } State_t;
 
@@ -10738,11 +10739,13 @@ Radio_t InitTransmitService();
 ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
 
 
-void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
 void transmitPayload(uint8_t statusBits);
+void setupSPI(void);
+void configureRX(uint8_t *address);
+void configureTX(uint8_t *address);
 # 6 "SourceFiles/TransmitService.c" 2
-# 23 "SourceFiles/TransmitService.c"
-uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
+# 18 "SourceFiles/TransmitService.c"
 uint8_t payload[6 + 1];
 Radio_t radioType = RECEIVER;
 static uint8_t motorSpeed = 128;
@@ -10781,16 +10784,16 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 
  case ES_STATUS_FLAGS:
   {
-# 76 "SourceFiles/TransmitService.c"
+# 70 "SourceFiles/TransmitService.c"
    break;
   }
 
  case ES_HANDLE_PAYLOAD:
   {
    uint8_t result[6 + 1];
-   _Bool validData = ReadRXFIFO(result);
+   _Bool validData = readRXFIFO(result);
 
-   if (result[1] == 0x01) {
+   if (result[1] == 0) {
     uint8_t newMotorSpeed = result[2];
     uint8_t newServoPos = result[3];
 
@@ -10807,7 +10810,7 @@ ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 
 
 
-   } else if (result[1] != 0x01) {
+   } else if (result[1] != 0) {
 
    } else if (!validData) {
 
@@ -10858,13 +10861,126 @@ void transmitPayload(uint8_t statusBits) {
  ce(LOW);
 }
 
-void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
- uint8_t checksum = 0xFF - (0x01 + bytes1 + bytes2 + bytes3 + bytes4);
+void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
+ uint8_t checksum = 0xFF - (radioID + bytes1 + bytes2 + bytes3 + bytes4);
  payload[0] = 0xA0;
- payload[1] = 0x01;
+ payload[1] = radioID;
  payload[2] = bytes1;
  payload[3] = bytes2;
  payload[4] = bytes3;
     payload[5] = bytes4;
     payload[6] = checksum;
+}
+
+void setupSPI(void) {
+
+    TRISCbits.TRISC0 = 0;
+
+    RC0PPS = 0b11000;
+
+
+    TRISCbits.TRISC1 = 1;
+
+    ANSELCbits.ANSC1 = 0;
+
+    SSP1DATPPS = 0b10001;
+
+
+    TRISAbits.TRISA4 = 0;
+
+    RA4PPS = 0b11001;
+
+
+    TRISCbits.TRISC3 = 0;
+
+    LATCbits.LATC3 = 1;
+
+
+    SSP1CON1bits.SSPEN = 1;
+
+    SSP1CON1bits.SSPM = 0b0000;
+
+
+    SSP1STATbits.SMP = 1;
+
+    SSP1STATbits.CKE = 1;
+
+    SSP1CON1bits.CKP = 0;
+}
+
+void configureRX(uint8_t *address) {
+
+    uint8_t bytes[2];
+    uint8_t result[2];
+    bytes[0] = 0x20 | 0x02;
+    bytes[1] = 0x01;
+    SendSPI(bytes, result, 2);
+
+
+    StartListening(address);
+
+
+    bytes[0] = 0x20 | 0x07;
+    bytes[1] = 0x70;
+    SendSPI(bytes, result, 2);
+
+
+    T2CONbits.TMR2ON = 0;
+    T2CONbits.T2CKPS = 0b01;
+    TMR2 = 0;
+    PR2 = 125;
+    T2CONbits.TMR2ON = 1;
+
+    TRISCbits.TRISC4 = 0;
+    LATCbits.LATC4 = 0;
+
+
+    TRISCbits.TRISC2 = 0;
+    PWM5CONbits.PWM5EN = 0;
+    PWM5CONbits.PWM5POL = 0;
+    RC2PPS = 0b00010;
+    PWM5DCL = 0xC0;
+    PWM5DCH = 0x6F;
+    PWMTMRSbits.P5TSEL = 0b01;
+    PWM5CONbits.PWM5EN = 1;
+
+
+    TRISCbits.TRISC4 = 0;
+    PWM6CONbits.PWM6EN = 0;
+    PWM6CONbits.PWM6POL = 0;
+    RC4PPS = 0b00011;
+    PWM6DCL = 0x00;
+    PWM6DCH = 0x00;
+    PWMTMRSbits.P6TSEL = 0b01;
+    PWM6CONbits.PWM6EN = 1;
+}
+
+void configureTX(uint8_t *address) {
+
+    uint8_t databytes[6];
+    uint8_t result[6];
+    databytes[0] = 0x20 | 0x0A;
+    databytes[1] = address[0];
+    databytes[2] = address[1];
+    databytes[3] = address[2];
+    databytes[4] = address[3];
+    databytes[5] = address[4];
+    SendSPI(databytes, result, 5 + 1);
+    databytes[0] = 0x20 | 0x10;
+    SendSPI(databytes, result, 5 + 1);
+
+
+    ChangeRadioMode(Standby1, 1);
+
+
+    ANSELCbits.ANSC4 = 1;
+    TRISCbits.TRISC4 = 1;
+
+    ADCON0bits.ADON = 0;
+    ADCON1bits.ADCS = 0b110;
+    ADCON1bits.ADNREF = 0;
+    ADCON1bits.ADPREF = 0;
+    ADCON0bits.CHS = 0x14;
+    ADCON1bits.ADFM = 1;
+    ADCON0bits.ADON = 1;
 }

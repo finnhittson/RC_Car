@@ -1,24 +1,24 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"25 SourceFiles/TransmitService.c
-[; ;SourceFiles/TransmitService.c: 25: Radio_t radioType = RECEIVER;
-[c E6380 0 1 .. ]
-[n E6380 . RECEIVER TRANSMITTER  ]
-"34
-[; ;SourceFiles/TransmitService.c: 34:  ES_Event_t ThisEvent;
-[c E6441 0 1 2 3 .. ]
-[n E6441 . ES_INIT ES_STATUS_FLAGS ES_HANDLE_PAYLOAD ES_CONTROL_UPDATE  ]
+"19 SourceFiles/TransmitService.c
+[; ;SourceFiles/TransmitService.c: 19: Radio_t radioType = RECEIVER;
+[c E6378 0 1 .. ]
+[n E6378 . RECEIVER TRANSMITTER  ]
+"28
+[; ;SourceFiles/TransmitService.c: 28:  ES_Event_t ThisEvent;
+[c E6439 0 1 2 3 .. ]
+[n E6439 . ES_INIT ES_STATUS_FLAGS ES_HANDLE_PAYLOAD ES_CONTROL_UPDATE  ]
 "31 SourceFiles/../HeaderFiles/TransmitService.h
 [; ;SourceFiles/../HeaderFiles/TransmitService.h: 31: typedef struct ES_Event {
-[s S930 `E6441 1 `us 1 ]
+[s S930 `E6439 1 `us 1 ]
 [n S930 ES_Event EventType EventParam ]
 "72 SourceFiles/../HeaderFiles/nRF24L01.h
-[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 72: _Bool ReadRXFIFO(uint8_t *result);
-[v _ReadRXFIFO `(a ~T0 @X0 0 ef1`*uc ]
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 72: _Bool readRXFIFO(uint8_t *result);
+[v _readRXFIFO `(a ~T0 @X0 0 ef1`*uc ]
 "55 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 55: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 [v _SendSPI `(v ~T0 @X0 0 ef3`*uc`*uc`uc ]
-"147 SourceFiles/TransmitService.c
-[; ;SourceFiles/TransmitService.c: 147:  ce(HIGH);
+"141 SourceFiles/TransmitService.c
+[; ;SourceFiles/TransmitService.c: 141:  ce(HIGH);
 [c E6335 0 1 .. ]
 [n E6335 . LOW HIGH  ]
 "74 SourceFiles/../HeaderFiles/nRF24L01.h
@@ -27,6 +27,205 @@ Version 4.0 HI-TECH Software Intermediate Code
 "57 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 57: void delay (volatile int length);
 [v _delay `(v ~T0 @X0 0 ef1`Vi ]
+"1550 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1550:     struct {
+[s S86 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S86 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 ]
+"1549
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1549: typedef union {
+[u S85 `S86 1 ]
+[n S85 . . ]
+"1559
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1559: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x08E)));
+[v _TRISCbits `VS85 ~T0 @X0 0 e@142 ]
+"13963
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 13963: extern volatile unsigned char RC0PPS __attribute__((address(0xEA0)));
+[v _RC0PPS `Vuc ~T0 @X0 0 e@3744 ]
+"2830
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2830:     struct {
+[s S144 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S144 . ANSC0 ANSC1 ANSC2 ANSC3 ANSC4 ANSC5 ]
+"2829
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2829: typedef union {
+[u S143 `S144 1 ]
+[n S143 . . ]
+"2839
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2839: extern volatile ANSELCbits_t ANSELCbits __attribute__((address(0x18E)));
+[v _ANSELCbits `VS143 ~T0 @X0 0 e@398 ]
+"13207
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 13207: extern volatile unsigned char SSP1DATPPS __attribute__((address(0xE21)));
+[v _SSP1DATPPS `Vuc ~T0 @X0 0 e@3617 ]
+"1505
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1505:     struct {
+[s S84 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S84 . TRISA0 TRISA1 TRISA2 . TRISA4 TRISA5 ]
+"1504
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1504: typedef union {
+[u S83 `S84 1 ]
+[n S83 . . ]
+"1514
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1514: extern volatile TRISAbits_t TRISAbits __attribute__((address(0x08C)));
+[v _TRISAbits `VS83 ~T0 @X0 0 e@140 ]
+"13859
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 13859: extern volatile unsigned char RA4PPS __attribute__((address(0xE94)));
+[v _RA4PPS `Vuc ~T0 @X0 0 e@3732 ]
+"2242
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2242:     struct {
+[s S117 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S117 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 ]
+"2241
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2241: typedef union {
+[u S116 `S117 1 ]
+[n S116 . . ]
+"2251
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2251: extern volatile LATCbits_t LATCbits __attribute__((address(0x10E)));
+[v _LATCbits `VS116 ~T0 @X0 0 e@270 ]
+"4732
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4732:     struct {
+[s S232 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S232 . SSPM CKP SSPEN SSPOV WCOL ]
+"4739
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4739:     struct {
+[s S233 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S233 . SSPM0 SSPM1 SSPM2 SSPM3 ]
+"4731
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4731: typedef union {
+[u S231 `S232 1 `S233 1 ]
+[n S231 . . . ]
+"4746
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4746: extern volatile SSP1CON1bits_t SSP1CON1bits __attribute__((address(0x215)));
+[v _SSP1CON1bits `VS231 ~T0 @X0 0 e@533 ]
+"4602
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4602:     struct {
+[s S228 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S228 . BF UA R_nW S P D_nA CKE SMP ]
+"4601
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4601: typedef union {
+[u S227 `S228 1 ]
+[n S227 . . ]
+"4613
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 4613: extern volatile SSP1STATbits_t SSP1STATbits __attribute__((address(0x214)));
+[v _SSP1STATbits `VS227 ~T0 @X0 0 e@532 ]
+"73 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 73: void StartListening(uint8_t *address);
+[v _StartListening `(v ~T0 @X0 0 ef1`*uc ]
+"1434 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1434:     struct {
+[s S81 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S81 . T2CKPS TMR2ON T2OUTPS ]
+"1439
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1439:     struct {
+[s S82 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S82 . T2CKPS0 T2CKPS1 . T2OUTPS0 T2OUTPS1 T2OUTPS2 T2OUTPS3 ]
+"1433
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1433: typedef union {
+[u S80 `S81 1 `S82 1 ]
+[n S80 . . . ]
+"1449
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1449: extern volatile T2CONbits_t T2CONbits __attribute__((address(0x01F)));
+[v _T2CONbits `VS80 ~T0 @X0 0 e@31 ]
+"1388
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1388: extern volatile unsigned char TMR2 __attribute__((address(0x01D)));
+[v _TMR2 `Vuc ~T0 @X0 0 e@29 ]
+"1408
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1408: extern volatile unsigned char PR2 __attribute__((address(0x01E)));
+[v _PR2 `Vuc ~T0 @X0 0 e@30 ]
+"8477
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8477:     struct {
+[s S419 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S419 . . PWM5POL PWM5OUT . PWM5EN ]
+"8476
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8476: typedef union {
+[u S418 `S419 1 ]
+[n S418 . . ]
+"8485
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8485: extern volatile PWM5CONbits_t PWM5CONbits __attribute__((address(0x619)));
+[v _PWM5CONbits `VS418 ~T0 @X0 0 e@1561 ]
+"14067
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14067: extern volatile unsigned char RC2PPS __attribute__((address(0xEA2)));
+[v _RC2PPS `Vuc ~T0 @X0 0 e@3746 ]
+"8360
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8360: extern volatile unsigned char PWM5DCL __attribute__((address(0x617)));
+[v _PWM5DCL `Vuc ~T0 @X0 0 e@1559 ]
+"8396
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8396: extern volatile unsigned char PWM5DCH __attribute__((address(0x618)));
+[v _PWM5DCH `Vuc ~T0 @X0 0 e@1560 ]
+"8710
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8710:     struct {
+[s S433 :2 `uc 1 :2 `uc 1 ]
+[n S433 . P5TSEL P6TSEL ]
+"8714
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8714:     struct {
+[s S434 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S434 . P5TSEL0 P5TSEL1 P6TSEL0 P6TSEL1 ]
+"8709
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8709: typedef union {
+[u S432 `S433 1 `S434 1 ]
+[n S432 . . . ]
+"8721
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8721: extern volatile PWMTMRSbits_t PWMTMRSbits __attribute__((address(0x61F)));
+[v _PWMTMRSbits `VS432 ~T0 @X0 0 e@1567 ]
+"8649
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8649:     struct {
+[s S429 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S429 . . PWM6POL PWM6OUT . PWM6EN ]
+"8648
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8648: typedef union {
+[u S428 `S429 1 ]
+[n S428 . . ]
+"8657
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8657: extern volatile PWM6CONbits_t PWM6CONbits __attribute__((address(0x61C)));
+[v _PWM6CONbits `VS428 ~T0 @X0 0 e@1564 ]
+"14171
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14171: extern volatile unsigned char RC4PPS __attribute__((address(0xEA4)));
+[v _RC4PPS `Vuc ~T0 @X0 0 e@3748 ]
+"8532
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8532: extern volatile unsigned char PWM6DCL __attribute__((address(0x61A)));
+[v _PWM6DCL `Vuc ~T0 @X0 0 e@1562 ]
+"8568
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8568: extern volatile unsigned char PWM6DCH __attribute__((address(0x61B)));
+[v _PWM6DCH `Vuc ~T0 @X0 0 e@1563 ]
+"255 SourceFiles/TransmitService.c
+[; ;SourceFiles/TransmitService.c: 255:     ChangeRadioMode(Standby1, 1);
+[c E6393 0 1 2 3 4 .. ]
+[n E6393 . RX TX Standby2 Standby1 PowerDown  ]
+"68 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 68: void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
+[v _ChangeRadioMode `(v ~T0 @X0 0 ef2`E6393`uc ]
+"1987 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1987:     struct {
+[s S105 :1 `uc 1 :1 `uc 1 :6 `uc 1 ]
+[n S105 . ADON GO_nDONE CHS ]
+"1992
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1992:     struct {
+[s S106 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S106 . . ADGO CHS0 CHS1 CHS2 CHS3 CHS4 CHS5 ]
+"2002
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2002:     struct {
+[s S107 :1 `uc 1 :1 `uc 1 ]
+[n S107 . . GO ]
+"1986
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1986: typedef union {
+[u S104 `S105 1 `S106 1 `S107 1 ]
+[n S104 . . . . ]
+"2007
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2007: extern volatile ADCON0bits_t ADCON0bits __attribute__((address(0x09D)));
+[v _ADCON0bits `VS104 ~T0 @X0 0 e@157 ]
+"2073
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2073:     struct {
+[s S109 :2 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 ]
+[n S109 . ADPREF ADNREF . ADCS ADFM ]
+"2080
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2080:     struct {
+[s S110 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S110 . ADPREF0 ADPREF1 . ADCS0 ADCS1 ADCS2 ]
+"2072
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2072: typedef union {
+[u S108 `S109 1 `S110 1 ]
+[n S108 . . . ]
+"2089
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2089: extern volatile ADCON1bits_t ADCON1bits __attribute__((address(0x09E)));
+[v _ADCON1bits `VS108 ~T0 @X0 0 e@158 ]
 "54 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 54: __asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
@@ -1035,283 +1234,271 @@ Version 4.0 HI-TECH Software Intermediate Code
 "18767
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 18767: __asm("TOSH equ 0FEFh");
 [; <" TOSH equ 0FEFh ;# ">
-"23 SourceFiles/TransmitService.c
-[; ;SourceFiles/TransmitService.c: 23: uint8_t address[] = {0x30, 0x30, 0x30, 0x31, 0x31};
-[v _address `uc ~T0 @X0 -> 5 `i e ]
-[i _address
-:U ..
--> -> 48 `i `uc
--> -> 48 `i `uc
--> -> 48 `i `uc
--> -> 49 `i `uc
--> -> 49 `i `uc
-..
-]
-"24
-[; ;SourceFiles/TransmitService.c: 24: uint8_t payload[6 + 1];
+"18 SourceFiles/TransmitService.c
+[; ;SourceFiles/TransmitService.c: 18: uint8_t payload[6 + 1];
 [v _payload `uc ~T0 @X0 -> 7 `i e ]
-"25
-[; ;SourceFiles/TransmitService.c: 25: Radio_t radioType = RECEIVER;
-[v _radioType `E6380 ~T0 @X0 1 e ]
+"19
+[; ;SourceFiles/TransmitService.c: 19: Radio_t radioType = RECEIVER;
+[v _radioType `E6378 ~T0 @X0 1 e ]
 [i _radioType
-. `E6380 0
+. `E6378 0
 ]
-"26
-[; ;SourceFiles/TransmitService.c: 26: static uint8_t motorSpeed = 128;
+"20
+[; ;SourceFiles/TransmitService.c: 20: static uint8_t motorSpeed = 128;
 [v _motorSpeed `uc ~T0 @X0 1 s ]
 [i _motorSpeed
 -> -> 128 `i `uc
 ]
-"27
-[; ;SourceFiles/TransmitService.c: 27: static uint8_t servoPos = 0;
+"21
+[; ;SourceFiles/TransmitService.c: 21: static uint8_t servoPos = 0;
 [v _servoPos `uc ~T0 @X0 1 s ]
 [i _servoPos
 -> -> 0 `i `uc
 ]
-"28
-[; ;SourceFiles/TransmitService.c: 28: _Bool readyToTransmit = 1;
+"22
+[; ;SourceFiles/TransmitService.c: 22: _Bool readyToTransmit = 1;
 [v _readyToTransmit `a ~T0 @X0 1 e ]
 [i _readyToTransmit
 -> -> 1 `i `a
 ]
-"31
-[; ;SourceFiles/TransmitService.c: 31: Radio_t InitTransmitService() {
-[v _InitTransmitService `(E6380 ~T0 @X0 1 ef ]
+"25
+[; ;SourceFiles/TransmitService.c: 25: Radio_t InitTransmitService() {
+[v _InitTransmitService `(E6378 ~T0 @X0 1 ef ]
 {
 [e :U _InitTransmitService ]
 [f ]
-"34
-[; ;SourceFiles/TransmitService.c: 34:  ES_Event_t ThisEvent;
+"28
+[; ;SourceFiles/TransmitService.c: 28:  ES_Event_t ThisEvent;
 [v _ThisEvent `S930 ~T0 @X0 1 a ]
-"36
-[; ;SourceFiles/TransmitService.c: 36:  uint8_t result[2];
+"30
+[; ;SourceFiles/TransmitService.c: 30:  uint8_t result[2];
 [v _result `uc ~T0 @X0 -> 2 `i a ]
-"38
-[; ;SourceFiles/TransmitService.c: 38:     _Bool RadioStarted = 0;
+"32
+[; ;SourceFiles/TransmitService.c: 32:     _Bool RadioStarted = 0;
 [v _RadioStarted `a ~T0 @X0 1 a ]
 [e = _RadioStarted -> -> 0 `i `a ]
-"44
-[; ;SourceFiles/TransmitService.c: 44:  return radioType;
+"38
+[; ;SourceFiles/TransmitService.c: 38:  return radioType;
 [e ) _radioType ]
 [e $UE 931  ]
-"45
-[; ;SourceFiles/TransmitService.c: 45: }
+"39
+[; ;SourceFiles/TransmitService.c: 39: }
 [e :UE 931 ]
 }
-"47
-[; ;SourceFiles/TransmitService.c: 47: ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
+"41
+[; ;SourceFiles/TransmitService.c: 41: ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
 [v _RunTransmitService `(S930 ~T0 @X0 1 ef1`S930 ]
 {
 [e :U _RunTransmitService ]
 [v _ThisEvent `S930 ~T0 @X0 1 r1 ]
 [f ]
-"48
-[; ;SourceFiles/TransmitService.c: 48:  ES_Event_t ReturnEvent;
+"42
+[; ;SourceFiles/TransmitService.c: 42:  ES_Event_t ReturnEvent;
 [v _ReturnEvent `S930 ~T0 @X0 1 a ]
-"49
-[; ;SourceFiles/TransmitService.c: 49:  switch (ThisEvent.EventType) {
+"43
+[; ;SourceFiles/TransmitService.c: 43:  switch (ThisEvent.EventType) {
 [e $U 934  ]
 {
-"50
-[; ;SourceFiles/TransmitService.c: 50:  case ES_INIT:
+"44
+[; ;SourceFiles/TransmitService.c: 44:  case ES_INIT:
 [e :U 935 ]
+"45
+[; ;SourceFiles/TransmitService.c: 45:   {
+{
 "51
-[; ;SourceFiles/TransmitService.c: 51:   {
-{
-"57
-[; ;SourceFiles/TransmitService.c: 57:    break;
+[; ;SourceFiles/TransmitService.c: 51:    break;
 [e $U 933  ]
-"58
-[; ;SourceFiles/TransmitService.c: 58:   }
+"52
+[; ;SourceFiles/TransmitService.c: 52:   }
 }
-"60
-[; ;SourceFiles/TransmitService.c: 60:  case ES_STATUS_FLAGS:
+"54
+[; ;SourceFiles/TransmitService.c: 54:  case ES_STATUS_FLAGS:
 [e :U 936 ]
-"61
-[; ;SourceFiles/TransmitService.c: 61:   {
+"55
+[; ;SourceFiles/TransmitService.c: 55:   {
 {
-"76
-[; ;SourceFiles/TransmitService.c: 76:    break;
+"70
+[; ;SourceFiles/TransmitService.c: 70:    break;
 [e $U 933  ]
-"77
-[; ;SourceFiles/TransmitService.c: 77:   }
+"71
+[; ;SourceFiles/TransmitService.c: 71:   }
 }
-"79
-[; ;SourceFiles/TransmitService.c: 79:  case ES_HANDLE_PAYLOAD:
+"73
+[; ;SourceFiles/TransmitService.c: 73:  case ES_HANDLE_PAYLOAD:
 [e :U 937 ]
-"80
-[; ;SourceFiles/TransmitService.c: 80:   {
+"74
+[; ;SourceFiles/TransmitService.c: 74:   {
 {
-"81
-[; ;SourceFiles/TransmitService.c: 81:    uint8_t result[6 + 1];
+"75
+[; ;SourceFiles/TransmitService.c: 75:    uint8_t result[6 + 1];
 [v _result `uc ~T0 @X0 -> 7 `i a ]
-"82
-[; ;SourceFiles/TransmitService.c: 82:    _Bool validData = ReadRXFIFO(result);
+"76
+[; ;SourceFiles/TransmitService.c: 76:    _Bool validData = readRXFIFO(result);
 [v _validData `a ~T0 @X0 1 a ]
-[e = _validData ( _ReadRXFIFO (1 &U _result ]
-"84
-[; ;SourceFiles/TransmitService.c: 84:    if (result[1] == 0x01) {
-[e $ ! == -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 1 `i 938  ]
+[e = _validData ( _readRXFIFO (1 &U _result ]
+"78
+[; ;SourceFiles/TransmitService.c: 78:    if (result[1] == 0) {
+[e $ ! == -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 0 `i 938  ]
 {
-"85
-[; ;SourceFiles/TransmitService.c: 85:     uint8_t newMotorSpeed = result[2];
+"79
+[; ;SourceFiles/TransmitService.c: 79:     uint8_t newMotorSpeed = result[2];
 [v _newMotorSpeed `uc ~T0 @X0 1 a ]
 [e = _newMotorSpeed *U + &U _result * -> -> -> 2 `i `ui `ux -> -> # *U &U _result `ui `ux ]
-"86
-[; ;SourceFiles/TransmitService.c: 86:     uint8_t newServoPos = result[3];
+"80
+[; ;SourceFiles/TransmitService.c: 80:     uint8_t newServoPos = result[3];
 [v _newServoPos `uc ~T0 @X0 1 a ]
 [e = _newServoPos *U + &U _result * -> -> -> 3 `i `ui `ux -> -> # *U &U _result `ui `ux ]
-"89
-[; ;SourceFiles/TransmitService.c: 89:     if (newMotorSpeed < 128) {
+"83
+[; ;SourceFiles/TransmitService.c: 83:     if (newMotorSpeed < 128) {
 [e $ ! < -> _newMotorSpeed `i -> 128 `i 939  ]
 {
-"93
-[; ;SourceFiles/TransmitService.c: 93:     } else {
+"87
+[; ;SourceFiles/TransmitService.c: 87:     } else {
 }
 [e $U 940  ]
 [e :U 939 ]
 {
-"97
-[; ;SourceFiles/TransmitService.c: 97:     }
+"91
+[; ;SourceFiles/TransmitService.c: 91:     }
 }
 [e :U 940 ]
-"101
-[; ;SourceFiles/TransmitService.c: 101:    } else if (result[1] != 0x01) {
+"95
+[; ;SourceFiles/TransmitService.c: 95:    } else if (result[1] != 0) {
 }
 [e $U 941  ]
 [e :U 938 ]
-[e $ ! != -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 1 `i 942  ]
+[e $ ! != -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 0 `i 942  ]
 {
-"103
-[; ;SourceFiles/TransmitService.c: 103:    } else if (!validData) {
+"97
+[; ;SourceFiles/TransmitService.c: 97:    } else if (!validData) {
 }
 [e $U 943  ]
 [e :U 942 ]
 [e $ ! ! != -> _validData `i -> 0 `i 944  ]
 {
-"105
-[; ;SourceFiles/TransmitService.c: 105:    }
+"99
+[; ;SourceFiles/TransmitService.c: 99:    }
 }
 [e :U 944 ]
 [e :U 943 ]
 [e :U 941 ]
-"106
-[; ;SourceFiles/TransmitService.c: 106:    break;
+"100
+[; ;SourceFiles/TransmitService.c: 100:    break;
 [e $U 933  ]
-"107
-[; ;SourceFiles/TransmitService.c: 107:   }
+"101
+[; ;SourceFiles/TransmitService.c: 101:   }
 }
-"109
-[; ;SourceFiles/TransmitService.c: 109:  case ES_CONTROL_UPDATE:
+"103
+[; ;SourceFiles/TransmitService.c: 103:  case ES_CONTROL_UPDATE:
 [e :U 945 ]
-"110
-[; ;SourceFiles/TransmitService.c: 110:   {
+"104
+[; ;SourceFiles/TransmitService.c: 104:   {
 {
-"111
-[; ;SourceFiles/TransmitService.c: 111:    motorSpeed = ThisEvent.EventParam >> 8;
+"105
+[; ;SourceFiles/TransmitService.c: 105:    motorSpeed = ThisEvent.EventParam >> 8;
 [e = _motorSpeed -> >> -> . _ThisEvent 1 `ui -> 8 `i `uc ]
-"112
-[; ;SourceFiles/TransmitService.c: 112:    servoPos = (uint8_t)ThisEvent.EventParam;
+"106
+[; ;SourceFiles/TransmitService.c: 106:    servoPos = (uint8_t)ThisEvent.EventParam;
 [e = _servoPos -> . _ThisEvent 1 `uc ]
-"114
-[; ;SourceFiles/TransmitService.c: 114:    if (readyToTransmit) {
+"108
+[; ;SourceFiles/TransmitService.c: 108:    if (readyToTransmit) {
 [e $ ! != -> _readyToTransmit `i -> 0 `i 946  ]
 {
-"118
-[; ;SourceFiles/TransmitService.c: 118:    }
+"112
+[; ;SourceFiles/TransmitService.c: 112:    }
 }
 [e :U 946 ]
-"119
-[; ;SourceFiles/TransmitService.c: 119:    break;
+"113
+[; ;SourceFiles/TransmitService.c: 113:    break;
 [e $U 933  ]
-"120
-[; ;SourceFiles/TransmitService.c: 120:   }
+"114
+[; ;SourceFiles/TransmitService.c: 114:   }
 }
-"122
-[; ;SourceFiles/TransmitService.c: 122:     default:
+"116
+[; ;SourceFiles/TransmitService.c: 116:     default:
 [e :U 947 ]
-"123
-[; ;SourceFiles/TransmitService.c: 123:         {
+"117
+[; ;SourceFiles/TransmitService.c: 117:         {
 {
-"124
-[; ;SourceFiles/TransmitService.c: 124:             break;
+"118
+[; ;SourceFiles/TransmitService.c: 118:             break;
 [e $U 933  ]
-"125
-[; ;SourceFiles/TransmitService.c: 125:         }
+"119
+[; ;SourceFiles/TransmitService.c: 119:         }
 }
-"126
-[; ;SourceFiles/TransmitService.c: 126:  }
+"120
+[; ;SourceFiles/TransmitService.c: 120:  }
 }
 [e $U 933  ]
 [e :U 934 ]
-[e [\ -> . _ThisEvent 0 `ui , $ -> . `E6441 0 `ui 935
- , $ -> . `E6441 1 `ui 936
- , $ -> . `E6441 2 `ui 937
- , $ -> . `E6441 3 `ui 945
+[e [\ -> . _ThisEvent 0 `ui , $ -> . `E6439 0 `ui 935
+ , $ -> . `E6439 1 `ui 936
+ , $ -> . `E6439 2 `ui 937
+ , $ -> . `E6439 3 `ui 945
  947 ]
 [e :U 933 ]
-"127
-[; ;SourceFiles/TransmitService.c: 127:  return ReturnEvent;
+"121
+[; ;SourceFiles/TransmitService.c: 121:  return ReturnEvent;
 [e ) _ReturnEvent ]
 [e $UE 932  ]
-"128
-[; ;SourceFiles/TransmitService.c: 128: }
+"122
+[; ;SourceFiles/TransmitService.c: 122: }
 [e :UE 932 ]
 }
-"134
-[; ;SourceFiles/TransmitService.c: 134: void transmitPayload(uint8_t statusBits) {
+"128
+[; ;SourceFiles/TransmitService.c: 128: void transmitPayload(uint8_t statusBits) {
 [v _transmitPayload `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _transmitPayload ]
 [v _statusBits `uc ~T0 @X0 1 r1 ]
 [f ]
-"135
-[; ;SourceFiles/TransmitService.c: 135:  readyToTransmit = 0;
+"129
+[; ;SourceFiles/TransmitService.c: 129:  readyToTransmit = 0;
 [e = _readyToTransmit -> -> 0 `i `a ]
-"137
-[; ;SourceFiles/TransmitService.c: 137:  if (statusBits & 0x70) {
+"131
+[; ;SourceFiles/TransmitService.c: 131:  if (statusBits & 0x70) {
 [e $ ! != & -> _statusBits `i -> 112 `i -> 0 `i 949  ]
 {
-"139
-[; ;SourceFiles/TransmitService.c: 139:   uint8_t databytes[2];
+"133
+[; ;SourceFiles/TransmitService.c: 133:   uint8_t databytes[2];
 [v _databytes `uc ~T0 @X0 -> 2 `i a ]
-"140
-[; ;SourceFiles/TransmitService.c: 140:         uint8_t result[2];
+"134
+[; ;SourceFiles/TransmitService.c: 134:         uint8_t result[2];
 [v _result `uc ~T0 @X0 -> 2 `i a ]
-"141
-[; ;SourceFiles/TransmitService.c: 141:         databytes[0] = 0x20 | 0x07;
+"135
+[; ;SourceFiles/TransmitService.c: 135:         databytes[0] = 0x20 | 0x07;
 [e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
-"142
-[; ;SourceFiles/TransmitService.c: 142:         databytes[1] = 0x70;
+"136
+[; ;SourceFiles/TransmitService.c: 136:         databytes[1] = 0x70;
 [e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> -> 112 `i `uc ]
-"143
-[; ;SourceFiles/TransmitService.c: 143:         SendSPI(databytes, result, 2);
+"137
+[; ;SourceFiles/TransmitService.c: 137:         SendSPI(databytes, result, 2);
 [e ( _SendSPI (3 , , &U _databytes &U _result -> -> 2 `i `uc ]
-"144
-[; ;SourceFiles/TransmitService.c: 144:  }
+"138
+[; ;SourceFiles/TransmitService.c: 138:  }
 }
 [e :U 949 ]
-"145
-[; ;SourceFiles/TransmitService.c: 145:  uint8_t result[6 + 1];
+"139
+[; ;SourceFiles/TransmitService.c: 139:  uint8_t result[6 + 1];
 [v _result `uc ~T0 @X0 -> 7 `i a ]
-"146
-[; ;SourceFiles/TransmitService.c: 146:  SendSPI(payload, result, 6 + 1);
+"140
+[; ;SourceFiles/TransmitService.c: 140:  SendSPI(payload, result, 6 + 1);
 [e ( _SendSPI (3 , , &U _payload &U _result -> + -> 6 `i -> 1 `i `uc ]
-"147
-[; ;SourceFiles/TransmitService.c: 147:  ce(HIGH);
+"141
+[; ;SourceFiles/TransmitService.c: 141:  ce(HIGH);
 [e ( _ce (1 . `E6335 1 ]
-"148
-[; ;SourceFiles/TransmitService.c: 148:  delay(45);
+"142
+[; ;SourceFiles/TransmitService.c: 142:  delay(45);
 [e ( _delay (1 -> 45 `i ]
-"149
-[; ;SourceFiles/TransmitService.c: 149:  ce(LOW);
+"143
+[; ;SourceFiles/TransmitService.c: 143:  ce(LOW);
 [e ( _ce (1 . `E6335 0 ]
-"150
-[; ;SourceFiles/TransmitService.c: 150: }
+"144
+[; ;SourceFiles/TransmitService.c: 144: }
 [e :UE 948 ]
 }
-"152
-[; ;SourceFiles/TransmitService.c: 152: void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
+"146
+[; ;SourceFiles/TransmitService.c: 146: void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
 [v _packagePayload `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
 {
 [e :U _packagePayload ]
@@ -1320,32 +1507,265 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _bytes3 `uc ~T0 @X0 1 r3 ]
 [v _bytes4 `uc ~T0 @X0 1 r4 ]
 [f ]
-"153
-[; ;SourceFiles/TransmitService.c: 153:  uint8_t checksum = 0xFF - (0x01 + bytes1 + bytes2 + bytes3 + bytes4);
+"147
+[; ;SourceFiles/TransmitService.c: 147:  uint8_t checksum = 0xFF - (0x01 + bytes1 + bytes2 + bytes3 + bytes4);
 [v _checksum `uc ~T0 @X0 1 a ]
 [e = _checksum -> - -> 255 `i + + + + -> 1 `i -> _bytes1 `i -> _bytes2 `i -> _bytes3 `i -> _bytes4 `i `uc ]
-"154
-[; ;SourceFiles/TransmitService.c: 154:  payload[0] = 0xA0;
+"148
+[; ;SourceFiles/TransmitService.c: 148:  payload[0] = 0xA0;
 [e = *U + &U _payload * -> -> -> 0 `i `ui `ux -> -> # *U &U _payload `ui `ux -> -> 160 `i `uc ]
-"155
-[; ;SourceFiles/TransmitService.c: 155:  payload[1] = 0x01;
+"149
+[; ;SourceFiles/TransmitService.c: 149:  payload[1] = 0x01;
 [e = *U + &U _payload * -> -> -> 1 `i `ui `ux -> -> # *U &U _payload `ui `ux -> -> 1 `i `uc ]
-"156
-[; ;SourceFiles/TransmitService.c: 156:  payload[2] = bytes1;
+"150
+[; ;SourceFiles/TransmitService.c: 150:  payload[2] = bytes1;
 [e = *U + &U _payload * -> -> -> 2 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes1 ]
-"157
-[; ;SourceFiles/TransmitService.c: 157:  payload[3] = bytes2;
+"151
+[; ;SourceFiles/TransmitService.c: 151:  payload[3] = bytes2;
 [e = *U + &U _payload * -> -> -> 3 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes2 ]
-"158
-[; ;SourceFiles/TransmitService.c: 158:  payload[4] = bytes3;
+"152
+[; ;SourceFiles/TransmitService.c: 152:  payload[4] = bytes3;
 [e = *U + &U _payload * -> -> -> 4 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes3 ]
-"159
-[; ;SourceFiles/TransmitService.c: 159:     payload[5] = bytes4;
+"153
+[; ;SourceFiles/TransmitService.c: 153:     payload[5] = bytes4;
 [e = *U + &U _payload * -> -> -> 5 `i `ui `ux -> -> # *U &U _payload `ui `ux _bytes4 ]
-"160
-[; ;SourceFiles/TransmitService.c: 160:     payload[6] = checksum;
+"154
+[; ;SourceFiles/TransmitService.c: 154:     payload[6] = checksum;
 [e = *U + &U _payload * -> -> -> 6 `i `ui `ux -> -> # *U &U _payload `ui `ux _checksum ]
-"161
-[; ;SourceFiles/TransmitService.c: 161: }
+"155
+[; ;SourceFiles/TransmitService.c: 155: }
 [e :UE 950 ]
+}
+"157
+[; ;SourceFiles/TransmitService.c: 157: void setupSPI(void) {
+[v _setupSPI `(v ~T0 @X0 1 ef ]
+{
+[e :U _setupSPI ]
+[f ]
+"159
+[; ;SourceFiles/TransmitService.c: 159:     TRISCbits.TRISC0 = 0;
+[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
+"161
+[; ;SourceFiles/TransmitService.c: 161:     RC0PPS = 0b11000;
+[e = _RC0PPS -> -> 24 `i `uc ]
+"164
+[; ;SourceFiles/TransmitService.c: 164:     TRISCbits.TRISC1 = 1;
+[e = . . _TRISCbits 0 1 -> -> 1 `i `uc ]
+"166
+[; ;SourceFiles/TransmitService.c: 166:     ANSELCbits.ANSC1 = 0;
+[e = . . _ANSELCbits 0 1 -> -> 0 `i `uc ]
+"168
+[; ;SourceFiles/TransmitService.c: 168:     SSP1DATPPS = 0b10001;
+[e = _SSP1DATPPS -> -> 17 `i `uc ]
+"171
+[; ;SourceFiles/TransmitService.c: 171:     TRISAbits.TRISA4 = 0;
+[e = . . _TRISAbits 0 4 -> -> 0 `i `uc ]
+"173
+[; ;SourceFiles/TransmitService.c: 173:     RA4PPS = 0b11001;
+[e = _RA4PPS -> -> 25 `i `uc ]
+"176
+[; ;SourceFiles/TransmitService.c: 176:     TRISCbits.TRISC3 = 0;
+[e = . . _TRISCbits 0 3 -> -> 0 `i `uc ]
+"178
+[; ;SourceFiles/TransmitService.c: 178:     LATCbits.LATC3 = 1;
+[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
+"181
+[; ;SourceFiles/TransmitService.c: 181:     SSP1CON1bits.SSPEN = 1;
+[e = . . _SSP1CON1bits 0 2 -> -> 1 `i `uc ]
+"183
+[; ;SourceFiles/TransmitService.c: 183:     SSP1CON1bits.SSPM = 0b0000;
+[e = . . _SSP1CON1bits 0 0 -> -> 0 `i `uc ]
+"186
+[; ;SourceFiles/TransmitService.c: 186:     SSP1STATbits.SMP = 1;
+[e = . . _SSP1STATbits 0 7 -> -> 1 `i `uc ]
+"188
+[; ;SourceFiles/TransmitService.c: 188:     SSP1STATbits.CKE = 1;
+[e = . . _SSP1STATbits 0 6 -> -> 1 `i `uc ]
+"190
+[; ;SourceFiles/TransmitService.c: 190:     SSP1CON1bits.CKP = 0;
+[e = . . _SSP1CON1bits 0 1 -> -> 0 `i `uc ]
+"191
+[; ;SourceFiles/TransmitService.c: 191: }
+[e :UE 951 ]
+}
+"193
+[; ;SourceFiles/TransmitService.c: 193: void configureRX(uint8_t *address) {
+[v _configureRX `(v ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _configureRX ]
+[v _address `*uc ~T0 @X0 1 r1 ]
+[f ]
+"195
+[; ;SourceFiles/TransmitService.c: 195:     uint8_t bytes[2];
+[v _bytes `uc ~T0 @X0 -> 2 `i a ]
+"196
+[; ;SourceFiles/TransmitService.c: 196:     uint8_t result[2];
+[v _result `uc ~T0 @X0 -> 2 `i a ]
+"197
+[; ;SourceFiles/TransmitService.c: 197:     bytes[0] = 0x20 | 0x02;
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 2 `i `uc ]
+"198
+[; ;SourceFiles/TransmitService.c: 198:     bytes[1] = 0x01;
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 1 `i `uc ]
+"199
+[; ;SourceFiles/TransmitService.c: 199:     SendSPI(bytes, result, 2);
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
+"202
+[; ;SourceFiles/TransmitService.c: 202:     StartListening(address);
+[e ( _StartListening (1 _address ]
+"205
+[; ;SourceFiles/TransmitService.c: 205:     bytes[0] = 0x20 | 0x07;
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"206
+[; ;SourceFiles/TransmitService.c: 206:     bytes[1] = 0x70;
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 112 `i `uc ]
+"207
+[; ;SourceFiles/TransmitService.c: 207:     SendSPI(bytes, result, 2);
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
+"210
+[; ;SourceFiles/TransmitService.c: 210:     T2CONbits.TMR2ON = 0;
+[e = . . _T2CONbits 0 1 -> -> 0 `i `uc ]
+"211
+[; ;SourceFiles/TransmitService.c: 211:     T2CONbits.T2CKPS = 0b01;
+[e = . . _T2CONbits 0 0 -> -> 1 `i `uc ]
+"212
+[; ;SourceFiles/TransmitService.c: 212:     TMR2 = 0;
+[e = _TMR2 -> -> 0 `i `uc ]
+"213
+[; ;SourceFiles/TransmitService.c: 213:     PR2 = 125;
+[e = _PR2 -> -> 125 `i `uc ]
+"214
+[; ;SourceFiles/TransmitService.c: 214:     T2CONbits.TMR2ON = 1;
+[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
+"216
+[; ;SourceFiles/TransmitService.c: 216:     TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+"217
+[; ;SourceFiles/TransmitService.c: 217:     LATCbits.LATC4 = 0;
+[e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
+"220
+[; ;SourceFiles/TransmitService.c: 220:     TRISCbits.TRISC2 = 0;
+[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
+"221
+[; ;SourceFiles/TransmitService.c: 221:     PWM5CONbits.PWM5EN = 0;
+[e = . . _PWM5CONbits 0 4 -> -> 0 `i `uc ]
+"222
+[; ;SourceFiles/TransmitService.c: 222:     PWM5CONbits.PWM5POL = 0;
+[e = . . _PWM5CONbits 0 1 -> -> 0 `i `uc ]
+"223
+[; ;SourceFiles/TransmitService.c: 223:     RC2PPS = 0b00010;
+[e = _RC2PPS -> -> 2 `i `uc ]
+"224
+[; ;SourceFiles/TransmitService.c: 224:     PWM5DCL = 0xC0;
+[e = _PWM5DCL -> -> 192 `i `uc ]
+"225
+[; ;SourceFiles/TransmitService.c: 225:     PWM5DCH = 0x6F;
+[e = _PWM5DCH -> -> 111 `i `uc ]
+"226
+[; ;SourceFiles/TransmitService.c: 226:     PWMTMRSbits.P5TSEL = 0b01;
+[e = . . _PWMTMRSbits 0 0 -> -> 1 `i `uc ]
+"227
+[; ;SourceFiles/TransmitService.c: 227:     PWM5CONbits.PWM5EN = 1;
+[e = . . _PWM5CONbits 0 4 -> -> 1 `i `uc ]
+"230
+[; ;SourceFiles/TransmitService.c: 230:     TRISCbits.TRISC4 = 0;
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+"231
+[; ;SourceFiles/TransmitService.c: 231:     PWM6CONbits.PWM6EN = 0;
+[e = . . _PWM6CONbits 0 4 -> -> 0 `i `uc ]
+"232
+[; ;SourceFiles/TransmitService.c: 232:     PWM6CONbits.PWM6POL = 0;
+[e = . . _PWM6CONbits 0 1 -> -> 0 `i `uc ]
+"233
+[; ;SourceFiles/TransmitService.c: 233:     RC4PPS = 0b00011;
+[e = _RC4PPS -> -> 3 `i `uc ]
+"234
+[; ;SourceFiles/TransmitService.c: 234:     PWM6DCL = 0x00;
+[e = _PWM6DCL -> -> 0 `i `uc ]
+"235
+[; ;SourceFiles/TransmitService.c: 235:     PWM6DCH = 0x00;
+[e = _PWM6DCH -> -> 0 `i `uc ]
+"236
+[; ;SourceFiles/TransmitService.c: 236:     PWMTMRSbits.P6TSEL = 0b01;
+[e = . . _PWMTMRSbits 0 1 -> -> 1 `i `uc ]
+"237
+[; ;SourceFiles/TransmitService.c: 237:     PWM6CONbits.PWM6EN = 1;
+[e = . . _PWM6CONbits 0 4 -> -> 1 `i `uc ]
+"238
+[; ;SourceFiles/TransmitService.c: 238: }
+[e :UE 952 ]
+}
+"240
+[; ;SourceFiles/TransmitService.c: 240: void configureTX(uint8_t *address) {
+[v _configureTX `(v ~T0 @X0 1 ef1`*uc ]
+{
+[e :U _configureTX ]
+[v _address `*uc ~T0 @X0 1 r1 ]
+[f ]
+"242
+[; ;SourceFiles/TransmitService.c: 242:     uint8_t databytes[6];
+[v _databytes `uc ~T0 @X0 -> 6 `i a ]
+"243
+[; ;SourceFiles/TransmitService.c: 243:     uint8_t result[6];
+[v _result `uc ~T0 @X0 -> 6 `i a ]
+"244
+[; ;SourceFiles/TransmitService.c: 244:     databytes[0] = 0x20 | 0x0A;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 10 `i `uc ]
+"245
+[; ;SourceFiles/TransmitService.c: 245:     databytes[1] = address[0];
+[e = *U + &U _databytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 0 `i `x -> -> # *U _address `i `x ]
+"246
+[; ;SourceFiles/TransmitService.c: 246:     databytes[2] = address[1];
+[e = *U + &U _databytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 1 `i `x -> -> # *U _address `i `x ]
+"247
+[; ;SourceFiles/TransmitService.c: 247:     databytes[3] = address[2];
+[e = *U + &U _databytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 2 `i `x -> -> # *U _address `i `x ]
+"248
+[; ;SourceFiles/TransmitService.c: 248:     databytes[4] = address[3];
+[e = *U + &U _databytes * -> -> -> 4 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 3 `i `x -> -> # *U _address `i `x ]
+"249
+[; ;SourceFiles/TransmitService.c: 249:     databytes[5] = address[4];
+[e = *U + &U _databytes * -> -> -> 5 `i `ui `ux -> -> # *U &U _databytes `ui `ux *U + _address * -> -> 4 `i `x -> -> # *U _address `i `x ]
+"250
+[; ;SourceFiles/TransmitService.c: 250:     SendSPI(databytes, result, 5 + 1);
+[e ( _SendSPI (3 , , &U _databytes &U _result -> + -> 5 `i -> 1 `i `uc ]
+"251
+[; ;SourceFiles/TransmitService.c: 251:     databytes[0] = 0x20 | 0x10;
+[e = *U + &U _databytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _databytes `ui `ux -> | -> 32 `i -> 16 `i `uc ]
+"252
+[; ;SourceFiles/TransmitService.c: 252:     SendSPI(databytes, result, 5 + 1);
+[e ( _SendSPI (3 , , &U _databytes &U _result -> + -> 5 `i -> 1 `i `uc ]
+"255
+[; ;SourceFiles/TransmitService.c: 255:     ChangeRadioMode(Standby1, 1);
+[e ( _ChangeRadioMode (2 , . `E6393 3 -> -> 1 `i `uc ]
+"258
+[; ;SourceFiles/TransmitService.c: 258:     ANSELCbits.ANSC4 = 1;
+[e = . . _ANSELCbits 0 4 -> -> 1 `i `uc ]
+"259
+[; ;SourceFiles/TransmitService.c: 259:     TRISCbits.TRISC4 = 1;
+[e = . . _TRISCbits 0 4 -> -> 1 `i `uc ]
+"261
+[; ;SourceFiles/TransmitService.c: 261:     ADCON0bits.ADON = 0;
+[e = . . _ADCON0bits 0 0 -> -> 0 `i `uc ]
+"262
+[; ;SourceFiles/TransmitService.c: 262:     ADCON1bits.ADCS = 0b110;
+[e = . . _ADCON1bits 0 3 -> -> 6 `i `uc ]
+"263
+[; ;SourceFiles/TransmitService.c: 263:     ADCON1bits.ADNREF = 0;
+[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
+"264
+[; ;SourceFiles/TransmitService.c: 264:     ADCON1bits.ADPREF = 0;
+[e = . . _ADCON1bits 0 0 -> -> 0 `i `uc ]
+"265
+[; ;SourceFiles/TransmitService.c: 265:     ADCON0bits.CHS = 0x14;
+[e = . . _ADCON0bits 0 2 -> -> 20 `i `uc ]
+"266
+[; ;SourceFiles/TransmitService.c: 266:     ADCON1bits.ADFM = 1;
+[e = . . _ADCON1bits 0 4 -> -> 1 `i `uc ]
+"267
+[; ;SourceFiles/TransmitService.c: 267:     ADCON0bits.ADON = 1;
+[e = . . _ADCON0bits 0 0 -> -> 1 `i `uc ]
+"268
+[; ;SourceFiles/TransmitService.c: 268: }
+[e :UE 953 ]
 }
