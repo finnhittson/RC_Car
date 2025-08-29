@@ -4308,6 +4308,19 @@
 		)
 		(uuid "ba03d999-0e55-484d-90d0-49757f2a534c")
 	)
+	(text "Receiver"
+		(exclude_from_sim no)
+		(at 27.305 38.1 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+				(thickness 0.508)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "be00223d-277a-4183-825f-b7b60950f63b")
+	)
 	(text "H-Bridge Motor Driver"
 		(exclude_from_sim no)
 		(at 231.14 87.63 0)
