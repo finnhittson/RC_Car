@@ -42,15 +42,12 @@ typedef enum {
             DONE,
 } State_t;
 
-// Public Function Prototypes
-Radio_t InitTransmitService();
-ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
-
 // misc functions
-void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void packagePayload(uint8_t radioID, uint8_t *bytes);
 void transmitPayload(uint8_t statusBits);
-void setupSPI(void);
+void setupSPI(Radio_t radioType);
 void configureRX(uint8_t *address);
 void configureTX(uint8_t *address);
+bool controlsChanged(uint8_t *bytes);
 
 #endif /* ServTemplate_H */

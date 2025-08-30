@@ -2,17 +2,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "55 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 55: void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
 [v _SendSPI `(v ~T0 @X0 0 ef3`*uc`*uc`uc ]
-"2242 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2242:     struct {
-[s S117 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S117 . LATC0 LATC1 LATC2 LATC3 LATC4 LATC5 ]
-"2241
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2241: typedef union {
-[u S116 `S117 1 ]
-[n S116 . . ]
-"2251
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2251: extern volatile LATCbits_t LATCbits __attribute__((address(0x10E)));
-[v _LATCbits `VS116 ~T0 @X0 0 e@270 ]
+"2197 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2197:     struct {
+[s S115 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S115 . LATA0 LATA1 LATA2 . LATA4 LATA5 ]
+"2196
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2196: typedef union {
+[u S114 `S115 1 ]
+[n S114 . . ]
+"2206
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2206: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
+[v _LATAbits `VS114 ~T0 @X0 0 e@268 ]
 "3829
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 3829: extern volatile unsigned char SSP1BUF __attribute__((address(0x211)));
 [v _SSP1BUF `Vuc ~T0 @X0 0 e@529 ]
@@ -1094,8 +1094,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! == -> _n `i -> 1 `i 923  ]
 {
 "10
-[; ;SourceFiles/SPI.c: 10:   LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+[; ;SourceFiles/SPI.c: 10:   LATAbits.LATA4 = 0;
+[e = . . _LATAbits 0 4 -> -> 0 `i `uc ]
 "11
 [; ;SourceFiles/SPI.c: 11:   SSP1BUF = bytes[0];
 [e = _SSP1BUF *U + _bytes * -> -> 0 `i `x -> -> # *U _bytes `i `x ]
@@ -1110,8 +1110,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;SourceFiles/SPI.c: 13:   result[0] = SSP1BUF;
 [e = *U + _result * -> -> 0 `i `x -> -> # *U _result `i `x _SSP1BUF ]
 "14
-[; ;SourceFiles/SPI.c: 14:   LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
+[; ;SourceFiles/SPI.c: 14:   LATAbits.LATA4 = 1;
+[e = . . _LATAbits 0 4 -> -> 1 `i `uc ]
 "15
 [; ;SourceFiles/SPI.c: 15:  } else {
 }
@@ -1119,8 +1119,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 923 ]
 {
 "16
-[; ;SourceFiles/SPI.c: 16:   LATCbits.LATC3 = 0;
-[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+[; ;SourceFiles/SPI.c: 16:   LATAbits.LATA4 = 0;
+[e = . . _LATAbits 0 4 -> -> 0 `i `uc ]
 "17
 [; ;SourceFiles/SPI.c: 17:   for (uint8_t i = 0; i < n; i++) {
 {
@@ -1193,8 +1193,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 929 ]
 }
 "33
-[; ;SourceFiles/SPI.c: 33:   LATCbits.LATC3 = 1;
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
+[; ;SourceFiles/SPI.c: 33:   LATAbits.LATA4 = 1;
+[e = . . _LATAbits 0 4 -> -> 1 `i `uc ]
 "34
 [; ;SourceFiles/SPI.c: 34:  }
 }

@@ -21,110 +21,6 @@ static uint8_t motorSpeed = 128;
 static uint8_t servoPos = 0;
 bool readyToTransmit = true;
 
-/*------------------------------ Module Code ------------------------------*/
-Radio_t InitTransmitService() {
-//	clrScrn();
-//	DB_printf("Init Transmit/Receive Service\n");
-	ES_Event_t ThisEvent;
-	
-	uint8_t result[2];
-//	SPI_STATUSbits.w = result[0];
-    bool RadioStarted = false;
-	// setup radio as receiver
-	
-
-	
-
-	return radioType;
-}
-
-ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
-	ES_Event_t ReturnEvent;
-	switch (ThisEvent.EventType) {
-	case ES_INIT:
-		{
-//			if (radioType == TRANSMITTER && false) {
-//				PackagePayload(motorSpeed, servoPos);
-//				TransmitPayload();
-//			}
-//			// ES_Timer_InitTimer(SERVICE_TIMER, 1000);
-			break;
-		}
-
-	case ES_STATUS_FLAGS:
-		{
-//			if (SPI_STATUSbits.RX_DR) {
-////				DB_printf("Data ready in RX FIFO\n");
-//				if (!radioIsTransmitter()) {
-//					ThisEvent.EventType = ES_HANDLE_PAYLOAD;
-////					PostTransmitService(ThisEvent);
-//				}
-//			} else if (SPI_STATUSbits.TX_DS) {
-////				DB_printf("Data successfully sent from TX FIFO\n");
-//				readyToTransmit = true;
-//			} else if (SPI_STATUSbits.MAX_RT) {
-////				DB_printf("Max number of TX transmits reached\n");
-//			} else {
-////				DB_printf("SHOULD NOT BE HERE!!!\n");
-//			}
-			break;
-		}
-
-	case ES_HANDLE_PAYLOAD:
-		{
-			uint8_t result[PAYLOAD_SIZE + 1];
-			bool validData = readRXFIFO(result);
-//			DB_printf("HERE\n");
-			if (result[1] == 0) { // && validData
-				uint8_t newMotorSpeed = result[2];
-				uint8_t newServoPos = result[3];
-//				DB_printf("Updating motor speed: %d\n", newMotorSpeed);
-				// update motor speed
-				if (newMotorSpeed < 128) {
-//					OC1RS = 0;
-//					OC2RS = MOTOR_PERIOD - ((newMotorSpeed * MOTOR_PERIOD) / 128);
-//					DB_printf("motor speed: %d\n", MOTOR_PERIOD - ((newMotorSpeed * MOTOR_PERIOD) / 128));
-				} else {
-//					OC2RS = 0;
-//					OC1RS = ((newMotorSpeed * MOTOR_PERIOD) / 128) - MOTOR_PERIOD;
-//					DB_printf("motor speed: %d\n", ((newMotorSpeed * MOTOR_PERIOD) / 128) - MOTOR_PERIOD);
-				}
-//				DB_printf("Updating servo position: %d\n", newServoPos);
-				// update servo position
-//				OC3RS = 23.4375 * newServoPos + 2250;
-			} else if (result[1] != 0) {
-//				DB_printf("Radio ID does not match: %d\n", RADIO_ID);
-			} else if (!validData) {
-//				DB_printf("Invalid data recieved. Undesierable checksum value.\n");
-			}
-			break;
-		}
-
-	case ES_CONTROL_UPDATE:
-		{
-			motorSpeed = ThisEvent.EventParam >> 8;
-			servoPos = (uint8_t)ThisEvent.EventParam;
-//			PackagePayload(motorSpeed, servoPos);
-			if (readyToTransmit) {
-//				DB_printf("Update motor speed: %d\n", motorSpeed);
-//				DB_printf("Update servo pos: %d\n\n", servoPos);
-//				TransmitPayload();
-			}
-			break;
-		}
-    
-    default:
-        {
-            break;
-        }
-	}
-	return ReturnEvent;
-}
-
-/***************************************************************************
-private functions
-***************************************************************************/
-
 void transmitPayload(uint8_t statusBits) {
 	readyToTransmit = false;
 	// DB_printf("Writing payload to radio\n");
@@ -138,29 +34,33 @@ void transmitPayload(uint8_t statusBits) {
 	}
 	uint8_t result[PAYLOAD_SIZE + 1];
 	SendSPI(payload, result, PAYLOAD_SIZE + 1);
-	ce(HIGH);
+	ce(TRANSMITTER, HIGH);
 	delay(TX_DELAY);
-	ce(LOW);
+	ce(TRANSMITTER, LOW);
 }
 
-void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
-	uint8_t checksum = 0xFF - (radioID + bytes1 + bytes2 + bytes3 + bytes4);
+void packagePayload(uint8_t radioID, uint8_t *bytes) {
+	uint8_t checksum = 0xFF - radioID;
+    for (uint8_t i = 0; i < 6; i++) {
+        checksum -= bytes[i];
+    }
 	payload[0] = W_TX_PAYLOAD;
 	payload[1] = radioID;
-	payload[2] = bytes1;
-	payload[3] = bytes2;
-	payload[4] = bytes3;
-    payload[5] = bytes4;
-    payload[6] = checksum;
+	for (uint8_t i = 2; i < 8; i++) {
+        payload[i] = bytes[i-2];
+    }
+    payload[8] = checksum;
 }
 
-void setupSPI(void) {
+void setupSPI(Radio_t radioType) {
     // SCLK config
+    // configure RC0 (pin 10) as digital output
     TRISCbits.TRISC0 = 0;
     // map RC0 to be the SCLK output
     RC0PPS = 0b11000;
 
     // MISO/SDI config
+    // configure RC1 (pin 9) as digital input
     TRISCbits.TRISC1 = 1;
     // disable analog input
     ANSELCbits.ANSC1 = 0;
@@ -168,14 +68,23 @@ void setupSPI(void) {
     SSP1DATPPS = 0b10001;
 
     // MOSI/SDO config
-    TRISAbits.TRISA4 = 0;
-    // map RA4 to be MOSI
-    RA4PPS = 0b11001;
+    if (radioType == TRANSMITTER) {
+        // configure RC5 (pin 5) as digital output
+        TRISCbits.TRISC5 = 0;
+        // map RA4 to be MOSI
+        RC5PPS = 0b11001;
+    } else if (radioType == RECEIVER) {
+        // configure RA2 (pin 11) as digital output
+        TRISAbits.TRISA2 = 0;
+        // map RA4 to be MOSI
+        RA2PPS = 0b11001;
+    }
 
     // CS configure
-    TRISCbits.TRISC3 = 0;
+    // configure RA4 (pin 3) as digital output
+    TRISAbits.TRISA4 = 0;
     // set chip select line to be default HIGH
-    LATCbits.LATC3 = 1;
+    LATAbits.LATA4 = 1;
 
     // enables serial port and configures SCK, SDO, SDI and SS as the source of the serial PORT pins
     SSP1CON1bits.SSPEN = 1;
@@ -206,35 +115,61 @@ void configureRX(uint8_t *address) {
     bytes[1] = 0x70;
     SendSPI(bytes, result, 2);
 
-    // configure timer 2 for PWM channels
+    // configure timer 2 for PWM5 module
     T2CONbits.TMR2ON = 0;       // turn off timer 2
     T2CONbits.T2CKPS = 0b01;    // 1:4 pre scaler
     TMR2 = 0;                   // clear timer 2 counter bits
     PR2 = 125;                  // set timer 2 period 125us
     T2CONbits.TMR2ON = 1;       // turn on timer 2
 
+    // configure timer 4 for PWM6 module
+    T4CONbits.TMR4ON = 0;       // turn off timer 2
+    T4CONbits.T4CKPS = 0b11;    // 1:16 pre scaler
+    TMR4 = 0;                   // clear timer 2 counter bits
+    PR4 = 77;                  // set timer 2 period 125us
+    T4CONbits.TMR4ON = 1;       // turn on timer 2
+    
+    // PWM5.1 setup
+    // configure RC4 (pin 6) as digital output
     TRISCbits.TRISC4 = 0;
+    // set RC3 output to be default low
     LATCbits.LATC4 = 0;
     
-    // configure PMW5 module
-    TRISCbits.TRISC2 = 0;       // set RC2 as output
-    PWM5CONbits.PWM5EN = 0;     // disable PWM5 module
-    PWM5CONbits.PWM5POL = 0;    // PWM5 output is active-high
-    RC2PPS = 0b00010;           // map RC2 to PWM5
-    PWM5DCL = 0xC0;             // set duty cycle to 10
-    PWM5DCH = 0x6F;             // set duty cycle to 10
-    PWMTMRSbits.P5TSEL = 0b01;  // select timer 2 as timing source
-    PWM5CONbits.PWM5EN = 1;     // enable PWM5 module
+    // PWM5 setup
+    // configure RC2 (pin 8) as digital output
+    TRISCbits.TRISC2 = 0;
+    // disable PWM5 module
+    PWM5CONbits.PWM5EN = 0;
+    // PWM5 output is active-high
+    PWM5CONbits.PWM5POL = 0;
+    // map RC2 to PWM5
+    RC2PPS = 0b00010;
+    // set duty cycle to 0
+    PWM5DCL = 0x00;
+    // set duty cycle to 0
+    PWM5DCH = 0x00;
+    // select timer 2 as timing source
+    PWMTMRSbits.P5TSEL = 0x01;
+    // enable PWM5 module
+    PWM5CONbits.PWM5EN = 1;
 
-    // configure PWM6 module
-    TRISCbits.TRISC4 = 0;       // set RC4 as output
-    PWM6CONbits.PWM6EN = 0;     // disable PWM5 module
-    PWM6CONbits.PWM6POL = 0;    // PWM5 output is active-high
-    RC4PPS = 0b00011;           // map RA4 to PWM6
-    PWM6DCL = 0x00;             // set duty cycle to 10
-    PWM6DCH = 0x00;             // set duty cycle to 10
-    PWMTMRSbits.P6TSEL = 0b01;  // select timer 2 as timing source
-    PWM6CONbits.PWM6EN = 1;     // enable PWM5 module
+    // PWM6 setup
+    // configure RC3 (pin 7) as digital output
+    TRISCbits.TRISC3 = 0;
+    // disable PWM6 module
+    PWM6CONbits.PWM6EN = 0;
+    // PWM6 output is active-high
+    PWM6CONbits.PWM6POL = 0;
+    // map RC3 to PWM6
+    RC3PPS = 0b00011;
+    // set duty cycle to 0
+    PWM6DCL = 0xC0;
+    // set duty cycle to 0
+    PWM6DCH = 0x07;
+    // select timer 2 as timing source
+    PWMTMRSbits.P6TSEL = 0x02;
+    // enable PWM6 module
+    PWM6CONbits.PWM6EN = 1;
 }
 
 void configureTX(uint8_t *address) {
@@ -252,11 +187,25 @@ void configureTX(uint8_t *address) {
     SendSPI(databytes, result, ADDRESS_WIDTH + 1);
 
     // power up radio
-    ChangeRadioMode(Standby1, 1);
+    ChangeRadioMode(Standby1, 1, TRANSMITTER);
 
-    // configure analog input
-    ANSELCbits.ANSC4 = 1;
+    // SPEED setup
+    // configure RC4 (pin 6) as digital input
     TRISCbits.TRISC4 = 1;
+    // enable analog input
+    ANSELCbits.ANSC4 = 1;
+    
+    // STEER setup
+    // configure RC3 (pin 7) as digital input
+    TRISCbits.TRISC3 = 1;
+    // enable analog input
+    ANSELCbits.ANSC3 = 1;
+    
+    // STEER_TRIM setup
+    // configure RA1 (pin 12) as digital input
+    TRISAbits.TRISA1 = 1;
+    // enable analog input
+    ANSELAbits.ANSA1 = 1;
 
     ADCON0bits.ADON = 0;        // turn off ADC
     ADCON1bits.ADCS = 0b110;    // select ADC conversion clock as Fosc/2
@@ -265,4 +214,17 @@ void configureTX(uint8_t *address) {
     ADCON0bits.CHS = 0x14;      // select analog input channel as RC4
     ADCON1bits.ADFM = 1;        // result is stored right justified
     ADCON0bits.ADON = 1;        // turn on ADC
+}
+
+bool controlsChanged(uint8_t *bytes) {
+    static uint8_t prevBytes[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    uint8_t delta = 20;
+    bool returnVal = false;
+    for (uint8_t i = 0; i < 6; i++) {
+        if (((prevBytes[i] - bytes[i]) > delta) || ((bytes[i] - prevBytes[i]) > delta)) {
+            returnVal = true;
+            prevBytes[i] = bytes[i];
+        }
+    }
+    return returnVal;
 }

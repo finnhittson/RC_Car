@@ -10824,17 +10824,17 @@ typedef enum {
  PowerDown
 } Mode;
 
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize);
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, Radio_t radioType);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
-void ce(Level_t level);
+void ce(Radio_t radioType, Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
 
 
@@ -10878,15 +10878,12 @@ typedef enum {
 } State_t;
 
 
-Radio_t InitTransmitService();
-ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
-
-
-void packagePayload(uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void packagePayload(uint8_t radioID, uint8_t *bytes);
 void transmitPayload(uint8_t statusBits);
-void setupSPI(void);
+void setupSPI(Radio_t radioType);
 void configureRX(uint8_t *address);
 void configureTX(uint8_t *address);
+_Bool controlsChanged(uint8_t *bytes);
 # 5 "SourceFiles/main.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
@@ -10968,29 +10965,21 @@ State_t currentState;
 
 _Bool val = 1;
 
-static _Bool prevSpinDir = 0;
+_Bool prevSpinDir = 1;
 
 _Bool spinDir;
 
 
-uint8_t bytes[6];
-uint8_t result[6];
+uint8_t bytes[7];
+uint8_t result[7];
 
 int main(int argc, char** argv) {
+
 
  TRISAbits.TRISA0 = 0;
 
  LATAbits.LATA0 = 0;
 
-
- TRISAbits.TRISA1 = 0;
-
- ce(LOW);
-
-
-    TRISCbits.TRISC5 = 1;
-
-    ANSELCbits.ANSC5 = 0;
 
 
  TRISAbits.TRISA5 = 1;
@@ -11003,12 +10992,53 @@ int main(int argc, char** argv) {
   radioType = TRANSMITTER;
  }
 
+    if (radioType == TRANSMITTER) {
+        for (uint8_t i = 0; i < 10; i++) {
+            delay(1000);
+            LATAbits.LATA0 = 1;
+            delay(1000);
+            LATAbits.LATA0 = 0;
+        }
+    } else if (radioType == RECEIVER) {
+        for (uint8_t i = 0; i < 3; i++) {
+            delay(10000);
+            LATAbits.LATA0 = 1;
+            delay(10000);
+            LATAbits.LATA0 = 0;
+        }
+    }
 
-    setupSPI();
+
+    if (radioType == TRANSMITTER) {
+
+        TRISAbits.TRISA2 = 0;
+    } else if (radioType == RECEIVER) {
+
+        TRISCbits.TRISC5 = 0;
+    }
+
+ ce(radioType, LOW);
+
+
+    if (radioType == TRANSMITTER) {
+
+        TRISCbits.TRISC2 = 1;
+
+        ANSELCbits.ANSC2 = 0;
+    } else if (radioType == RECEIVER) {
+
+        TRISAbits.TRISA1 = 1;
+
+        ANSELAbits.ANSA1 = 0;
+    }
+
+
+
+    setupSPI(radioType);
 
 
     _Bool radioStarted = 1;
-    if (StartRadio(42, 6)) {
+    if (StartRadio(42, 8, radioType)) {
         radioStarted = 1;
     } else {
 
@@ -11031,6 +11061,7 @@ int main(int argc, char** argv) {
         configureTX(address);
 
         currentState = COLLECT_ADC_DATA;
+        ADCON0bits.GO_nDONE = 1;
     }
 
     while (1) {
@@ -11040,13 +11071,20 @@ int main(int argc, char** argv) {
                     if (ADCON0bits.CHS == 0x14) {
                         bytes[0] = ADRESH;
                         bytes[1] = ADRESL;
-                        ADCON0bits.CHS = 0x12;
-                    } else {
+                        ADCON0bits.CHS = 0x13;
+                    } else if (ADCON0bits.CHS == 0x13) {
                         bytes[2] = ADRESH;
                         bytes[3] = ADRESL;
+                        ADCON0bits.CHS = 0x01;
+                    } else if (ADCON0bits.CHS == 0x01) {
+                        bytes[4] = ADRESH;
+                        bytes[5] = ADRESL;
                         ADCON0bits.CHS = 0x14;
-                        packagePayload(bytes[0], bytes[1], bytes[2], bytes[3]);
-                        currentState = TRANSMIT_ADC_DATA;
+                        if (controlsChanged(bytes)) {
+                            packagePayload(0x01, bytes);
+                            currentState = TRANSMIT_ADC_DATA;
+
+                        }
                     }
                     ADCON0bits.GO_nDONE = 1;
                 }
@@ -11061,8 +11099,11 @@ int main(int argc, char** argv) {
             }
 
             case CLEAR_INTERRUPT: {
-                if (!PORTCbits.RC5) {
+                if (!PORTCbits.RC2) {
                     LATAbits.LATA0 = 1;
+                    delay(1000);
+                    LATAbits.LATA0 = 0;
+                    delay(1000);
                     sendNOP(result);
                     bytes[0] = 0x20 | 0x07;
                     bytes[1] = 0x70;
@@ -11079,68 +11120,57 @@ int main(int argc, char** argv) {
             }
 
             case DONE: {
-
+                currentState = COLLECT_ADC_DATA;
+                ADCON0bits.GO_nDONE = 1;
                 break;
             }
 
             case READ_RX: {
-                if (!PORTCbits.RC5) {
+                if (!PORTAbits.RA1) {
                     sendNOP(result);
                     if (result[0] & 0x40) {
                         currentState = UPDATE_CONTROLS;
                     }
-                    uint8_t thingie[] = {0x20 | 0x07, 0x70};
-                    SendSPI(thingie, result, 2);
+
+                    bytes[0] = 0x20 | 0x07;
+                    bytes[1] = 0x70;
+                    SendSPI(bytes, result, 2);
                 }
                 break;
             }
 
             case UPDATE_CONTROLS: {
-                LATAbits.LATA0 = 1;
                 _Bool validData = readRXFIFO(result);
-                if (validData) {
-                    LATAbits.LATA0 = 1;
-                    while (1);
-                } else {
-                    while (1) {
-                        LATAbits.LATA0 = val;
-                        val = ~val;
-                        delay(1000);
-                    }
-                }
                 if (validData && result[1] == 0x01) {
-                    uint16_t motorSpeed = (uint16_t)(((result[1] << 8) | result[2]) - 512);
+                    uint16_t motorSpeed = (uint16_t)((result[2] << 8) | result[3]);
+                    uint16_t servoPos = (uint16_t)((result[4] << 8) | result[5]);
+                    servoPos = 15 * (servoPos / 1023 + 1);
                     if (motorSpeed > 512) {
-                        motorSpeed *= 2;
+                        motorSpeed -= 512;
                         spinDir = 1;
                     } else {
-                        motorSpeed *= (uint16_t)(-2);
+                        motorSpeed = 512 - motorSpeed;
+
                         spinDir = 0;
                     }
-
-                    if (spinDir != prevSpinDir) {
+                    PWM5CONbits.PWM5EN = 0;
+                    if (prevSpinDir != spinDir) {
                         if (spinDir) {
-                            PWM5CONbits.PWM5EN = 0;
                             RC2PPS = 0b00010;
-                            PWM5CONbits.PWM5EN = 1;
+                            RC4PPS = 0b00000;
                             LATCbits.LATC4 = 0;
                         } else {
-                            PWM5CONbits.PWM5EN = 0;
+                            RC2PPS = 0b00000;
                             RC4PPS = 0b00010;
-                            PWM5CONbits.PWM5EN = 1;
                             LATCbits.LATC2 = 0;
                         }
                         prevSpinDir = spinDir;
                     }
-
-                    PWM5DCL = (uint8_t)motorSpeed;
-                    PWM5DCH = motorSpeed >> 8;
-
-
-
+                    PWM5DCL = (uint8_t)(motorSpeed << 6);
+                    PWM5DCH = (uint8_t)(motorSpeed >> 2);
+                    PWM5CONbits.PWM5EN = 1;
                 }
                 currentState = READ_RX;
-
                 break;
             }
         }

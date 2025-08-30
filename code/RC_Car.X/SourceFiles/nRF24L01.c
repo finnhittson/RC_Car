@@ -1,7 +1,7 @@
 #include "../HeaderFiles/nRF24L01.h"
 #include <stdbool.h>
 
-bool StartRadio(uint8_t channel, uint8_t payloadSize) {
+bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType) {
 	bool ReturnVal = false;
 	uint8_t databytes[2];
     uint8_t result[2];
@@ -53,7 +53,7 @@ bool StartRadio(uint8_t channel, uint8_t payloadSize) {
 	FlushTX();
 
 	// enable cyclic redundancy check with 2 bytes and power up
-	ChangeRadioMode(PowerDown, 1);
+	ChangeRadioMode(PowerDown, 1, radioType);
 
 	// read CONFIG register to ensure proper setting
 	ReadRegister(CONFIG, result);
@@ -64,12 +64,21 @@ bool StartRadio(uint8_t channel, uint8_t payloadSize) {
 	return ReturnVal;
 }
 
-void ce(Level_t Level) {
-	if (Level == LOW) {
-		LATAbits.LATA1 = 0;
-	} else if (Level == HIGH) {
-		LATAbits.LATA1 = 1;
-	}
+void ce(Radio_t radioType, Level_t level) {
+    if (radioType == TRANSMITTER) {
+        if (level == LOW) {
+            LATAbits.LATA2 = 0;
+        } else if (level == HIGH) {
+            LATAbits.LATA2 = 1;
+        }
+    } else if (radioType == RECEIVER) {
+        if (level == LOW) {
+            LATCbits.LATC5 = 0;
+        } else if (level == HIGH) {
+            LATCbits.LATC5 = 1;
+        }
+    }
+        
 }
 
 void FlushRX(void) {
@@ -97,7 +106,7 @@ void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result) {
     SendSPI(databytes, result, 2);
 }
 
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, Radio_t radioType) {
 	CONFIGbits_t CONFIGbits = {0};
 	CONFIGbits.EN_CRC = 1;
 	CONFIGbits.CRCO = CRCbytes;
@@ -109,7 +118,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 		{
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 1;
-			ce(HIGH);
+			ce(radioType, HIGH);
 			break;
 		}
 
@@ -117,7 +126,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 		{
 			CONFIGbits.PWR_UP = 1;
 			CONFIGbits.PRIM_RX = 0;
-			ce(HIGH);
+			ce(radioType, HIGH);
 			break;
 		}
 
@@ -127,7 +136,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 			// otherwise will go into TX mode
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 0;
-			ce(HIGH);
+			ce(radioType, HIGH);
 			break;
 		}
 
@@ -135,7 +144,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 		{
 			CONFIGbits.PWR_UP = 1;			
 			CONFIGbits.PRIM_RX = 0;
-			ce(LOW);
+			ce(radioType, LOW);
 			break;
 		}
 
@@ -143,7 +152,7 @@ void ChangeRadioMode(Mode newMode, uint8_t CRCbytes) {
 		{
 			CONFIGbits.PWR_UP = 0;			
 			CONFIGbits.PRIM_RX = 0;
-			ce(LOW);
+			ce(radioType, LOW);
 			break;
 		}
 	}
@@ -228,7 +237,10 @@ bool readRXFIFO(uint8_t *result) {
 		bytes[i] = SPI_NOP;
 	}
 	SendSPI(bytes, result, PAYLOAD_SIZE + 1);
-	uint8_t checksum = result[1] + result[2] + result[3] + result[4] + result[5] + result[6];
+	uint8_t checksum = 0;
+    for (uint8_t i = 1; i < PAYLOAD_SIZE + 1; i++) {
+        checksum += result[i];
+    }
 	if (checksum == 0xFF) {
 		ReturnVal = true;
 	}
@@ -238,7 +250,7 @@ bool readRXFIFO(uint8_t *result) {
 void StartListening(uint8_t *address) {
     uint8_t result[2];
 	// power up radio to RX mode with 2 bytes cyclic redundancy check
-	ChangeRadioMode(RX, 1);
+	ChangeRadioMode(RX, 1, RECEIVER);
 
 	// clear interrupts
     uint8_t bytes[6];

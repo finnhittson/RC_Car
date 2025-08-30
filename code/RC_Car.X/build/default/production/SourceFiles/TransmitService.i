@@ -10681,17 +10681,17 @@ typedef enum {
  PowerDown
 } Mode;
 
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize);
+_Bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, Radio_t radioType);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 _Bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
-void ce(Level_t level);
+void ce(Radio_t radioType, Level_t level);
 # 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
 
 
@@ -10735,113 +10735,19 @@ typedef enum {
 } State_t;
 
 
-Radio_t InitTransmitService();
-ES_Event_t RunTransmitService(ES_Event_t ThisEvent);
-
-
-void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
+void packagePayload(uint8_t radioID, uint8_t *bytes);
 void transmitPayload(uint8_t statusBits);
-void setupSPI(void);
+void setupSPI(Radio_t radioType);
 void configureRX(uint8_t *address);
 void configureTX(uint8_t *address);
+_Bool controlsChanged(uint8_t *bytes);
 # 6 "SourceFiles/TransmitService.c" 2
 # 18 "SourceFiles/TransmitService.c"
-uint8_t payload[6 + 1];
+uint8_t payload[8 + 1];
 Radio_t radioType = RECEIVER;
 static uint8_t motorSpeed = 128;
 static uint8_t servoPos = 0;
 _Bool readyToTransmit = 1;
-
-
-Radio_t InitTransmitService() {
-
-
- ES_Event_t ThisEvent;
-
- uint8_t result[2];
-
-    _Bool RadioStarted = 0;
-
-
-
-
-
- return radioType;
-}
-
-ES_Event_t RunTransmitService(ES_Event_t ThisEvent) {
- ES_Event_t ReturnEvent;
- switch (ThisEvent.EventType) {
- case ES_INIT:
-  {
-
-
-
-
-
-   break;
-  }
-
- case ES_STATUS_FLAGS:
-  {
-# 70 "SourceFiles/TransmitService.c"
-   break;
-  }
-
- case ES_HANDLE_PAYLOAD:
-  {
-   uint8_t result[6 + 1];
-   _Bool validData = readRXFIFO(result);
-
-   if (result[1] == 0) {
-    uint8_t newMotorSpeed = result[2];
-    uint8_t newServoPos = result[3];
-
-
-    if (newMotorSpeed < 128) {
-
-
-
-    } else {
-
-
-
-    }
-
-
-
-   } else if (result[1] != 0) {
-
-   } else if (!validData) {
-
-   }
-   break;
-  }
-
- case ES_CONTROL_UPDATE:
-  {
-   motorSpeed = ThisEvent.EventParam >> 8;
-   servoPos = (uint8_t)ThisEvent.EventParam;
-
-   if (readyToTransmit) {
-
-
-
-   }
-   break;
-  }
-
-    default:
-        {
-            break;
-        }
- }
- return ReturnEvent;
-}
-
-
-
-
 
 void transmitPayload(uint8_t statusBits) {
  readyToTransmit = 0;
@@ -10854,29 +10760,33 @@ void transmitPayload(uint8_t statusBits) {
         databytes[1] = 0x70;
         SendSPI(databytes, result, 2);
  }
- uint8_t result[6 + 1];
- SendSPI(payload, result, 6 + 1);
- ce(HIGH);
+ uint8_t result[8 + 1];
+ SendSPI(payload, result, 8 + 1);
+ ce(TRANSMITTER, HIGH);
  delay(45);
- ce(LOW);
+ ce(TRANSMITTER, LOW);
 }
 
-void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4) {
- uint8_t checksum = 0xFF - (radioID + bytes1 + bytes2 + bytes3 + bytes4);
+void packagePayload(uint8_t radioID, uint8_t *bytes) {
+ uint8_t checksum = 0xFF - radioID;
+    for (uint8_t i = 0; i < 6; i++) {
+        checksum -= bytes[i];
+    }
  payload[0] = 0xA0;
  payload[1] = radioID;
- payload[2] = bytes1;
- payload[3] = bytes2;
- payload[4] = bytes3;
-    payload[5] = bytes4;
-    payload[6] = checksum;
+ for (uint8_t i = 2; i < 8; i++) {
+        payload[i] = bytes[i-2];
+    }
+    payload[8] = checksum;
 }
 
-void setupSPI(void) {
+void setupSPI(Radio_t radioType) {
+
 
     TRISCbits.TRISC0 = 0;
 
     RC0PPS = 0b11000;
+
 
 
     TRISCbits.TRISC1 = 1;
@@ -10886,14 +10796,23 @@ void setupSPI(void) {
     SSP1DATPPS = 0b10001;
 
 
+    if (radioType == TRANSMITTER) {
+
+        TRISCbits.TRISC5 = 0;
+
+        RC5PPS = 0b11001;
+    } else if (radioType == RECEIVER) {
+
+        TRISAbits.TRISA2 = 0;
+
+        RA2PPS = 0b11001;
+    }
+
+
+
     TRISAbits.TRISA4 = 0;
 
-    RA4PPS = 0b11001;
-
-
-    TRISCbits.TRISC3 = 0;
-
-    LATCbits.LATC3 = 1;
+    LATAbits.LATA4 = 1;
 
 
     SSP1CON1bits.SSPEN = 1;
@@ -10931,27 +10850,53 @@ void configureRX(uint8_t *address) {
     PR2 = 125;
     T2CONbits.TMR2ON = 1;
 
+
+    T4CONbits.TMR4ON = 0;
+    T4CONbits.T4CKPS = 0b11;
+    TMR4 = 0;
+    PR4 = 77;
+    T4CONbits.TMR4ON = 1;
+
+
+
     TRISCbits.TRISC4 = 0;
+
     LATCbits.LATC4 = 0;
 
 
+
     TRISCbits.TRISC2 = 0;
+
     PWM5CONbits.PWM5EN = 0;
+
     PWM5CONbits.PWM5POL = 0;
+
     RC2PPS = 0b00010;
-    PWM5DCL = 0xC0;
-    PWM5DCH = 0x6F;
-    PWMTMRSbits.P5TSEL = 0b01;
+
+    PWM5DCL = 0x00;
+
+    PWM5DCH = 0x00;
+
+    PWMTMRSbits.P5TSEL = 0x01;
+
     PWM5CONbits.PWM5EN = 1;
 
 
-    TRISCbits.TRISC4 = 0;
+
+    TRISCbits.TRISC3 = 0;
+
     PWM6CONbits.PWM6EN = 0;
+
     PWM6CONbits.PWM6POL = 0;
-    RC4PPS = 0b00011;
-    PWM6DCL = 0x00;
-    PWM6DCH = 0x00;
-    PWMTMRSbits.P6TSEL = 0b01;
+
+    RC3PPS = 0b00011;
+
+    PWM6DCL = 0xC0;
+
+    PWM6DCH = 0x07;
+
+    PWMTMRSbits.P6TSEL = 0x02;
+
     PWM6CONbits.PWM6EN = 1;
 }
 
@@ -10970,11 +10915,25 @@ void configureTX(uint8_t *address) {
     SendSPI(databytes, result, 5 + 1);
 
 
-    ChangeRadioMode(Standby1, 1);
+    ChangeRadioMode(Standby1, 1, TRANSMITTER);
 
+
+
+    TRISCbits.TRISC4 = 1;
 
     ANSELCbits.ANSC4 = 1;
-    TRISCbits.TRISC4 = 1;
+
+
+
+    TRISCbits.TRISC3 = 1;
+
+    ANSELCbits.ANSC3 = 1;
+
+
+
+    TRISAbits.TRISA1 = 1;
+
+    ANSELAbits.ANSA1 = 1;
 
     ADCON0bits.ADON = 0;
     ADCON1bits.ADCS = 0b110;
@@ -10983,4 +10942,17 @@ void configureTX(uint8_t *address) {
     ADCON0bits.CHS = 0x14;
     ADCON1bits.ADFM = 1;
     ADCON0bits.ADON = 1;
+}
+
+_Bool controlsChanged(uint8_t *bytes) {
+    static uint8_t prevBytes[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+    uint8_t delta = 20;
+    _Bool returnVal = 0;
+    for (uint8_t i = 0; i < 6; i++) {
+        if (((prevBytes[i] - bytes[i]) > delta) || ((bytes[i] - prevBytes[i]) > delta)) {
+            returnVal = 1;
+            prevBytes[i] = bytes[i];
+        }
+    }
+    return returnVal;
 }

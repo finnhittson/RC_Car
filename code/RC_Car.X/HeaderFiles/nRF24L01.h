@@ -3,7 +3,7 @@
 
 #define DELAY_TIME		100
 #define POWER_UP_DELAY	10000
-#define PAYLOAD_SIZE    6
+#define PAYLOAD_SIZE    8
 
 typedef union {
 	struct {
@@ -61,14 +61,14 @@ typedef enum {
 	PowerDown
 } Mode;
 
-bool StartRadio(uint8_t channel, uint8_t payloadSize);
+bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType);
 void FlushTX(void);
 void FlushRX(void);
 void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes);
+void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, Radio_t radioType);
 void SetupPayloadSize(uint8_t size, uint8_t *result);
 void FeatureTest(uint8_t *result);
 void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
 bool readRXFIFO(uint8_t *result);
 void StartListening(uint8_t *address);
-void ce(Level_t level);
+void ce(Radio_t radioType, Level_t level);

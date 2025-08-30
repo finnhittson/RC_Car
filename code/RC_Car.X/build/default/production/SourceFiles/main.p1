@@ -4,9 +4,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [c E6699 0 1 .. ]
 [n E6699 . RECEIVER TRANSMITTER  ]
 "23
-[; ;SourceFiles/main.c: 23:  TRISAbits.TRISA0 = 0;
-[c E6770 0 1 2 3 4 5 .. ]
-[n E6770 . COLLECT_ADC_DATA TRANSMIT_ADC_DATA CLEAR_INTERRUPT READ_RX UPDATE_CONTROLS DONE  ]
+[; ;SourceFiles/main.c: 23: 
+[c E6773 0 1 2 3 4 5 .. ]
+[n E6773 . COLLECT_ADC_DATA TRANSMIT_ADC_DATA CLEAR_INTERRUPT READ_RX UPDATE_CONTROLS DONE  ]
 [p mainexit ]
 "1505 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1505:     struct {
@@ -30,35 +30,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2206
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2206: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
 [v _LATAbits `VS116 ~T0 @X0 0 e@268 ]
-"44 SourceFiles/main.c
-[; ;SourceFiles/main.c: 44:  if (PORTAbits.RA5) {
-[c E6656 0 1 .. ]
-[n E6656 . LOW HIGH  ]
-"74 SourceFiles/../HeaderFiles/nRF24L01.h
-[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 74: void ce(Level_t level);
-[v _ce `(v ~T0 @X0 0 ef1`E6656 ]
-"1550 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1550:     struct {
-[s S88 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S88 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 ]
-"1549
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1549: typedef union {
-[u S87 `S88 1 ]
-[n S87 . . ]
-"1559
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1559: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x08E)));
-[v _TRISCbits `VS87 ~T0 @X0 0 e@142 ]
-"2830
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2830:     struct {
-[s S146 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S146 . ANSC0 ANSC1 ANSC2 ANSC3 ANSC4 ANSC5 ]
-"2829
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2829: typedef union {
-[u S145 `S146 1 ]
-[n S145 . . ]
-"2839
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2839: extern volatile ANSELCbits_t ANSELCbits __attribute__((address(0x18E)));
-[v _ANSELCbits `VS145 ~T0 @X0 0 e@398 ]
 "2785
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2785:     struct {
 [s S144 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -81,20 +52,49 @@ Version 4.0 HI-TECH Software Intermediate Code
 "399
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 399: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x00C)));
 [v _PORTAbits `VS34 ~T0 @X0 0 e@12 ]
-"52 SourceFiles/../HeaderFiles/TransmitService.h
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 52: void setupSPI(void);
-[v _setupSPI `(v ~T0 @X0 0 ef ]
-"64 SourceFiles/../HeaderFiles/nRF24L01.h
-[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 64: _Bool StartRadio(uint8_t channel, uint8_t payloadSize);
-[v _StartRadio `(a ~T0 @X0 0 ef2`uc`uc ]
 "57 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 57: void delay (volatile int length);
 [v _delay `(v ~T0 @X0 0 ef1`Vi ]
-"53 SourceFiles/../HeaderFiles/TransmitService.h
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 53: void configureRX(uint8_t *address);
+"1550 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1550:     struct {
+[s S88 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S88 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 ]
+"1549
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1549: typedef union {
+[u S87 `S88 1 ]
+[n S87 . . ]
+"1559
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1559: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x08E)));
+[v _TRISCbits `VS87 ~T0 @X0 0 e@142 ]
+"79 SourceFiles/main.c
+[; ;SourceFiles/main.c: 79: 
+[c E6656 0 1 .. ]
+[n E6656 . LOW HIGH  ]
+"74 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 74: void ce(Radio_t radioType, Level_t level);
+[v _ce `(v ~T0 @X0 0 ef2`E6699`E6656 ]
+"2830 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2830:     struct {
+[s S146 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S146 . ANSC0 ANSC1 ANSC2 ANSC3 ANSC4 ANSC5 ]
+"2829
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2829: typedef union {
+[u S145 `S146 1 ]
+[n S145 . . ]
+"2839
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2839: extern volatile ANSELCbits_t ANSELCbits __attribute__((address(0x18E)));
+[v _ANSELCbits `VS145 ~T0 @X0 0 e@398 ]
+"48 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 48: void setupSPI(Radio_t radioType);
+[v _setupSPI `(v ~T0 @X0 0 ef1`E6699 ]
+"64 SourceFiles/../HeaderFiles/nRF24L01.h
+[; ;SourceFiles/../HeaderFiles/nRF24L01.h: 64: _Bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType);
+[v _StartRadio `(a ~T0 @X0 0 ef3`uc`uc`E6699 ]
+"49 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 49: void configureRX(uint8_t *address);
 [v _configureRX `(v ~T0 @X0 0 ef1`*uc ]
-"54
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 54: void configureTX(uint8_t *address);
+"50
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 50: void configureTX(uint8_t *address);
 [v _configureTX `(v ~T0 @X0 0 ef1`*uc ]
 "1987 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1987:     struct {
@@ -121,14 +121,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "1941
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 1941: extern volatile unsigned char ADRESL __attribute__((address(0x09B)));
 [v _ADRESL `Vuc ~T0 @X0 0 e@155 ]
-"50 SourceFiles/../HeaderFiles/TransmitService.h
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 50: void packagePayload(uint8_t radioID, uint8_t bytes1, uint8_t bytes2, uint8_t bytes3, uint8_t bytes4);
-[v _packagePayload `(v ~T0 @X0 0 ef5`uc`uc`uc`uc`uc ]
+"51 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 51: _Bool controlsChanged(uint8_t *bytes);
+[v _controlsChanged `(a ~T0 @X0 0 ef1`*uc ]
+"46
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 46: void packagePayload(uint8_t radioID, uint8_t *bytes);
+[v _packagePayload `(v ~T0 @X0 0 ef2`uc`*uc ]
 "56 SourceFiles/../HeaderFiles/SPI.h
 [; ;SourceFiles/../HeaderFiles/SPI.h: 56: void sendNOP(uint8_t *result);
 [v _sendNOP `(v ~T0 @X0 0 ef1`*uc ]
-"51 SourceFiles/../HeaderFiles/TransmitService.h
-[; ;SourceFiles/../HeaderFiles/TransmitService.h: 51: void transmitPayload(uint8_t statusBits);
+"47 SourceFiles/../HeaderFiles/TransmitService.h
+[; ;SourceFiles/../HeaderFiles/TransmitService.h: 47: void transmitPayload(uint8_t statusBits);
 [v _transmitPayload `(v ~T0 @X0 0 ef1`uc ]
 "440 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 440:     struct {
@@ -161,6 +164,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "14067
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14067: extern volatile unsigned char RC2PPS __attribute__((address(0xEA2)));
 [v _RC2PPS `Vuc ~T0 @X0 0 e@3746 ]
+"14171
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14171: extern volatile unsigned char RC4PPS __attribute__((address(0xEA4)));
+[v _RC4PPS `Vuc ~T0 @X0 0 e@3748 ]
 "2242
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2242:     struct {
 [s S119 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -172,15 +178,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2251
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 2251: extern volatile LATCbits_t LATCbits __attribute__((address(0x10E)));
 [v _LATCbits `VS118 ~T0 @X0 0 e@270 ]
-"14171
-[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 14171: extern volatile unsigned char RC4PPS __attribute__((address(0xEA4)));
-[v _RC4PPS `Vuc ~T0 @X0 0 e@3748 ]
 "8360
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8360: extern volatile unsigned char PWM5DCL __attribute__((address(0x617)));
 [v _PWM5DCL `Vuc ~T0 @X0 0 e@1559 ]
 "8396
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8396: extern volatile unsigned char PWM5DCH __attribute__((address(0x618)));
 [v _PWM5DCH `Vuc ~T0 @X0 0 e@1560 ]
+"8532
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8532: extern volatile unsigned char PWM6DCL __attribute__((address(0x61A)));
+[v _PWM6DCL `Vuc ~T0 @X0 0 e@1562 ]
+"8568
+[; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 8568: extern volatile unsigned char PWM6DCH __attribute__((address(0x61B)));
+[v _PWM6DCH `Vuc ~T0 @X0 0 e@1563 ]
 "54 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16F1xxxx_DFP/1.24.387/xc8\pic\include\proc\pic16f18326.h: 54: __asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
@@ -1223,463 +1232,633 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ]
 "23
-[; ;SourceFiles/main.c: 23:  TRISAbits.TRISA0 = 0;
-[v _currentState `E6770 ~T0 @X0 1 e ]
+[; ;SourceFiles/main.c: 23: 
+[v _currentState `E6773 ~T0 @X0 1 e ]
 "25
-[; ;SourceFiles/main.c: 25:  LATAbits.LATA0 = 0;
+[; ;SourceFiles/main.c: 25: 
 [v _val `a ~T0 @X0 1 e ]
 [i _val
 -> -> 1 `i `a
 ]
 "27
 [; ;SourceFiles/main.c: 27: 
-[v _prevSpinDir `a ~T0 @X0 1 s ]
+[v _prevSpinDir `a ~T0 @X0 1 e ]
 [i _prevSpinDir
--> -> 0 `i `a
+-> -> 1 `i `a
 ]
 "29
 [; ;SourceFiles/main.c: 29: 
 [v _spinDir `a ~T0 @X0 1 e ]
 "32
-[; ;SourceFiles/main.c: 32: 
+[; ;SourceFiles/main.c: 32:     ANSELAbits.ANSA5 = 0;
 [v _bytes `uc ~T0 @X0 -> 7 `i e ]
 "33
-[; ;SourceFiles/main.c: 33:     TRISCbits.TRISC5 = 1;
+[; ;SourceFiles/main.c: 33: 
 [v _result `uc ~T0 @X0 -> 7 `i e ]
 [v $root$_main `(v ~T0 @X0 0 e ]
 "35
-[; ;SourceFiles/main.c: 35:     ANSELCbits.ANSC5 = 0;
+[; ;SourceFiles/main.c: 35: 
 [v _main `(i ~T0 @X0 1 ef2`i`**uc ]
 {
 [e :U _main ]
 [v _argc `i ~T0 @X0 1 r1 ]
 [v _argv `**uc ~T0 @X0 1 r2 ]
 [f ]
-"37
-[; ;SourceFiles/main.c: 37: 
+"38
+[; ;SourceFiles/main.c: 38:  }
 [e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
-"39
-[; ;SourceFiles/main.c: 39: 
+"40
+[; ;SourceFiles/main.c: 40:     if (radioType == TRANSMITTER) {
 [e = . . _LATAbits 0 0 -> -> 0 `i `uc ]
-"42
-[; ;SourceFiles/main.c: 42: 
-[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
 "44
-[; ;SourceFiles/main.c: 44:  if (PORTAbits.RA5) {
-[e ( _ce (1 . `E6656 0 ]
-"47
-[; ;SourceFiles/main.c: 47: 
-[e = . . _TRISCbits 0 5 -> -> 1 `i `uc ]
-"49
-[; ;SourceFiles/main.c: 49:     setupSPI();
-[e = . . _ANSELCbits 0 5 -> -> 0 `i `uc ]
-"52
-[; ;SourceFiles/main.c: 52:     _Bool radioStarted = 1;
+[; ;SourceFiles/main.c: 44:             delay(1000);
 [e = . . _TRISAbits 0 5 -> -> 1 `i `uc ]
-"54
-[; ;SourceFiles/main.c: 54:         radioStarted = 1;
+"46
+[; ;SourceFiles/main.c: 46:         }
 [e = . . _ANSELAbits 0 5 -> -> 0 `i `uc ]
-"58
-[; ;SourceFiles/main.c: 58:         while (1) {
+"50
+[; ;SourceFiles/main.c: 50:             LATAbits.LATA0 = 1;
 [e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 935  ]
 {
-"59
-[; ;SourceFiles/main.c: 59:             LATAbits.LATA0 = val;
+"51
+[; ;SourceFiles/main.c: 51:             delay(10000);
 [e = _radioType . `E6699 1 ]
-"60
-[; ;SourceFiles/main.c: 60:             val = ~val;
+"52
+[; ;SourceFiles/main.c: 52:             LATAbits.LATA0 = 0;
 }
 [e :U 935 ]
+"54
+[; ;SourceFiles/main.c: 54:     }
+[e $ ! == -> _radioType `ui -> . `E6699 1 `ui 936  ]
+{
+"55
+[; ;SourceFiles/main.c: 55: 
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 10 `i 937  ]
+[e $U 938  ]
+[e :U 937 ]
+{
+"56
+[; ;SourceFiles/main.c: 56: 
+[e ( _delay (1 -> 1000 `i ]
+"57
+[; ;SourceFiles/main.c: 57:     if (radioType == TRANSMITTER) {
+[e = . . _LATAbits 0 0 -> -> 1 `i `uc ]
+"58
+[; ;SourceFiles/main.c: 58: 
+[e ( _delay (1 -> 1000 `i ]
+"59
+[; ;SourceFiles/main.c: 59:         TRISAbits.TRISA2 = 0;
+[e = . . _LATAbits 0 0 -> -> 0 `i `uc ]
+"60
+[; ;SourceFiles/main.c: 60:     } else if (radioType == RECEIVER) {
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 10 `i 937  ]
+[e :U 938 ]
+}
+"61
+[; ;SourceFiles/main.c: 61: 
+}
+[e $U 940  ]
+[e :U 936 ]
+[e $ ! == -> _radioType `ui -> . `E6699 0 `ui 941  ]
+{
+"62
+[; ;SourceFiles/main.c: 62:         TRISCbits.TRISC5 = 0;
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 3 `i 942  ]
+[e $U 943  ]
+[e :U 942 ]
+{
 "63
 [; ;SourceFiles/main.c: 63:     }
-[e ( _setupSPI ..  ]
+[e ( _delay (1 -> 10000 `i ]
+"64
+[; ;SourceFiles/main.c: 64: 
+[e = . . _LATAbits 0 0 -> -> 1 `i `uc ]
+"65
+[; ;SourceFiles/main.c: 65:  ce(radioType, LOW);
+[e ( _delay (1 -> 10000 `i ]
 "66
 [; ;SourceFiles/main.c: 66: 
-[v _radioStarted `a ~T0 @X0 1 a ]
-[e = _radioStarted -> -> 1 `i `a ]
+[e = . . _LATAbits 0 0 -> -> 0 `i `uc ]
 "67
 [; ;SourceFiles/main.c: 67: 
-[e $ ! != -> ( _StartRadio (2 , -> -> 42 `i `uc -> -> 6 `i `uc `i -> 0 `i 936  ]
-{
-"68
-[; ;SourceFiles/main.c: 68:     if (radioStarted && radioType == RECEIVER) {
-[e = _radioStarted -> -> 1 `i `a ]
-"69
-[; ;SourceFiles/main.c: 69:         configureRX(address);
 }
-[e $U 937  ]
-[e :U 936 ]
-{
-"72
-[; ;SourceFiles/main.c: 72:     } else if (radioStarted && radioType == TRANSMITTER) {
-[e :U 939 ]
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 3 `i 942  ]
+[e :U 943 ]
+}
+"68
+[; ;SourceFiles/main.c: 68:     if (radioType == TRANSMITTER) {
+}
+[e :U 941 ]
+[e :U 940 ]
+"71
+[; ;SourceFiles/main.c: 71: 
+[e $ ! == -> _radioType `ui -> . `E6699 1 `ui 945  ]
 {
 "73
-[; ;SourceFiles/main.c: 73:         configureTX(address);
-[e = . . _LATAbits 0 0 -> _val `uc ]
+[; ;SourceFiles/main.c: 73:     } else if (radioType == RECEIVER) {
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
 "74
 [; ;SourceFiles/main.c: 74: 
-[e = _val -> ~ -> _val `i `a ]
-"75
-[; ;SourceFiles/main.c: 75:         currentState = COLLECT_ADC_DATA;
-[e ( _delay (1 -> 10000 `i ]
-"76
-[; ;SourceFiles/main.c: 76:     }
 }
-[e :U 938 ]
-[e $U 939  ]
-[e :U 940 ]
-"77
-[; ;SourceFiles/main.c: 77: 
-}
-[e :U 937 ]
-"82
-[; ;SourceFiles/main.c: 82:                     if (ADCON0bits.CHS == 0x14) {
-[e $ ! && != -> _radioStarted `i -> 0 `i == -> _radioType `ui -> . `E6699 0 `ui 941  ]
-{
-"83
-[; ;SourceFiles/main.c: 83:                         bytes[0] = ADRESH;
-[e ( _configureRX (1 &U _address ]
-"85
-[; ;SourceFiles/main.c: 85:                         ADCON0bits.CHS = 0x12;
-[e = _currentState . `E6770 3 ]
-"86
-[; ;SourceFiles/main.c: 86:                     } else {
-}
-[e $U 942  ]
-[e :U 941 ]
-[e $ ! && != -> _radioStarted `i -> 0 `i == -> _radioType `ui -> . `E6699 1 `ui 943  ]
-{
-"87
-[; ;SourceFiles/main.c: 87:                         bytes[2] = ADRESH;
-[e ( _configureTX (1 &U _address ]
-"89
-[; ;SourceFiles/main.c: 89:                         ADCON0bits.CHS = 0x14;
-[e = _currentState . `E6770 0 ]
-"90
-[; ;SourceFiles/main.c: 90:                         packagePayload(0x01, bytes[0], bytes[1], bytes[2], bytes[3]);
-}
-[e :U 943 ]
-[e :U 942 ]
-"92
-[; ;SourceFiles/main.c: 92:                     }
+[e $U 946  ]
 [e :U 945 ]
+[e $ ! == -> _radioType `ui -> . `E6699 0 `ui 947  ]
 {
-"93
-[; ;SourceFiles/main.c: 93:                     ADCON0bits.GO_nDONE = 1;
-[e $U 948  ]
+"76
+[; ;SourceFiles/main.c: 76: 
+[e = . . _TRISCbits 0 5 -> -> 0 `i `uc ]
+"77
+[; ;SourceFiles/main.c: 77:         ANSELAbits.ANSA1 = 0;
+}
+[e :U 947 ]
+[e :U 946 ]
+"79
+[; ;SourceFiles/main.c: 79: 
+[e ( _ce (2 , _radioType . `E6656 0 ]
+"82
+[; ;SourceFiles/main.c: 82:     setupSPI(radioType);
+[e $ ! == -> _radioType `ui -> . `E6699 1 `ui 948  ]
 {
-"94
-[; ;SourceFiles/main.c: 94:                 }
+"84
+[; ;SourceFiles/main.c: 84: 
+[e = . . _TRISCbits 0 2 -> -> 1 `i `uc ]
+"86
+[; ;SourceFiles/main.c: 86:     if (StartRadio(42, 8, radioType)) {
+[e = . . _ANSELCbits 0 2 -> -> 0 `i `uc ]
+"87
+[; ;SourceFiles/main.c: 87:         radioStarted = 1;
+}
+[e $U 949  ]
+[e :U 948 ]
+[e $ ! == -> _radioType `ui -> . `E6699 0 `ui 950  ]
+{
+"89
+[; ;SourceFiles/main.c: 89: 
+[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
+"91
+[; ;SourceFiles/main.c: 91:         while (1) {
+[e = . . _ANSELAbits 0 1 -> -> 0 `i `uc ]
+"92
+[; ;SourceFiles/main.c: 92:             LATAbits.LATA0 = val;
+}
+[e :U 950 ]
 [e :U 949 ]
-{
-"95
-[; ;SourceFiles/main.c: 95:                 break;
-[e $ ! ! != -> . . _ADCON0bits 0 1 `i -> 0 `i 950  ]
-{
 "96
-[; ;SourceFiles/main.c: 96:             }
-[e $ ! == -> . . _ADCON0bits 0 2 `i -> 20 `i 951  ]
-{
-"97
-[; ;SourceFiles/main.c: 97: 
-[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
-"98
-[; ;SourceFiles/main.c: 98:             case TRANSMIT_ADC_DATA: {
-[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
+[; ;SourceFiles/main.c: 96:     }
+[e ( _setupSPI (1 _radioType ]
 "99
-[; ;SourceFiles/main.c: 99:                 sendNOP(result);
-[e = . . _ADCON0bits 0 2 -> -> 18 `i `uc ]
+[; ;SourceFiles/main.c: 99: 
+[v _radioStarted `a ~T0 @X0 1 a ]
+[e = _radioStarted -> -> 1 `i `a ]
 "100
-[; ;SourceFiles/main.c: 100:                 transmitPayload(result[0]);
+[; ;SourceFiles/main.c: 100: 
+[e $ ! != -> ( _StartRadio (3 , , -> -> 42 `i `uc -> -> 8 `i `uc _radioType `i -> 0 `i 951  ]
+{
+"101
+[; ;SourceFiles/main.c: 101:     if (radioStarted && radioType == RECEIVER) {
+[e = _radioStarted -> -> 1 `i `a ]
+"102
+[; ;SourceFiles/main.c: 102:         configureRX(address);
 }
 [e $U 952  ]
 [e :U 951 ]
 {
-"101
-[; ;SourceFiles/main.c: 101:                 currentState = CLEAR_INTERRUPT;
-[e = *U + &U _bytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
-"102
-[; ;SourceFiles/main.c: 102:                 break;
-[e = *U + &U _bytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
-"103
-[; ;SourceFiles/main.c: 103:             }
-[e = . . _ADCON0bits 0 2 -> -> 20 `i `uc ]
-"104
-[; ;SourceFiles/main.c: 104: 
-[e ( _packagePayload (4 , , , , -> -> 1 `i `uc *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux *U + &U _bytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _bytes `ui `ux *U + &U _bytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _bytes `ui `ux ]
 "105
-[; ;SourceFiles/main.c: 105:             case CLEAR_INTERRUPT: {
-[e = _currentState . `E6770 1 ]
-"106
-[; ;SourceFiles/main.c: 106:                 if (!PORTCbits.RC5) {
-}
-[e :U 952 ]
-"107
-[; ;SourceFiles/main.c: 107:                     sendNOP(result);
-[e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
-"108
-[; ;SourceFiles/main.c: 108:                     bytes[0] = 0x20 | 0x07;
-}
-[e :U 950 ]
-"109
-[; ;SourceFiles/main.c: 109:                     bytes[1] = 0x70;
-[e $U 947  ]
-"110
-[; ;SourceFiles/main.c: 110:                     while (1) {
-}
-"112
-[; ;SourceFiles/main.c: 112:                         sendNOP(result);
-[e :U 953 ]
-{
-"113
-[; ;SourceFiles/main.c: 113:                         if (!(result[0] & 0x70)) {
-[e ( _sendNOP (1 &U _result ]
-"114
-[; ;SourceFiles/main.c: 114:                             break;
-[e ( _transmitPayload (1 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
-"115
-[; ;SourceFiles/main.c: 115:                         }
-[e = _currentState . `E6770 2 ]
-"116
-[; ;SourceFiles/main.c: 116:                     }
-[e $U 947  ]
-"117
-[; ;SourceFiles/main.c: 117:                     currentState = DONE;
-}
-"119
-[; ;SourceFiles/main.c: 119:                 break;
+[; ;SourceFiles/main.c: 105:     } else if (radioStarted && radioType == TRANSMITTER) {
 [e :U 954 ]
 {
-"120
-[; ;SourceFiles/main.c: 120:             }
-[e $ ! ! != -> . . _PORTCbits 0 5 `i -> 0 `i 955  ]
-{
-"121
-[; ;SourceFiles/main.c: 121: 
-[e ( _sendNOP (1 &U _result ]
-"122
-[; ;SourceFiles/main.c: 122:             case DONE: {
-[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
-"123
-[; ;SourceFiles/main.c: 123:                 LATAbits.LATA0 = 1;
-[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 112 `i `uc ]
-"124
-[; ;SourceFiles/main.c: 124: 
-[e :U 957 ]
-{
-"125
-[; ;SourceFiles/main.c: 125:                 break;
-[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
-"126
-[; ;SourceFiles/main.c: 126:             }
-[e ( _sendNOP (1 &U _result ]
-"127
-[; ;SourceFiles/main.c: 127: 
-[e $ ! ! != & -> *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 112 `i -> 0 `i 959  ]
-{
-"128
-[; ;SourceFiles/main.c: 128:             case READ_RX: {
-[e $U 958  ]
-"129
-[; ;SourceFiles/main.c: 129:                 if (!PORTCbits.RC5) {
+"106
+[; ;SourceFiles/main.c: 106:         configureTX(address);
+[e = . . _LATAbits 0 0 -> _val `uc ]
+"107
+[; ;SourceFiles/main.c: 107: 
+[e = _val -> ~ -> _val `i `a ]
+"108
+[; ;SourceFiles/main.c: 108:         currentState = COLLECT_ADC_DATA;
+[e ( _delay (1 -> 10000 `i ]
+"109
+[; ;SourceFiles/main.c: 109:         ADCON0bits.GO_nDONE = 1;
 }
-[e :U 959 ]
-"130
-[; ;SourceFiles/main.c: 130:                     sendNOP(result);
-}
-[e :U 956 ]
-[e $U 957  ]
-[e :U 958 ]
-"131
-[; ;SourceFiles/main.c: 131:                     if (result[0] & 0x40) {
-[e = _currentState . `E6770 5 ]
-"132
-[; ;SourceFiles/main.c: 132:                         currentState = UPDATE_CONTROLS;
-}
+[e :U 953 ]
+[e $U 954  ]
 [e :U 955 ]
-"133
-[; ;SourceFiles/main.c: 133:                     }
-[e $U 947  ]
-"134
-[; ;SourceFiles/main.c: 134:                     uint8_t thingie[] = {0x20 | 0x07, 0x70};
+"110
+[; ;SourceFiles/main.c: 110:     }
 }
-"136
-[; ;SourceFiles/main.c: 136:                 }
+[e :U 952 ]
+"115
+[; ;SourceFiles/main.c: 115:                 if (!ADCON0bits.GO_nDONE) {
+[e $ ! && != -> _radioStarted `i -> 0 `i == -> _radioType `ui -> . `E6699 0 `ui 956  ]
+{
+"116
+[; ;SourceFiles/main.c: 116:                     if (ADCON0bits.CHS == 0x14) {
+[e ( _configureRX (1 &U _address ]
+"118
+[; ;SourceFiles/main.c: 118:                         bytes[1] = ADRESL;
+[e = _currentState . `E6773 3 ]
+"119
+[; ;SourceFiles/main.c: 119:                         ADCON0bits.CHS = 0x13;
+}
+[e $U 957  ]
+[e :U 956 ]
+[e $ ! && != -> _radioStarted `i -> 0 `i == -> _radioType `ui -> . `E6699 1 `ui 958  ]
+{
+"120
+[; ;SourceFiles/main.c: 120:                     } else if (ADCON0bits.CHS == 0x13) {
+[e ( _configureTX (1 &U _address ]
+"122
+[; ;SourceFiles/main.c: 122:                         bytes[3] = ADRESL;
+[e = _currentState . `E6773 0 ]
+"123
+[; ;SourceFiles/main.c: 123:                         ADCON0bits.CHS = 0x01;
+[e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
+"124
+[; ;SourceFiles/main.c: 124:                     } else if (ADCON0bits.CHS == 0x01) {
+}
+[e :U 958 ]
+[e :U 957 ]
+"126
+[; ;SourceFiles/main.c: 126:                         bytes[5] = ADRESL;
 [e :U 960 ]
 {
-"137
-[; ;SourceFiles/main.c: 137:                 break;
-[e = . . _LATAbits 0 0 -> -> 1 `i `uc ]
-"139
-[; ;SourceFiles/main.c: 139: 
-[e $U 947  ]
-"140
-[; ;SourceFiles/main.c: 140:             case UPDATE_CONTROLS: {
-}
-"142
-[; ;SourceFiles/main.c: 142:                 if (validData && result[1] == 0x01) {
-[e :U 961 ]
+"127
+[; ;SourceFiles/main.c: 127:                         ADCON0bits.CHS = 0x14;
+[e $U 963  ]
 {
-"143
-[; ;SourceFiles/main.c: 143:                     uint16_t motorSpeed = (uint16_t)(((result[1] << 8) | result[2]) - 512);
-[e $ ! ! != -> . . _PORTCbits 0 5 `i -> 0 `i 962  ]
-{
-"144
-[; ;SourceFiles/main.c: 144:                     if (motorSpeed > 512) {
-[e ( _sendNOP (1 &U _result ]
-"145
-[; ;SourceFiles/main.c: 145:                         motorSpeed *= 2;
-[e $ ! != & -> *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 64 `i -> 0 `i 963  ]
-{
-"146
-[; ;SourceFiles/main.c: 146:                         spinDir = 1;
-[e = _currentState . `E6770 4 ]
-"147
-[; ;SourceFiles/main.c: 147:                     } else {
-}
-[e :U 963 ]
-[v F6973 `uc ~T0 @X0 -> 2 `i s ]
-[i F6973
-:U ..
-"148
-[; ;SourceFiles/main.c: 148:                         motorSpeed *= (uint16_t)(-2);
--> | -> 32 `i -> 7 `i `uc
--> -> 112 `i `uc
-..
-]
-[v _thingie `uc ~T0 @X0 -> 2 `i a ]
-[e = _thingie F6973 ]
-"149
-[; ;SourceFiles/main.c: 149:                         spinDir = 0;
-[e ( _SendSPI (3 , , &U _thingie &U _result -> -> 2 `i `uc ]
-"150
-[; ;SourceFiles/main.c: 150:                     }
-}
-[e :U 962 ]
-"151
-[; ;SourceFiles/main.c: 151:                     PWM5CONbits.PWM5EN = 0;
-[e $U 947  ]
-"152
-[; ;SourceFiles/main.c: 152:                     if (spinDir != prevSpinDir) {
-}
-"154
-[; ;SourceFiles/main.c: 154:                             RC2PPS = 0b00010;
+"128
+[; ;SourceFiles/main.c: 128:                         if (controlsChanged(bytes)) {
 [e :U 964 ]
 {
-"155
-[; ;SourceFiles/main.c: 155:                             LATCbits.LATC4 = 0;
-[v _validData `a ~T0 @X0 1 a ]
-[e = _validData ( _readRXFIFO (1 &U _result ]
-"156
-[; ;SourceFiles/main.c: 156:                         } else {
-[e $ ! && != -> _validData `i -> 0 `i == -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 1 `i 965  ]
+"129
+[; ;SourceFiles/main.c: 129:                             packagePayload(0x01, bytes);
+[e $ ! ! != -> . . _ADCON0bits 0 1 `i -> 0 `i 965  ]
 {
-"157
-[; ;SourceFiles/main.c: 157:                             RC4PPS = 0b00010;
-[v _motorSpeed `us ~T0 @X0 1 a ]
-[e = _motorSpeed -> - | << -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 8 `i -> *U + &U _result * -> -> -> 2 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 512 `i `us ]
-"158
-[; ;SourceFiles/main.c: 158:                             LATCbits.LATC2 = 0;
-[e $ ! > -> _motorSpeed `ui -> -> 512 `i `ui 966  ]
+"130
+[; ;SourceFiles/main.c: 130:                             currentState = TRANSMIT_ADC_DATA;
+[e $ ! == -> . . _ADCON0bits 0 2 `i -> 20 `i 966  ]
 {
-"159
-[; ;SourceFiles/main.c: 159:                         }
-[e =* _motorSpeed -> -> 2 `i `us ]
-"160
-[; ;SourceFiles/main.c: 160:                         prevSpinDir = spinDir;
-[e = _spinDir -> -> 1 `i `a ]
-"161
-[; ;SourceFiles/main.c: 161:                     }
+"131
+[; ;SourceFiles/main.c: 131: 
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
+"132
+[; ;SourceFiles/main.c: 132:                         }
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
+"133
+[; ;SourceFiles/main.c: 133:                     }
+[e = . . _ADCON0bits 0 2 -> -> 19 `i `uc ]
+"134
+[; ;SourceFiles/main.c: 134:                     ADCON0bits.GO_nDONE = 1;
 }
 [e $U 967  ]
 [e :U 966 ]
+[e $ ! == -> . . _ADCON0bits 0 2 `i -> 19 `i 968  ]
 {
-"162
-[; ;SourceFiles/main.c: 162: 
-[e =* _motorSpeed -> -> -U -> 2 `i `us `us ]
-"163
-[; ;SourceFiles/main.c: 163: 
-[e = _spinDir -> -> 0 `i `a ]
-"164
-[; ;SourceFiles/main.c: 164: 
+"135
+[; ;SourceFiles/main.c: 135:                 }
+[e = *U + &U _bytes * -> -> -> 2 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
+"136
+[; ;SourceFiles/main.c: 136:                 break;
+[e = *U + &U _bytes * -> -> -> 3 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
+"137
+[; ;SourceFiles/main.c: 137:             }
+[e = . . _ADCON0bits 0 2 -> -> 1 `i `uc ]
+"138
+[; ;SourceFiles/main.c: 138: 
 }
-[e :U 967 ]
-"165
-[; ;SourceFiles/main.c: 165:                     PWM5DCL = 0xC0;
-[e = . . _PWM5CONbits 0 4 -> -> 0 `i `uc ]
-"166
-[; ;SourceFiles/main.c: 166:                     PWM5DCH = 0x3F;
-[e $ ! != -> _spinDir `i -> _prevSpinDir `i 968  ]
+[e $U 969  ]
+[e :U 968 ]
+[e $ ! == -> . . _ADCON0bits 0 2 `i -> 1 `i 970  ]
 {
-"167
-[; ;SourceFiles/main.c: 167:                     PWM5CONbits.PWM5EN = 1;
-[e $ ! != -> _spinDir `i -> 0 `i 969  ]
+"139
+[; ;SourceFiles/main.c: 139:             case TRANSMIT_ADC_DATA: {
+[e = *U + &U _bytes * -> -> -> 4 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESH ]
+"140
+[; ;SourceFiles/main.c: 140:                 sendNOP(result);
+[e = *U + &U _bytes * -> -> -> 5 `i `ui `ux -> -> # *U &U _bytes `ui `ux _ADRESL ]
+"141
+[; ;SourceFiles/main.c: 141:                 transmitPayload(result[0]);
+[e = . . _ADCON0bits 0 2 -> -> 20 `i `uc ]
+"142
+[; ;SourceFiles/main.c: 142:                 currentState = CLEAR_INTERRUPT;
+[e $ ! != -> ( _controlsChanged (1 &U _bytes `i -> 0 `i 971  ]
 {
-"168
-[e = _RC2PPS -> -> 2 `i `uc ]
-"169
-[e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
-"170
+"143
+[; ;SourceFiles/main.c: 143:                 break;
+[e ( _packagePayload (2 , -> -> 1 `i `uc &U _bytes ]
+"144
+[; ;SourceFiles/main.c: 144:             }
+[e = _currentState . `E6773 1 ]
+"146
+[; ;SourceFiles/main.c: 146:             case CLEAR_INTERRUPT: {
 }
-[e $U 970  ]
-[e :U 969 ]
-{
-"171
-[e = _RC4PPS -> -> 2 `i `uc ]
-"172
-[e = . . _LATCbits 0 2 -> -> 0 `i `uc ]
-"173
+[e :U 971 ]
+"147
+[; ;SourceFiles/main.c: 147:                 if (!PORTCbits.RC2) {
 }
 [e :U 970 ]
-"174
-[e = _prevSpinDir _spinDir ]
-"175
-}
-[e :U 968 ]
-"179
-[e = _PWM5DCL -> -> 192 `i `uc ]
-"180
-[e = _PWM5DCH -> -> 63 `i `uc ]
-"181
-[e = . . _PWM5CONbits 0 4 -> -> 1 `i `uc ]
-"190
-[; ;SourceFiles/main.c: 190:                 }
+[e :U 969 ]
+[e :U 967 ]
+"148
+[; ;SourceFiles/main.c: 148:                     LATAbits.LATA0 = 1;
+[e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
+"149
+[; ;SourceFiles/main.c: 149:                     delay(1000);
 }
 [e :U 965 ]
+"150
+[; ;SourceFiles/main.c: 150:                     LATAbits.LATA0 = 0;
+[e $U 962  ]
+"151
+[; ;SourceFiles/main.c: 151:                     delay(1000);
+}
+"153
+[; ;SourceFiles/main.c: 153:                     bytes[0] = 0x20 | 0x07;
+[e :U 972 ]
+{
+"154
+[; ;SourceFiles/main.c: 154:                     bytes[1] = 0x70;
+[e ( _sendNOP (1 &U _result ]
+"155
+[; ;SourceFiles/main.c: 155:                     while (1) {
+[e ( _transmitPayload (1 *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux ]
+"156
+[; ;SourceFiles/main.c: 156:                         SendSPI(bytes, result, 2);
+[e = _currentState . `E6773 2 ]
+"157
+[; ;SourceFiles/main.c: 157:                         sendNOP(result);
+[e $U 962  ]
+"158
+[; ;SourceFiles/main.c: 158:                         if (!(result[0] & 0x70)) {
+}
+"160
+[; ;SourceFiles/main.c: 160:                         }
+[e :U 973 ]
+{
+"161
+[; ;SourceFiles/main.c: 161:                     }
+[e $ ! ! != -> . . _PORTCbits 0 2 `i -> 0 `i 974  ]
+{
+"162
+[; ;SourceFiles/main.c: 162:                     currentState = DONE;
+[e = . . _LATAbits 0 0 -> -> 1 `i `uc ]
+"163
+[; ;SourceFiles/main.c: 163:                 }
+[e ( _delay (1 -> 1000 `i ]
+"164
+[; ;SourceFiles/main.c: 164:                 break;
+[e = . . _LATAbits 0 0 -> -> 0 `i `uc ]
+"165
+[; ;SourceFiles/main.c: 165:             }
+[e ( _delay (1 -> 1000 `i ]
+"166
+[; ;SourceFiles/main.c: 166: 
+[e ( _sendNOP (1 &U _result ]
+"167
+[; ;SourceFiles/main.c: 167:             case DONE: {
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
+"168
+[; ;SourceFiles/main.c: 168:                 currentState = COLLECT_ADC_DATA;
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 112 `i `uc ]
+"169
+[; ;SourceFiles/main.c: 169:                 ADCON0bits.GO_nDONE = 1;
+[e :U 976 ]
+{
+"170
+[; ;SourceFiles/main.c: 170:                 break;
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
+"171
+[; ;SourceFiles/main.c: 171:             }
+[e ( _sendNOP (1 &U _result ]
+"172
+[; ;SourceFiles/main.c: 172: 
+[e $ ! ! != & -> *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 112 `i -> 0 `i 978  ]
+{
+"173
+[; ;SourceFiles/main.c: 173:             case READ_RX: {
+[e $U 977  ]
+"174
+[; ;SourceFiles/main.c: 174:                 if (!PORTAbits.RA1) {
+}
+[e :U 978 ]
+"175
+[; ;SourceFiles/main.c: 175:                     sendNOP(result);
+}
+[e :U 975 ]
+[e $U 976  ]
+[e :U 977 ]
+"176
+[; ;SourceFiles/main.c: 176:                     if (result[0] & 0x40) {
+[e = _currentState . `E6773 5 ]
+"177
+[; ;SourceFiles/main.c: 177:                         currentState = UPDATE_CONTROLS;
+}
+[e :U 974 ]
+"178
+[; ;SourceFiles/main.c: 178:                     }
+[e $U 962  ]
+"179
+[; ;SourceFiles/main.c: 179: 
+}
+"181
+[; ;SourceFiles/main.c: 181:                     bytes[1] = 0x70;
+[e :U 979 ]
+{
+"182
+[; ;SourceFiles/main.c: 182:                     SendSPI(bytes, result, 2);
+[e = _currentState . `E6773 0 ]
+"183
+[; ;SourceFiles/main.c: 183:                 }
+[e = . . _ADCON0bits 0 1 -> -> 1 `i `uc ]
+"184
+[; ;SourceFiles/main.c: 184:                 break;
+[e $U 962  ]
+"185
+[; ;SourceFiles/main.c: 185:             }
+}
+"187
+[; ;SourceFiles/main.c: 187:             case UPDATE_CONTROLS: {
+[e :U 980 ]
+{
+"188
+[; ;SourceFiles/main.c: 188:                 _Bool validData = readRXFIFO(result);
+[e $ ! ! != -> . . _PORTAbits 0 1 `i -> 0 `i 981  ]
+{
+"189
+[; ;SourceFiles/main.c: 189:                 if (validData && result[1] == 0x01) {
+[e ( _sendNOP (1 &U _result ]
+"190
+[; ;SourceFiles/main.c: 190:                     uint16_t motorSpeed = (uint16_t)((result[2] << 8) | result[3]);
+[e $ ! != & -> *U + &U _result * -> -> -> 0 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 64 `i -> 0 `i 982  ]
+{
 "191
-[; ;SourceFiles/main.c: 191:                 currentState = DONE;
-[e = _currentState . `E6770 5 ]
+[; ;SourceFiles/main.c: 191:                     uint16_t servoPos = (uint16_t)((result[4] << 8) | result[5]);
+[e = _currentState . `E6773 4 ]
 "192
-[; ;SourceFiles/main.c: 192:                 break;
-[e $U 947  ]
-"193
-[; ;SourceFiles/main.c: 193:             }
+[; ;SourceFiles/main.c: 192:                     servoPos = (servoPos * 15 + 15345) / 1023;
 }
+[e :U 982 ]
 "194
-[; ;SourceFiles/main.c: 194:         }
-}
-[e $U 947  ]
-[e :U 948 ]
-[e [\ -> _currentState `ui , $ -> . `E6770 0 `ui 949
- , $ -> . `E6770 1 `ui 953
- , $ -> . `E6770 2 `ui 954
- , $ -> . `E6770 5 `ui 960
- , $ -> . `E6770 3 `ui 961
- , $ -> . `E6770 4 `ui 964
- 947 ]
-[e :U 947 ]
+[; ;SourceFiles/main.c: 194:                         motorSpeed -= 512;
+[e = *U + &U _bytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> | -> 32 `i -> 7 `i `uc ]
 "195
-[; ;SourceFiles/main.c: 195:     }
-}
-[e :U 944 ]
-[e $U 945  ]
-[e :U 946 ]
+[; ;SourceFiles/main.c: 195:                         spinDir = 1;
+[e = *U + &U _bytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _bytes `ui `ux -> -> 112 `i `uc ]
 "196
-[; ;SourceFiles/main.c: 196:     return 1;
+[; ;SourceFiles/main.c: 196:                     } else {
+[e ( _SendSPI (3 , , &U _bytes &U _result -> -> 2 `i `uc ]
+"197
+[; ;SourceFiles/main.c: 197:                         motorSpeed = 512 - motorSpeed;
+}
+[e :U 981 ]
+"198
+[; ;SourceFiles/main.c: 198: 
+[e $U 962  ]
+"199
+[; ;SourceFiles/main.c: 199:                         spinDir = 0;
+}
+"201
+[; ;SourceFiles/main.c: 201:                     PWM5CONbits.PWM5EN = 0;
+[e :U 983 ]
+{
+"202
+[; ;SourceFiles/main.c: 202:                     if (prevSpinDir != spinDir) {
+[v _validData `a ~T0 @X0 1 a ]
+[e = _validData ( _readRXFIFO (1 &U _result ]
+"203
+[; ;SourceFiles/main.c: 203:                         if (spinDir) {
+[e $ ! && != -> _validData `i -> 0 `i == -> *U + &U _result * -> -> -> 1 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 1 `i 984  ]
+{
+"204
+[; ;SourceFiles/main.c: 204:                             RC2PPS = 0b00010;
+[v _motorSpeed `us ~T0 @X0 1 a ]
+[e = _motorSpeed -> | << -> *U + &U _result * -> -> -> 2 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 8 `i -> *U + &U _result * -> -> -> 3 `i `ui `ux -> -> # *U &U _result `ui `ux `i `us ]
+"205
+[; ;SourceFiles/main.c: 205:                             RC4PPS = 0b00000;
+[v _servoPos `us ~T0 @X0 1 a ]
+[e = _servoPos -> | << -> *U + &U _result * -> -> -> 4 `i `ui `ux -> -> # *U &U _result `ui `ux `i -> 8 `i -> *U + &U _result * -> -> -> 5 `i `ui `ux -> -> # *U &U _result `ui `ux `i `us ]
+"206
+[; ;SourceFiles/main.c: 206:                             LATCbits.LATC4 = 0;
+[e = _servoPos -> / + * -> _servoPos `ui -> -> 15 `i `ui -> -> 15345 `i `ui -> -> 1023 `i `ui `us ]
+"207
+[; ;SourceFiles/main.c: 207:                         } else {
+[e $ ! > -> _motorSpeed `ui -> -> 512 `i `ui 985  ]
+{
+"208
+[; ;SourceFiles/main.c: 208:                             RC2PPS = 0b00000;
+[e =- _motorSpeed -> -> 512 `i `us ]
+"209
+[; ;SourceFiles/main.c: 209:                             RC4PPS = 0b00010;
+[e = _spinDir -> -> 1 `i `a ]
+"210
+[; ;SourceFiles/main.c: 210:                             LATCbits.LATC2 = 0;
+}
+[e $U 986  ]
+[e :U 985 ]
+{
+"211
+[; ;SourceFiles/main.c: 211:                         }
+[e = _motorSpeed -> - -> -> 512 `i `ui -> _motorSpeed `ui `us ]
+"213
+[; ;SourceFiles/main.c: 213:                     }
+[e = _spinDir -> -> 0 `i `a ]
+"214
+[; ;SourceFiles/main.c: 214:                     PWM5DCL = (uint8_t)(motorSpeed << 6);
+}
+[e :U 986 ]
+"215
+[; ;SourceFiles/main.c: 215:                     PWM5DCH = (uint8_t)(motorSpeed >> 2);
+[e = . . _PWM5CONbits 0 4 -> -> 0 `i `uc ]
+"216
+[; ;SourceFiles/main.c: 216: 
+[e $ ! != -> _prevSpinDir `i -> _spinDir `i 987  ]
+{
+"217
+[; ;SourceFiles/main.c: 217:                     PWM6DCL = (uint8_t)(servoPos << 6);
+[e $ ! != -> _spinDir `i -> 0 `i 988  ]
+{
+"218
+[; ;SourceFiles/main.c: 218:                     PWM6DCH = (uint8_t)(servoPos >> 2);
+[e = _RC2PPS -> -> 2 `i `uc ]
+"219
+[; ;SourceFiles/main.c: 219:                     PWM5CONbits.PWM5EN = 1;
+[e = _RC4PPS -> -> 0 `i `uc ]
+"220
+[; ;SourceFiles/main.c: 220:                 }
+[e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
+"221
+[; ;SourceFiles/main.c: 221:                 currentState = READ_RX;
+}
+[e $U 989  ]
+[e :U 988 ]
+{
+"222
+[; ;SourceFiles/main.c: 222:                 break;
+[e = _RC2PPS -> -> 0 `i `uc ]
+"223
+[; ;SourceFiles/main.c: 223:             }
+[e = _RC4PPS -> -> 2 `i `uc ]
+"224
+[; ;SourceFiles/main.c: 224:         }
+[e = . . _LATCbits 0 2 -> -> 0 `i `uc ]
+"225
+[; ;SourceFiles/main.c: 225:     }
+}
+[e :U 989 ]
+"226
+[; ;SourceFiles/main.c: 226:     return 1;
+[e = _prevSpinDir _spinDir ]
+"227
+[; ;SourceFiles/main.c: 227: }
+}
+[e :U 987 ]
+"228
+[e = _PWM5DCL -> << -> _motorSpeed `ui -> 6 `i `uc ]
+"229
+[e = _PWM5DCH -> >> -> _motorSpeed `ui -> 2 `i `uc ]
+"231
+[e = _PWM6DCL -> << -> _servoPos `ui -> 6 `i `uc ]
+"232
+[e = _PWM6DCH -> >> -> _servoPos `ui -> 2 `i `uc ]
+"233
+[e = . . _PWM5CONbits 0 4 -> -> 1 `i `uc ]
+"234
+}
+[e :U 984 ]
+"235
+[e = _currentState . `E6773 3 ]
+"236
+[e $U 962  ]
+"237
+}
+"238
+}
+[e $U 962  ]
+[e :U 963 ]
+[e [\ -> _currentState `ui , $ -> . `E6773 0 `ui 964
+ , $ -> . `E6773 1 `ui 972
+ , $ -> . `E6773 2 `ui 973
+ , $ -> . `E6773 5 `ui 979
+ , $ -> . `E6773 3 `ui 980
+ , $ -> . `E6773 4 `ui 983
+ 962 ]
+[e :U 962 ]
+"239
+}
+[e :U 959 ]
+[e $U 960  ]
+[e :U 961 ]
+"240
 [e ) -> 1 `i ]
 [e $UE 934  ]
-"197
-[; ;SourceFiles/main.c: 197: }
+"241
 [e :UE 934 ]
 }

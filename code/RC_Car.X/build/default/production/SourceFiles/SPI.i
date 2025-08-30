@@ -10615,13 +10615,13 @@ void ReadRegister(uint8_t reg, uint8_t *result) {
 
 void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
  if (n == 1) {
-  LATCbits.LATC3 = 0;
+  LATAbits.LATA4 = 0;
   SSP1BUF = bytes[0];
   while (!SSP1STATbits.BF);
   result[0] = SSP1BUF;
-  LATCbits.LATC3 = 1;
+  LATAbits.LATA4 = 1;
  } else {
-  LATCbits.LATC3 = 0;
+  LATAbits.LATA4 = 0;
   for (uint8_t i = 0; i < n; i++) {
             while (SSP1STATbits.BF) {
                 SSP1BUF;
@@ -10638,7 +10638,7 @@ void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n) {
                 result[i] = SSP1BUF;
             }
   }
-  LATCbits.LATC3 = 1;
+  LATAbits.LATA4 = 1;
  }
  delay(45);
 }

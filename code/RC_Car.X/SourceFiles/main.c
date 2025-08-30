@@ -24,7 +24,7 @@ State_t currentState;
 // value of LED
 bool val = true;
 // previous spinning direction of motor
-static bool prevSpinDir = false;
+bool prevSpinDir = true;
 // current spinning direction of motor
 bool spinDir;
 
@@ -33,22 +33,14 @@ uint8_t bytes[7];
 uint8_t result[7];
 
 int main(int argc, char** argv) {
-    // LED configure (pin 13 - RA0)
+    // LED/LIGHT setup
+    // configure RA0 (pin 13) as digital output
 	TRISAbits.TRISA0 = 0;
     // set as default low
 	LATAbits.LATA0 = 0;
     
-    // radio CE configure (pin 12 - RA1)
-	TRISAbits.TRISA1 = 0;
-    // set radio enable as default low
-	ce(LOW);
-    
-    // enable RC5 as input for IRQ pin from radio
-    TRISCbits.TRISC5 = 1;
-    // disable analog input
-    ANSELCbits.ANSC5 = 0;
-    
-    // receiver/transmitter selection pin (pin 2 - RA5)
+    // receiver/transmitter selection setup
+    // configure RA5 (pin 2) as digital input
 	TRISAbits.TRISA5 = 1;
     // disable analog input
     ANSELAbits.ANSA5 = 0;
@@ -59,12 +51,53 @@ int main(int argc, char** argv) {
 		radioType = TRANSMITTER;
 	}
     
+    if (radioType == TRANSMITTER) {
+        for (uint8_t i = 0; i < 10; i++) {
+            delay(1000);
+            LATAbits.LATA0 = 1;
+            delay(1000);
+            LATAbits.LATA0 = 0;
+        }
+    } else if (radioType == RECEIVER) {
+        for (uint8_t i = 0; i < 3; i++) {
+            delay(10000);
+            LATAbits.LATA0 = 1;
+            delay(10000);
+            LATAbits.LATA0 = 0;
+        }
+    }
+    
+    // radio CE setup
+    if (radioType == TRANSMITTER) {
+        // configure RA2 (pin 11) as digital output
+        TRISAbits.TRISA2 = 0;
+    } else if (radioType == RECEIVER) {
+        // configure RC5 (pin 5) as digital output
+        TRISCbits.TRISC5 = 0;
+    }
+    // set radio enable as default low
+	ce(radioType, LOW);
+    
+    // radio IRQ setup
+    if (radioType == TRANSMITTER) {
+        // configure RC2 (pin 8) as digital input
+        TRISCbits.TRISC2 = 1;
+        // disable analog input
+        ANSELCbits.ANSC2 = 0;
+    } else if (radioType == RECEIVER) {
+        // configure RA1 (pint 12) as digital input
+        TRISAbits.TRISA1 = 1;
+        // disable analog input
+        ANSELAbits.ANSA1 = 0;
+    }
+        
+    
     // set up SPI
-    setupSPI();
+    setupSPI(radioType);
     
     // start radio
     bool radioStarted = true;    
-    if (StartRadio(CHANNEL, PAYLOAD_SIZE)) {
+    if (StartRadio(CHANNEL, PAYLOAD_SIZE, radioType)) {
         radioStarted = true;
     } else {
         // radio didn't start successfully
@@ -87,6 +120,7 @@ int main(int argc, char** argv) {
         configureTX(address);
         // set initial state
         currentState = COLLECT_ADC_DATA;
+        ADCON0bits.GO_nDONE = 1;
     }
     
     while (1) {
@@ -96,13 +130,20 @@ int main(int argc, char** argv) {
                     if (ADCON0bits.CHS == 0x14) {
                         bytes[0] = ADRESH;
                         bytes[1] = ADRESL;
-                        ADCON0bits.CHS = 0x12;
-                    } else {
+                        ADCON0bits.CHS = 0x13;
+                    } else if (ADCON0bits.CHS == 0x13) {
                         bytes[2] = ADRESH;
                         bytes[3] = ADRESL;
+                        ADCON0bits.CHS = 0x01;
+                    } else if (ADCON0bits.CHS == 0x01) {
+                        bytes[4] = ADRESH;
+                        bytes[5] = ADRESL;
                         ADCON0bits.CHS = 0x14;
-                        packagePayload(RADIO_ID, bytes[0], bytes[1], bytes[2], bytes[3]);
-                        currentState = TRANSMIT_ADC_DATA;
+                        if (controlsChanged(bytes)) {
+                            packagePayload(RADIO_ID, bytes);
+                            currentState = TRANSMIT_ADC_DATA;
+                            
+                        }
                     }
                     ADCON0bits.GO_nDONE = 1;
                 }
@@ -117,7 +158,11 @@ int main(int argc, char** argv) {
             }
 
             case CLEAR_INTERRUPT: {
-                if (!PORTCbits.RC5) {
+                if (!PORTCbits.RC2) {
+                    LATAbits.LATA0 = 1;
+                    delay(1000);
+                    LATAbits.LATA0 = 0;
+                    delay(1000);
                     sendNOP(result);
                     bytes[0] = W_REGISTER | SPI_STATUS;
                     bytes[1] = 0x70;
@@ -134,19 +179,21 @@ int main(int argc, char** argv) {
             }
 
             case DONE: {
-                LATAbits.LATA0 = 1;
-//                currentState = COLLECT_ADC_DATA;
+                currentState = COLLECT_ADC_DATA;
+                ADCON0bits.GO_nDONE = 1;
                 break;
             }
 
             case READ_RX: {
-                if (!PORTCbits.RC5) {
+                if (!PORTAbits.RA1) {
                     sendNOP(result);
                     if (result[0] & 0x40) {
                         currentState = UPDATE_CONTROLS;
                     }
-                    uint8_t thingie[] = {W_REGISTER | SPI_STATUS, 0x70};
-                    SendSPI(thingie, result, 2);
+                    // clear interrupts
+                    bytes[0] = W_REGISTER | SPI_STATUS;
+                    bytes[1] = 0x70;
+                    SendSPI(bytes, result, 2);
                 }
                 break;
             }
@@ -154,41 +201,38 @@ int main(int argc, char** argv) {
             case UPDATE_CONTROLS: {
                 bool validData = readRXFIFO(result);
                 if (validData && result[1] == RADIO_ID) {
-                    uint16_t motorSpeed = (uint16_t)(((result[1] << 8) | result[2]) - 512);
+                    uint16_t motorSpeed = (uint16_t)((result[2] << 8) | result[3]);
+                    uint16_t servoPos = (uint16_t)((result[4] << 8) | result[5]);
+                    servoPos = (servoPos * 15 + 15345) / 1023;
                     if (motorSpeed > 512) {
-                        motorSpeed *= 2;
+                        motorSpeed -= 512;
                         spinDir = true;
                     } else {
-                        motorSpeed *= (uint16_t)(-2);
+                        motorSpeed = 512 - motorSpeed;
+//                        motorSpeed = 0;
                         spinDir = false;
                     }
                     PWM5CONbits.PWM5EN = 0;
-                    if (spinDir != prevSpinDir) {
+                    if (prevSpinDir != spinDir) {
                         if (spinDir) {
                             RC2PPS = 0b00010;
+                            RC4PPS = 0b00000;
                             LATCbits.LATC4 = 0;
                         } else {
+                            RC2PPS = 0b00000;
                             RC4PPS = 0b00010;
                             LATCbits.LATC2 = 0;
                         }
                         prevSpinDir = spinDir;
                     }
+                    PWM5DCL = (uint8_t)(motorSpeed << 6);
+                    PWM5DCH = (uint8_t)(motorSpeed >> 2);
                     
-//                    PWM5DCL = (uint8_t)(motorSpeed << 6);
-//                    PWM5DCH = (uint8_t)(motorSpeed >> 2);
-                    PWM5DCL = 0xC0;
-                    PWM5DCH = 0x3F;
+                    PWM6DCL = (uint8_t)(servoPos << 6);
+                    PWM6DCH = (uint8_t)(servoPos >> 2);
                     PWM5CONbits.PWM5EN = 1;
-//                    PWM6DCL = result[4];
-//                    PWM6DCH = result[3];
-//                    // clear interrupts
-//                    // maybe remove this
-//                    uint8_t databytes[2];
-//                    databytes[0] = W_REGISTER | SPI_STATUS;
-//                    databytes[1] = 0x70;
-//                    SendSPI(databytes, result, 2);
                 }
-                currentState = DONE;
+                currentState = READ_RX;
                 break;
             }
         }
