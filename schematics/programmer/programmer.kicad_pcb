@@ -1967,7 +1967,7 @@
 			(center -7.62 8.89)
 			(end -7.52 8.89)
 			(stroke
-				(width 0.2)
+				(width 1)
 				(type solid)
 			)
 			(fill none)
@@ -2481,7 +2481,7 @@
 		(descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
 		(property "Reference" "R1"
-			(at 3.81 0 360)
+			(at 3.81 0 0)
 			(layer "F.SilkS")
 			(uuid "43906cd7-7b2e-43f6-a8be-ce9989256f67")
 			(effects
@@ -2492,7 +2492,7 @@
 			)
 		)
 		(property "Value" "470"
-			(at 3.81 1.92 360)
+			(at 3.81 1.92 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "998dba79-7daf-4e29-b164-28d8621cf641")
@@ -2760,7 +2760,7 @@
 			(uuid "ad1d37a5-6b2a-4270-9877-a4b1d885dd05")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 0 360)
+			(at 3.81 0 0)
 			(layer "F.Fab")
 			(uuid "df981de5-579f-4b4c-aa27-ffef3828b93e")
 			(effects
@@ -5780,7 +5780,7 @@
 		(descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
 		(property "Reference" "R5"
-			(at 3.81 0 360)
+			(at 3.81 0 0)
 			(layer "F.SilkS")
 			(uuid "ab5d0491-5df3-4881-9a25-04c6aa01dbeb")
 			(effects
@@ -5791,7 +5791,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 3.81 1.92 360)
+			(at 3.81 1.92 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b2f06eef-341a-4b54-8542-9200f49978eb")
@@ -6059,7 +6059,7 @@
 			(uuid "062ac5ad-09a1-4d44-a9a7-01b9f72f4bf6")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 0 360)
+			(at 3.81 0 0)
 			(layer "F.Fab")
 			(uuid "c9198b27-7778-448e-b513-5040bbf08dc7")
 			(effects
@@ -6108,7 +6108,7 @@
 		(descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
 		(property "Reference" "R3"
-			(at 3.81 0 360)
+			(at 3.81 0 0)
 			(layer "F.SilkS")
 			(uuid "3f772323-ea72-4feb-8427-2a107e760fe7")
 			(effects
@@ -6119,7 +6119,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 3.81 1.92 360)
+			(at 3.81 1.92 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ccd58657-aefd-4364-88a3-79781c89d58b")
@@ -6387,7 +6387,7 @@
 			(uuid "0423b0a5-97cb-4f2f-a4ce-5d5e0dc13dd2")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 0 360)
+			(at 3.81 0 0)
 			(layer "F.Fab")
 			(uuid "aa81a98b-142e-461a-b736-fad30232a163")
 			(effects
@@ -6436,7 +6436,7 @@
 		(descr "Through hole straight socket strip, 1x08, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x08 2.54mm single row")
 		(property "Reference" "PRG1"
-			(at 0 -2.77 360)
+			(at 0 -2.77 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "854aa54e-45d3-4653-9a78-896acc6b5f9d")
@@ -6448,7 +6448,7 @@
 			)
 		)
 		(property "Value" "MPLAB_Snap"
-			(at 0 20.55 360)
+			(at 0 20.55 0)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0635c05e-5b90-4c0d-9f2c-52636c005d41")
