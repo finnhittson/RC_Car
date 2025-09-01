@@ -3457,6 +3457,12 @@
 		(uuid "10964414-bb4d-4e3c-a7e5-9ec162aea5ed")
 	)
 	(junction
+		(at 50.165 82.55)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "67d3524f-9964-46eb-9160-27d063b4f6e6")
+	)
+	(junction
 		(at 52.07 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3752,7 +3758,7 @@
 	)
 	(wire
 		(pts
-			(xy 48.26 82.55) (xy 73.66 82.55)
+			(xy 48.26 82.55) (xy 50.165 82.55)
 		)
 		(stroke
 			(width 0)
@@ -3912,6 +3918,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.165 82.55) (xy 73.66 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1e34a9c-d6f6-49cf-ac04-854950f3da0a")
+	)
+	(wire
+		(pts
 			(xy 44.45 132.08) (xy 52.07 132.08)
 		)
 		(stroke
@@ -4039,6 +4055,16 @@
 			(type default)
 		)
 		(uuid "fab9784a-88f3-4e0a-b985-f639db62b786")
+	)
+	(wire
+		(pts
+			(xy 50.165 82.55) (xy 50.165 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fba45275-7603-4f35-af78-b6635276e7ef")
 	)
 	(rectangle
 		(start 26.67 110.49)
@@ -4864,6 +4890,72 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 50.165 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0f3d69d2-6f2b-4845-9bf4-5263e01532fc")
+		(property "Reference" "#PWR034"
+			(at 50.165 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 50.165 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 50.165 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 50.165 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 50.165 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b6360414-dc41-4dfe-ae38-858918620dfe")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "#PWR034")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 133.35 144.78 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5267,6 +5359,112 @@
 			(project "transmitter"
 				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
 					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 50.165 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "325fb10a-f6dd-42da-a44a-b21157377a7a")
+		(property "Reference" "R6"
+			(at 52.705 97.7899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 52.705 100.3299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal"
+			(at 48.387 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.165 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 50.165 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn" ""
+			(at 50.165 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn PN" ""
+			(at 50.165 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" ""
+			(at 50.165 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier PN" ""
+			(at 50.165 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "97c798b5-5808-4821-9e1e-95f28ca98c05")
+		)
+		(pin "1"
+			(uuid "a4dbc511-610c-437c-9542-dcb0b4d24edb")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "R6")
 					(unit 1)
 				)
 			)
