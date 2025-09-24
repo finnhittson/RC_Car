@@ -2920,10 +2920,6 @@
 		(uuid "fd4d2e5b-afab-4702-a390-36a9f29714f3")
 	)
 	(no_connect
-		(at 76.2 85.09)
-		(uuid "58de752a-ded7-4aca-a190-3a72776f9d94")
-	)
-	(no_connect
 		(at 76.2 90.17)
 		(uuid "f2b8fd76-ead6-40ed-8316-02f9350f0d93")
 	)
@@ -3471,6 +3467,28 @@
 			)
 		)
 	)
+	(global_label "TRIM"
+		(shape input)
+		(at 76.2 85.09 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "57aeb074-16a1-4b27-9628-5c0475720d83")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 68.921 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "MOSI"
 		(shape input)
 		(at 111.76 95.25 0)
@@ -3687,6 +3705,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "TRIM"
+		(shape input)
+		(at 267.335 94.615 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e160a4a1-8346-446d-874b-b771fa3a129c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 274.614 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -4723,6 +4763,122 @@
 			(project "transmitter"
 				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "R_Potentiometer_1")
+		(lib_id "Device:R_Potentiometer")
+		(at 263.525 94.615 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ba97a4a-ab4c-4076-b08a-d68d950c4e45")
+		(property "Reference" "RV3"
+			(at 260.985 93.3449 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "R_Potentiometer"
+			(at 260.985 95.8849 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Potentiometer_THT:Potentiometer_Bourns_3386P_Vertical"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.bourns.com/docs/Product-Datasheets/3386.pdf"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "TRIMMER 10K OHM 0.5W PC PIN TOP"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn" "Bourns Inc."
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn PN" "3386P-1-103LF"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" "DigiKey"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier PN" "3386P-103LF-ND"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "56e6dd29-c289-4d8b-a13c-6da302546539")
+		)
+		(pin "1"
+			(uuid "562c2c6d-2a6e-4bbb-8bcb-16053d6529bd")
+		)
+		(pin "3"
+			(uuid "9fadbdfe-4078-4802-94b9-283186fcb81f")
+		)
+		(pin "S1"
+			(uuid "8eb412c6-1ee7-40e3-8efc-034903dadadf")
+		)
+		(pin "S2"
+			(uuid "612187f4-7d36-4668-b28d-29786025ea71")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "RV3")
 					(unit 1)
 				)
 			)
@@ -6581,6 +6737,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 263.525 90.805 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ac16e6eb-0a72-4c41-a52c-6b5a061fa45b")
+		(property "Reference" "#PWR09"
+			(at 263.525 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 263.525 85.725 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 263.525 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 263.525 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 263.525 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c76be68d-51f5-4994-8a8e-325b25301e0b")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 102.87 63.5 0)
 		(unit 1)
@@ -7691,6 +7913,72 @@
 			(project "transmitter"
 				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
 					(reference "JP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 263.525 98.425 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e80473c6-0e6c-487c-b848-036d064ae844")
+		(property "Reference" "#PWR010"
+			(at 263.525 104.775 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 263.525 103.505 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 263.525 98.425 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 263.525 98.425 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 263.525 98.425 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bd6160a5-7dd6-4b1f-8139-1bf5f3eb9e22")
+		)
+		(instances
+			(project "transmitter"
+				(path "/8cd5d3cf-8985-42c2-bd7d-5d07b5ac3cd8"
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
