@@ -7243,7 +7243,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2937.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm2937.pdf"
 			(at 133.35 130.81 0)
 			(effects
 				(font
@@ -7252,7 +7252,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "500-mA Low Dropout Regulator, TO-220"
+		(property "Description" "IC REG LINEAR 3.3V 500MA TO220-3"
 			(at 133.35 129.54 0)
 			(effects
 				(font
@@ -7261,7 +7261,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Texas Instruments"
 			(at 133.35 129.54 0)
 			(effects
 				(font
@@ -7270,7 +7270,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "LM2937ET-3.3/NOPB"
 			(at 133.35 129.54 0)
 			(effects
 				(font
@@ -7279,7 +7279,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 133.35 129.54 0)
 			(effects
 				(font
@@ -7288,7 +7288,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "LM2937ET-3.3/NOPB-ND"
 			(at 133.35 129.54 0)
 			(effects
 				(font
