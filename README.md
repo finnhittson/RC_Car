@@ -1,6 +1,10 @@
 # 9V Battery RC Car
 This repo documents how to make an RC car and transmitter using 3d printted parts, a PIC16LF18325 microcontroller, nRF24L01 RF modules, a 9V battery to power the car and the transmitter, and other basic hardware components. No glue necessary!
 
+Table of contents:  
+1. [Design Overview](##design-overview)
+2. [Software](###software)
+3. [Electrical](###electrical)
 ## Design Overview
 The three main components in building this car are the software, electrical, and the mechanical aspect of the car. The following sections talks about each of these parts in detail.
 
