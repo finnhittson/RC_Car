@@ -7904,7 +7904,7 @@
 		)
 		(model "${KIPRJMOD}/3d_models/switch v1.step"
 			(offset
-				(xyz 0 -2.5 0)
+				(xyz 0 -2.5 12.9)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -8507,7 +8507,7 @@
 		)
 		(model "${KICAD8_3DMODEL_DIR}/LED_THT.3dshapes/LED_D5.0mm.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 0 9.179)
 			)
 			(scale
 				(xyz 1 1 1)

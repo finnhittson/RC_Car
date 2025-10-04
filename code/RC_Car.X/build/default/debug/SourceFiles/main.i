@@ -10744,147 +10744,6 @@ extern __bank0 __bit __timeout;
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
 # 4 "SourceFiles/main.c" 2
 
-# 1 "SourceFiles/../HeaderFiles/TransmitService.h" 1
-
-
-
-# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 1
-# 1 "SourceFiles/../HeaderFiles/SPI.h" 1
-# 49 "SourceFiles/../HeaderFiles/SPI.h"
-typedef enum {
- LOW = 0,
- HIGH
-} Level_t;
-
-void ReadRegister(uint8_t reg, uint8_t *result);
-void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
-void sendNOP(uint8_t *result);
-void delay (volatile int length);
-# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
-
-
-
-
-
-
-
-typedef union {
- struct {
-  uint8_t : 1;
-  uint8_t RF_PWR : 2;
-  uint8_t RF_DR_HIGH : 1;
-  uint8_t PLL_HIGH : 1;
-  uint8_t RF_DR_LOW : 1;
-  uint8_t : 1;
-  uint8_t CONT_WAVE : 1;
- };
- struct {
-  uint8_t w : 8;
- };
-} RF_SETUPbits_t;
-
-typedef union {
- struct {
-  uint8_t PRIM_RX : 1;
-  uint8_t PWR_UP : 1;
-  uint8_t CRCO : 1;
-  uint8_t EN_CRC : 1;
-  uint8_t MASK_MAX_RT : 1;
-  uint8_t MASK_TX_DS : 1;
-  uint8_t MASK_RX_DR : 1;
- };
- struct {
-  uint8_t w : 8;
- };
-} CONFIGbits_t;
-
-typedef enum {
- RECEIVER = 0,
- TRANSMITTER
-} Radio_t;
-
-typedef enum {
- RF_DR_1Mbps = 0,
- RF_DR_2Mbps,
- RF_DR_250Kbps
-} RF_DR_t;
-
-typedef enum {
- RF_PWR_18dBm = 0,
- RF_PWR_12dBm,
- RF_PWR_6dBm,
- RF_PWR_0dBm
-} RF_PWR_t;
-
-typedef enum {
- RX,
- TX,
- Standby2,
- Standby1,
- PowerDown
-} Mode;
-
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType);
-void FlushTX(void);
-void FlushRX(void);
-void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, Radio_t radioType);
-void SetupPayloadSize(uint8_t size, uint8_t *result);
-void FeatureTest(uint8_t *result);
-void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
-_Bool readRXFIFO(uint8_t *result);
-void StartListening(uint8_t *address);
-void ce(Radio_t radioType, Level_t level);
-# 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
-
-
-
-
-
-
-
-typedef union {
- struct {
-  uint8_t TX_FULL : 1;
-  uint8_t RX_P_NO : 3;
-  uint8_t MAX_RT : 1;
-  uint8_t TX_DS : 1;
-  uint8_t RX_DR : 1;
- };
- struct {
-  uint8_t w : 8;
- };
-} SPISTATUSbits_t;
-
-typedef enum {
- ES_INIT = 0,
- ES_STATUS_FLAGS,
- ES_HANDLE_PAYLOAD,
- ES_CONTROL_UPDATE
-} ES_EventType_t;
-
-typedef struct ES_Event {
-  ES_EventType_t EventType;
-  uint16_t EventParam;
-} ES_Event_t;
-
-typedef enum {
-    COLLECT_ADC_DATA,
-    TRANSMIT_ADC_DATA,
-            CLEAR_INTERRUPT,
-            READ_RX,
-            UPDATE_CONTROLS,
-            DONE,
-} State_t;
-
-
-void packagePayload(uint8_t radioID, uint8_t *bytes);
-void transmitPayload(uint8_t statusBits);
-void setupSPI(Radio_t radioType);
-void configureRX(uint8_t *address);
-void configureTX(uint8_t *address);
-_Bool controlsChanged(uint8_t *bytes);
-# 5 "SourceFiles/main.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
 # 25 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 3
@@ -11038,7 +10897,7 @@ int main(int argc, char** argv) {
 
 
     _Bool radioStarted = 1;
-    if (StartRadio(42, 8, radioType)) {
+    if (StartRadio(42, PAYLOAD_SIZE, radioType)) {
         radioStarted = 1;
     } else {
 
@@ -11105,7 +10964,7 @@ int main(int argc, char** argv) {
                     LATAbits.LATA0 = 0;
                     delay(1000);
                     sendNOP(result);
-                    bytes[0] = 0x20 | 0x07;
+                    bytes[0] = W_REGISTER | SPI_STATUS;
                     bytes[1] = 0x70;
                     while (1) {
                         SendSPI(bytes, result, 2);
@@ -11132,7 +10991,7 @@ int main(int argc, char** argv) {
                         currentState = UPDATE_CONTROLS;
                     }
 
-                    bytes[0] = 0x20 | 0x07;
+                    bytes[0] = W_REGISTER | SPI_STATUS;
                     bytes[1] = 0x70;
                     SendSPI(bytes, result, 2);
                 }
@@ -11144,7 +11003,7 @@ int main(int argc, char** argv) {
                 if (validData && result[1] == 0x01) {
                     uint16_t motorSpeed = (uint16_t)((result[2] << 8) | result[3]);
                     uint16_t servoPos = (uint16_t)((result[4] << 8) | result[5]);
-                    servoPos = 15 * (servoPos / 1023 + 1);
+                    servoPos = (servoPos * 15 + 15345) / 1023;
                     if (motorSpeed > 512) {
                         motorSpeed -= 512;
                         spinDir = 1;
@@ -11168,6 +11027,9 @@ int main(int argc, char** argv) {
                     }
                     PWM5DCL = (uint8_t)(motorSpeed << 6);
                     PWM5DCH = (uint8_t)(motorSpeed >> 2);
+
+                    PWM6DCL = (uint8_t)(servoPos << 6);
+                    PWM6DCH = (uint8_t)(servoPos >> 2);
                     PWM5CONbits.PWM5EN = 1;
                 }
                 currentState = READ_RX;
