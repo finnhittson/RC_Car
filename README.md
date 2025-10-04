@@ -12,6 +12,5 @@ Using the PIC16LF18326 as the microcontroller, the driver code was written exclu
 
 ### Electrical
 The receiver schematic is shown below. For the receiver, the PIC16 communicates with the nRF24L01 radio module through a SPI bus for receiving commands that are then decoded into a PWM signals for motor and servo control. The L9110 h-bridge controls the motor and the LM2937 linear voltage regulator creates the 3.3V supply for the PIC16, nRF24L01 radio module, lights, and servo power. The lights part of the schematic act as the headlights of the car.
-![receiver schematic](schematics/receiver/schematic.png)
 
 bill of materisl
