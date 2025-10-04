@@ -33,7 +33,7 @@ Because this project is intended to be a workshop only one version of code or `m
 
 The following image shows the state machine executed on the transmitter PIC16. When the PIC16 detects its a transmitter then it starts the state machine with the inital state of *COLLECT_ADC_DATA*. In the *COLLECT_ADC_DATA* state, the PIC16 cycles through the three ADC ports to collect their value. Once complete, it transitions to the *TRANSMIT_ADC_DATA* state where it packages up this information into a packet and sents this information over the SPI bus to the nRF24L01 radio module. Once this is complete it then transitions to the *CLEAR_INTERRUPT* state. In this state the PIC16 is waiting for the interrupt line to go low which indicates a successful transmission to the receiver. From here the state machine then transitions to a *DONE* state where the hardware to read the analog pins is reinitialized and the process repeates itself after *DONE* transitions to *COLLECT_ADC_DATA*.
 
-![Transmit_state_diagram](documentation/state_machine/transmitter_state_machine.png)
+![Transmit_state_machine](documentation/state_machine/transmitter_state_machine.png)
 
 The transmission packet is 8 bytes long and has the following breakdown.
 1. Byte 1 is the radio ID and is chosen by the user as an extra indentification method so that in the instance when the radio receives a packet from another RC car on the same channel, it will only execute the instructions if the packet come from a transmitter with the same ID.
@@ -49,8 +49,7 @@ The transmission packet is 8 bytes long and has the following breakdown.
 
 When the PIC16 detects is a receiver it starts the state machine in the *READ_RX*. In this state it waits until the interrupt line from the nRF24L01 radio module goes low which indicates that a packet has been received. From here it transitions to the *UPDATE_CONTROLS* state. In this state the PIC16 collects the packet from the nRF24L01 radio module, unpacks it, and updates the PWM signals for the servo and motor. Once complete it transitions back to the *READ_RX* state where it waits until the next packet is ready.
 
-![Recieve_state_diagram](documentation/state_machine/receiver_state_machine.png)
-
+![Receive_state_diagram](documentation/state_machine/receiver_state_machine.png)
 ### Electrical
 The receiver schematic is shown below. For the receiver, the PIC16LF18325 communicates with the nRF24L01 radio module through a SPI bus for receiving commands that are then decoded into a PWM signals for motor and servo control. The PIC16 also controls the motors and servo respectivly and was chosen for its small size, GPIO pin count, and packaging style. The L9110 h-bridge controls the motor and is a very basic h-bridge for driving small motors which make it perfect for this application. The LM2937 linear voltage regulator creates the 3.3V supply for the PIC16, nRF24L01 radio module, lights, and servo power. The lights part of the schematic act as the headlights of the car and are controlled by the PIC16 toggeling the 2N7000 mosfets. 
 ![Receiver_schematic](schematics/receiver/schematic.png)
