@@ -6773,7 +6773,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://diotec.com/request/datasheet/2n7000.pdf"
 			(at 231.775 53.34 0)
 			(effects
 				(font
@@ -6783,7 +6783,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "MOSFET TO-92 60V 0.2A"
 			(at 231.775 53.34 0)
 			(effects
 				(font
@@ -6792,7 +6792,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Diotec Semiconductor"
 			(at 231.775 53.34 0)
 			(effects
 				(font
@@ -6801,7 +6801,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "2N7000"
 			(at 231.775 53.34 0)
 			(effects
 				(font
@@ -6810,7 +6810,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 231.775 53.34 0)
 			(effects
 				(font
@@ -6819,7 +6819,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "4878-2N7000CT-ND"
 			(at 231.775 53.34 0)
 			(effects
 				(font
@@ -7139,6 +7139,42 @@
 				(hide yes)
 			)
 		)
+		(property "Mfn" ""
+			(at 151.765 92.075 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mfn PN" ""
+			(at 151.765 92.075 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier" ""
+			(at 151.765 92.075 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Supplier PN" "https://www.aliexpress.us/item/3256809251216534.html?src=google&pdp_npi=4%40dis%21USD%2139.51%2113.30%21%21%21%21%21%40%2112000049096107778%21ppc%21%21%21&snps=y&src=google&albch=shopping&acnt=752-015-9270&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDc8nzq&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256809251216534&ds_e_product_merchant_id=5551326180&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22665133432&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22655435907&gbraid=0AAAAA_eFwRAxECL3osierG--gtRFWs9HU&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLhNZUnYiuj_4ZBXyOOlgW3nIMieQxQGaxVKJq8Jiy7AL6JZ8wVUovBoCkpIQAvD_BwE&gatewayAdapt=glo2usa"
+			(at 151.765 92.075 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "5"
 			(uuid "5dae70d7-4041-465b-809c-b58c86908300")
 		)
@@ -7209,7 +7245,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/151051RS11000.pdf"
 			(at 234.315 44.45 0)
 			(effects
 				(font
@@ -7218,7 +7254,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Light emitting diode"
+		(property "Description" "LED RED DIFFUSED 5MM ROUND T/H"
 			(at 234.315 44.45 0)
 			(effects
 				(font
@@ -7227,7 +7263,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Würth Elektronik"
 			(at 234.315 44.45 0)
 			(effects
 				(font
@@ -7236,7 +7272,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "151051RS11000"
 			(at 234.315 44.45 0)
 			(effects
 				(font
@@ -7245,7 +7281,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 234.315 44.45 0)
 			(effects
 				(font
@@ -7254,7 +7290,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "732-5016-ND"
 			(at 234.315 44.45 0)
 			(effects
 				(font
@@ -7445,7 +7481,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.nidec-components.com/e/catalog/switch/cas.pdf"
+		(property "Datasheet" "https://configured-product-images.s3.amazonaws.com/Datasheets/EG.pdf"
 			(at 102.87 146.685 0)
 			(effects
 				(font
@@ -7454,7 +7490,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Switch, single pole double throw"
+		(property "Description" "SWITCH SLIDE SPDT 200MA 30V"
 			(at 102.87 139.065 0)
 			(effects
 				(font
@@ -7463,7 +7499,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "E-Switch"
 			(at 102.87 139.065 0)
 			(effects
 				(font
@@ -7472,7 +7508,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "EG1218"
 			(at 102.87 139.065 0)
 			(effects
 				(font
@@ -7481,7 +7517,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 102.87 139.065 0)
 			(effects
 				(font
@@ -7490,7 +7526,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "EG1903-ND"
 			(at 102.87 139.065 0)
 			(effects
 				(font
@@ -7563,7 +7599,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "PIC16F18324, 4096W FLASH, 512B SRAM, 256B EEPROM, SOIC14"
+		(property "Description" "IC MCU 8BIT 28KB FLASH 14DIP"
 			(at 88.265 90.805 0)
 			(effects
 				(font
@@ -7572,7 +7608,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Microchip Technology"
 			(at 88.265 90.805 0)
 			(effects
 				(font
@@ -7581,7 +7617,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "PIC16LF18326-I/P"
 			(at 88.265 90.805 0)
 			(effects
 				(font
@@ -7590,7 +7626,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 88.265 90.805 0)
 			(effects
 				(font
@@ -7599,7 +7635,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "PIC16LF18326-I/P-ND"
 			(at 88.265 90.805 0)
 			(effects
 				(font
@@ -7969,7 +8005,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/151051RS11000.pdf"
 			(at 203.835 44.45 0)
 			(effects
 				(font
@@ -7978,7 +8014,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Light emitting diode"
+		(property "Description" "LED RED DIFFUSED 5MM ROUND T/H"
 			(at 203.835 44.45 0)
 			(effects
 				(font
@@ -7987,7 +8023,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Würth Elektronik"
 			(at 203.835 44.45 0)
 			(effects
 				(font
@@ -7996,7 +8032,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "151051RS11000"
 			(at 203.835 44.45 0)
 			(effects
 				(font
@@ -8005,7 +8041,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 203.835 44.45 0)
 			(effects
 				(font
@@ -8014,7 +8050,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "732-5016-ND"
 			(at 203.835 44.45 0)
 			(effects
 				(font
@@ -8139,7 +8175,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/1040/711_Web.pdf?_gl=1*1bypppz*_up*MQ..*_gs*MQ..&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLgPIdivNvvso7GDcvqPqn2Ubw9e81azT4BOjK7N8p7QJPT3EeYl93RoCuHEQAvD_BwE&gclsrc=aw.ds&gbraid=0AAAAADrbLlg9a_M-PIXbOAU_b01BOFJHH"
 			(at 263.271 88.9 0)
 			(effects
 				(font
@@ -8148,7 +8184,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "STANDARD MOTOR 9100 RPM 6V"
 			(at 260.985 88.9 0)
 			(effects
 				(font
@@ -8157,7 +8193,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Adafruit Industries LLC"
 			(at 260.985 88.9 0)
 			(effects
 				(font
@@ -8166,7 +8202,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "711"
 			(at 260.985 88.9 0)
 			(effects
 				(font
@@ -8175,7 +8211,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 260.985 88.9 0)
 			(effects
 				(font
@@ -8184,7 +8220,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "1528-1150-ND"
 			(at 260.985 88.9 0)
 			(effects
 				(font
@@ -8244,7 +8280,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/lm2937.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lm2937.pdf"
 			(at 136.525 137.795 0)
 			(effects
 				(font
@@ -8253,7 +8289,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "500-mA Low Dropout Regulator, TO-220"
+		(property "Description" "IC REG LINEAR 3.3V 500MA TO220-3"
 			(at 136.525 136.525 0)
 			(effects
 				(font
@@ -8262,7 +8298,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Texas Instruments"
 			(at 136.525 136.525 0)
 			(effects
 				(font
@@ -8271,7 +8307,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "LM2937ET-3.3/NOPB"
 			(at 136.525 136.525 0)
 			(effects
 				(font
@@ -8280,7 +8316,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 136.525 136.525 0)
 			(effects
 				(font
@@ -8289,7 +8325,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "LM2937ET-3.3/NOPB-ND"
 			(at 136.525 136.525 0)
 			(effects
 				(font
@@ -8486,7 +8522,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.intersil.com/content/dam/Intersil/documents/hip2/hip2100.pdf"
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/4489/4489_datasheet-l9110.pdf"
 			(at 240.03 146.685 0)
 			(effects
 				(font
@@ -8495,7 +8531,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "High Frequency Half Bridge Driver, Output Current 2.0A, 100V, SOIC-8"
+		(property "Description" "L9110H H-BRIDGE 8DIP MOTOR DRIVE"
 			(at 240.03 132.715 0)
 			(effects
 				(font
@@ -8504,7 +8540,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Adafruit Industries LLC"
 			(at 243.205 91.44 0)
 			(effects
 				(font
@@ -8513,7 +8549,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "4489"
 			(at 243.205 91.44 0)
 			(effects
 				(font
@@ -8522,7 +8558,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 243.205 91.44 0)
 			(effects
 				(font
@@ -8531,17 +8567,8 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "1528-4489-ND"
 			(at 243.205 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Field-1" ""
-			(at 240.03 132.715 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8685,7 +8712,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/45171/kseries.pdf"
 			(at 97.155 64.135 0)
 			(effects
 				(font
@@ -8694,7 +8721,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.1UF 50V X7R RADIAL"
 			(at 97.155 64.135 0)
 			(effects
 				(font
@@ -8703,7 +8730,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Vishay Beyschlag/Draloric/BC Components"
 			(at 97.155 64.135 0)
 			(effects
 				(font
@@ -8712,7 +8739,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "K104K15X7RF5TL2"
 			(at 97.155 64.135 0)
 			(effects
 				(font
@@ -8721,7 +8748,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 97.155 64.135 0)
 			(effects
 				(font
@@ -8730,7 +8757,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "BC1084TR-ND"
 			(at 97.155 64.135 0)
 			(effects
 				(font
@@ -8859,7 +8886,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://diotec.com/request/datasheet/2n7000.pdf"
 			(at 201.295 53.34 0)
 			(effects
 				(font
@@ -8869,7 +8896,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "MOSFET TO-92 60V 0.2A"
 			(at 201.295 53.34 0)
 			(effects
 				(font
@@ -8878,7 +8905,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Diotec Semiconductor"
 			(at 201.295 53.34 0)
 			(effects
 				(font
@@ -8887,7 +8914,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "2N7000"
 			(at 201.295 53.34 0)
 			(effects
 				(font
@@ -8896,7 +8923,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 201.295 53.34 0)
 			(effects
 				(font
@@ -8905,7 +8932,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "4878-2N7000CT-ND"
 			(at 201.295 53.34 0)
 			(effects
 				(font
@@ -8969,7 +8996,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.seielect.com/catalog/SEI-CF_CFM.pdf"
 			(at 234.315 36.83 0)
 			(effects
 				(font
@@ -8978,7 +9005,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 470 OHM 5% 1/4W AXIAL"
 			(at 234.315 36.83 0)
 			(effects
 				(font
@@ -8987,7 +9014,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Stackpole Electronics Inc"
 			(at 234.315 36.83 0)
 			(effects
 				(font
@@ -8996,7 +9023,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "CF14JT470R"
 			(at 234.315 36.83 0)
 			(effects
 				(font
@@ -9005,7 +9032,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 234.315 36.83 0)
 			(effects
 				(font
@@ -9014,7 +9041,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "CF14JT470RTR-ND"
 			(at 234.315 36.83 0)
 			(effects
 				(font
@@ -9075,7 +9102,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://search.kemet.com/download/datasheet/ESL106M100AE3AA"
 			(at 149.225 144.145 0)
 			(effects
 				(font
@@ -9084,7 +9111,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP ALUM 10UF 20% 100V RADIAL TH"
 			(at 149.225 144.145 0)
 			(effects
 				(font
@@ -9093,7 +9120,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "KEMET"
 			(at 149.225 144.145 0)
 			(effects
 				(font
@@ -9102,7 +9129,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "ESL106M100AE3AA"
 			(at 149.225 144.145 0)
 			(effects
 				(font
@@ -9111,7 +9138,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 149.225 144.145 0)
 			(effects
 				(font
@@ -9120,7 +9147,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "399-15738-ND"
 			(at 149.225 144.145 0)
 			(effects
 				(font
@@ -9313,7 +9340,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.seielect.com/catalog/SEI-CF_CFM.pdf"
 			(at 55.245 90.17 0)
 			(effects
 				(font
@@ -9322,7 +9349,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 10K OHM 5% 1/4W AXIAL"
 			(at 55.245 90.17 0)
 			(effects
 				(font
@@ -9331,7 +9358,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Stackpole Electronics Inc"
 			(at 55.245 90.17 0)
 			(effects
 				(font
@@ -9340,7 +9367,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "CF14JT10K0"
 			(at 55.245 90.17 0)
 			(effects
 				(font
@@ -9349,7 +9376,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 55.245 90.17 0)
 			(effects
 				(font
@@ -9358,7 +9385,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "CF14JT10K0TR-ND"
 			(at 55.245 90.17 0)
 			(effects
 				(font
@@ -9684,7 +9711,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://forums.parallax.com/uploads/attachments/46831/74481.png"
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/902/SER0006_Web.pdf"
 			(at 203.835 88.646 0)
 			(effects
 				(font
@@ -9693,7 +9720,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Servo Motor (Futaba, HiTec, JR connector)"
+		(property "Description" "SERVOMOTOR RC 4.8V"
 			(at 203.835 83.82 0)
 			(effects
 				(font
@@ -9702,7 +9729,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "DFRobot"
 			(at 203.835 83.82 0)
 			(effects
 				(font
@@ -9711,7 +9738,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "SER0006"
 			(at 203.835 83.82 0)
 			(effects
 				(font
@@ -9720,7 +9747,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 203.835 83.82 0)
 			(effects
 				(font
@@ -9729,7 +9756,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "1738-1385-ND"
 			(at 203.835 83.82 0)
 			(effects
 				(font
@@ -10263,7 +10290,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.seielect.com/catalog/SEI-CF_CFM.pdf"
 			(at 69.215 100.965 0)
 			(effects
 				(font
@@ -10272,7 +10299,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 10K OHM 5% 1/4W AXIAL"
 			(at 69.215 100.965 0)
 			(effects
 				(font
@@ -10281,7 +10308,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Stackpole Electronics Inc"
 			(at 69.215 100.965 0)
 			(effects
 				(font
@@ -10290,7 +10317,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "CF14JT10K0"
 			(at 69.215 100.965 0)
 			(effects
 				(font
@@ -10299,7 +10326,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 69.215 100.965 0)
 			(effects
 				(font
@@ -10369,7 +10396,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.seielect.com/catalog/SEI-CF_CFM.pdf"
 			(at 203.835 36.83 0)
 			(effects
 				(font
@@ -10378,7 +10405,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" "RES 470 OHM 5% 1/4W AXIAL"
 			(at 203.835 36.83 0)
 			(effects
 				(font
@@ -10387,7 +10414,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Stackpole Electronics Inc"
 			(at 203.835 36.83 0)
 			(effects
 				(font
@@ -10396,7 +10423,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "CF14JT470R"
 			(at 203.835 36.83 0)
 			(effects
 				(font
@@ -10405,7 +10432,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 203.835 36.83 0)
 			(effects
 				(font
@@ -10414,7 +10441,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "CF14JT470RTR-ND"
 			(at 203.835 36.83 0)
 			(effects
 				(font
@@ -10541,7 +10568,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/45171/kseries.pdf"
 			(at 121.285 144.145 0)
 			(effects
 				(font
@@ -10550,7 +10577,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.1UF 50V X7R RADIAL"
 			(at 121.285 144.145 0)
 			(effects
 				(font
@@ -10559,7 +10586,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Vishay Beyschlag/Draloric/BC Components"
 			(at 121.285 144.145 0)
 			(effects
 				(font
@@ -10568,7 +10595,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "K104K15X7RF5TL2"
 			(at 121.285 144.145 0)
 			(effects
 				(font
@@ -10577,7 +10604,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 121.285 144.145 0)
 			(effects
 				(font
@@ -10586,7 +10613,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "BC1084TR-ND"
 			(at 121.285 144.145 0)
 			(effects
 				(font
@@ -10817,7 +10844,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://search.kemet.com/download/specsheet/ESY227M035AH1AA"
 			(at 137.795 67.945 0)
 			(effects
 				(font
@@ -10826,7 +10853,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP ALUM 220UF 20% 35V RADIAL TH"
 			(at 137.795 67.945 0)
 			(effects
 				(font
@@ -10835,7 +10862,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "KEMET"
 			(at 137.795 67.945 0)
 			(effects
 				(font
@@ -10844,7 +10871,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "ESY227M035AH1AA"
 			(at 137.795 67.945 0)
 			(effects
 				(font
@@ -10853,7 +10880,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 137.795 67.945 0)
 			(effects
 				(font
@@ -10862,7 +10889,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "399-6122-ND"
 			(at 137.795 67.945 0)
 			(effects
 				(font
@@ -10989,7 +11016,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.memoryprotectiondevices.com/datasheets/BH9VPC/BH9VPC-datasheet.pdf"
 			(at 60.96 146.431 90)
 			(effects
 				(font
