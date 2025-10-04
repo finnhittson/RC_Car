@@ -31,7 +31,21 @@ Because this project is intended to be a workshop only one version of code or `m
 | 13                          | RA0         | LED            | status          | | | 13                          | RA0         | LIGHTS         | status          |
 | 14                          | $V_{SS}$    | GND            | power supply    | | | 14                          | $V_{SS}$    | GND            | power supply    |
 
-If the PIC16 detects its a transmitter then it starts the state machine with the inital state of *COLLECT_ADC_DATA*.
+The following images shows the state machine executed on the transmitter PIC16. When the PIC16 detects its a transmitter then it starts the state machine with the inital state of *COLLECT_ADC_DATA*. In the *COLLECT_ADC_DATA* state, the PIC16 cycles through the three ADC ports to collect their value. Once complete, it transitions to the *TRANSMIT_ADC_DATA* state where it packages up this information into a packet and sents this information over the SPI bus to the nRF24L01 radio module. Once this is complete it then transitions to the *CLEAR_INTERRUPT* state. In this state the PIC16 is waiting for the interrupt line to go low which indicates a successful transmission to the receiver. From here the state machine then transitions to a *DONE* state where the hardware to read the analog pins is reinitialized and the process repeates itself after *DONE* transitions to *COLLECT_ADC_DATA*.
+
+![Transmit_state_diagram](documentation/state_machine/transmitter_state_machine.png)
+
+The transmission packet is 8 bytes long and has the following breakdown.
+1. Byte 1 is the radio ID and is chosen by the user as an extra indentification method so that in the instance when the radio receives a packet from another RC car on the same channel, it will only execute the instructions if the packet come from a transmitter with the same ID.
+2. Byte 2 is the high byte of the ADC conversion value for RC4. The PIC16 has a 10 bit ADC so it takes two bytes to store its value. It stores the eight LSB of the conversion in the first byte and the remaining two bits in the first two bits of the second byte.
+3. Byte 3 is the low byte of the ADC conversion value for RC4.
+4. Byte 4 is the high byte of the ADC conversion value for RC3.
+5. Byte 5 is the low byte of the ADC conversion value for RC3.
+6. Byte 6 is the high byte of the ADC conversion value for RA1.
+7. Byte 7 is the low byte of the ADC conversion value for RA2.
+8. Byte 8 is a checksum of all the bytes transmitted. The checksum is computed by summing all the bytes and subtracting the result from 0xFF. The result is transmitted and the receiver checks the checksum by summing every byte of the packet and if the result is 0xFF then no bits were corrupted or lost.
+
+![Packet_structure](doccumentation/comms_protocol/TX_packet.png)
 
 ### Electrical
 The receiver schematic is shown below. For the receiver, the PIC16LF18325 communicates with the nRF24L01 radio module through a SPI bus for receiving commands that are then decoded into a PWM signals for motor and servo control. The PIC16 also controls the motors and servo respectivly and was chosen for its small size, GPIO pin count, and packaging style. The L9110 h-bridge controls the motor and is a very basic h-bridge for driving small motors which make it perfect for this application. The LM2937 linear voltage regulator creates the 3.3V supply for the PIC16, nRF24L01 radio module, lights, and servo power. The lights part of the schematic act as the headlights of the car and are controlled by the PIC16 toggeling the 2N7000 mosfets. 
