@@ -11,4 +11,5 @@ Using the PIC16LF18326 as the microcontroller, the driver code was written exclu
 3. `nRF24L01.c`: helper functions for configuring the nRF24L01 radio module using the `spi.c` functons.
 
 ### Electrical
-   
+The receiver schematic is shown below. For the receiver, the PIC16 communicates with the nRF24L01 radio module through a SPI bus for receiving commands that are then decoded into a PWM signals for motor and servo control. 
+![receiver schematic](schematics/receiver/schematic.png)
