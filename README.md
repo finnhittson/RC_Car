@@ -1,5 +1,10 @@
 # 9V Battery RC Car
-This repo documents how to make an RC car and transmitter using 3d printted parts, a PIC16LF18325 microcontroller, nRF24L01 RF modules, a 9V battery to power the car and the transmitter, and other basic hardware components. No glue necessary!
+This repo documents how to make an RC car and transmitter using 3d printted parts, a PIC16LF18325 microcontroller, nRF24L01 RF modules, a 9V battery to power the car and the transmitter, and other basic hardware components.
+
+<p float="left">
+  <img src="documentation/images/car.png" width="500" />
+  <img src="documentation/images/controller.png" width="346" /> 
+</p>
 
 Table of contents:  
 1. [Design Overview](##design-overview)
@@ -76,7 +81,7 @@ The transmitter schematic is shown below. In this instance the PIC16 commuicates
 | LED                           | 2               | DigiKey        | 732-5016-ND             |
 | 2N7000                        | 1               | DigiKey        | 4878-2N7000CT-ND        |
 | 470                           | 2               | DigiKey        | CF14JT470RTR-ND         |
-| 10k                           | 2               | DigiKey        | CF14JT10K0TR-ND       |
+| 10k                           | 2               | DigiKey        | CF14JT10K0TR-ND         |
 | 5k Control Pot                | 2               | DigiKey        | 2223-PT01-D115D-B502-ND |
 | 5k Trim Pot                   | 1               | DigiKey        | 3386P-103LF-ND          |
 | Power Switch                  | 1               | DigiKey        | EG1903-ND               |
@@ -84,23 +89,23 @@ The transmitter schematic is shown below. In this instance the PIC16 commuicates
 | nRF24L01 Radio Module         | 1               | AliExpress     | [nRF24L01](https://www.aliexpress.us/item/3256809251216534.html?src=google&pdp_npi=4%40dis%21USD%2139.51%2113.30%21%21%21%21%21%40%2112000049096107778%21ppc%21%21%21&snps=y&src=google&albch=shopping&acnt=752-015-9270&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDc8nzq&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256809251216534&ds_e_product_merchant_id=5551326180&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22665133432&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22655435907&gbraid=0AAAAA_eFwRAxECL3osierG--gtRFWs9HU&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLhNZUnYiuj_4ZBXyOOlgW3nIMieQxQGaxVKJq8Jiy7AL6JZ8wVUovBoCkpIQAvD_BwE&gatewayAdapt=glo2usa) |
 | LM2937                        | 1               | DigiKey        | LM2937ET-3.3/NOPB-ND    |
 
-| Receiver Bill of Materials    |                 |                |                         |
-|-------------------------------|-----------------|----------------|-------------------------|
-| **Component**                 | **Quantity**    | **Source**     | **Part Number**         |
+| Receiver Bill of Materials             |                 |                |                         |
+|----------------------------------------|-----------------|----------------|-------------------------|
+| **Component**                          | **Quantity**    | **Source**     | **Part Number**         |
 | 9V battery connector                   | 1               | DigiKey        | 547-A1604BK210J-ND      |
-| 0.1uF                         | 2               | DigiKey        | BC1084TR-ND             |
-| 220uF                         | 1               | DigiKey        | 399-6122-ND             |
-| 10uF                          | 1               | DigiKey        | 399-15738-ND            |
-| LED                           | 2               | DigiKey        | 732-5016-ND             |
-| 9g Servo                      | 2               | DigiKey        | 732-5016-ND             |
-| 2N7000                        | 1               | DigiKey        | 4878-2N7000CT-ND        |
-| 470                           | 2               | DigiKey        | CF14JT470RTR-ND         |
-| 10k                           | 2               | DigiKey        | CF14JT10K0TR-ND         |
-| Power Switch                  | 1               | DigiKey        | EG1903-ND               |
-| PIC16LF18326                  | 1               | DigiKey        | PIC16LF18326-I/P-ND     |
-| nRF24L01 Radio Module         | 1               | AliExpress     | [nRF24L01](https://www.aliexpress.us/item/3256809251216534.html?src=google&pdp_npi=4%40dis%21USD%2139.51%2113.30%21%21%21%21%21%40%2112000049096107778%21ppc%21%21%21&snps=y&src=google&albch=shopping&acnt=752-015-9270&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDc8nzq&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256809251216534&ds_e_product_merchant_id=5551326180&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22665133432&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22655435907&gbraid=0AAAAA_eFwRAxECL3osierG--gtRFWs9HU&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLhNZUnYiuj_4ZBXyOOlgW3nIMieQxQGaxVKJq8Jiy7AL6JZ8wVUovBoCkpIQAvD_BwE&gatewayAdapt=glo2usa) |
-| LM2937                        | 1               | DigiKey        | LM2937ET-3.3/NOPB-ND    |
-| L9110H                        | 1               | DigiKey        | LM2937ET-3.3/NOPB-ND    |
+| 0.1uF                                  | 2               | DigiKey        | BC1084TR-ND             |
+| 220uF                                  | 1               | DigiKey        | 399-6122-ND             |
+| 10uF                                   | 1               | DigiKey        | 399-15738-ND            |
+| LED                                    | 2               | DigiKey        | 732-5016-ND             |
+| 9g Servo                               | 2               | DigiKey        | 732-5016-ND             |
+| 2N7000                                 | 1               | DigiKey        | 4878-2N7000CT-ND        |
+| 470                                    | 2               | DigiKey        | CF14JT470RTR-ND         |
+| 10k                                    | 2               | DigiKey        | CF14JT10K0TR-ND         |
+| Power Switch                           | 1               | DigiKey        | EG1903-ND               |
+| PIC16LF18326                           | 1               | DigiKey        | PIC16LF18326-I/P-ND     |
+| nRF24L01 Radio Module                  | 1               | AliExpress     | [nRF24L01](https://www.aliexpress.us/item/3256809251216534.html?src=google&pdp_npi=4%40dis%21USD%2139.51%2113.30%21%21%21%21%21%40%2112000049096107778%21ppc%21%21%21&snps=y&src=google&albch=shopping&acnt=752-015-9270&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDc8nzq&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256809251216534&ds_e_product_merchant_id=5551326180&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22665133432&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=22655435907&gbraid=0AAAAA_eFwRAxECL3osierG--gtRFWs9HU&gclid=CjwKCAjw6P3GBhBVEiwAJPjmLhNZUnYiuj_4ZBXyOOlgW3nIMieQxQGaxVKJq8Jiy7AL6JZ8wVUovBoCkpIQAvD_BwE&gatewayAdapt=glo2usa) |
+| LM2937                                 | 1               | DigiKey        | LM2937ET-3.3/NOPB-ND    |
+| L9110H                                 | 1               | DigiKey        | 1528-4489-ND            |
 
 
 
