@@ -8338,7 +8338,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "R_Potentiometer"
+		(property "Value" "Trim Pot"
 			(at 213.36 55.8799 0)
 			(effects
 				(font
@@ -8666,7 +8666,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "R_Potentiometer"
+		(property "Value" "Control Pot"
 			(at 213.36 76.8349 0)
 			(effects
 				(font
@@ -10374,7 +10374,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/45171/kseries.pdf"
 			(at 102.87 63.5 0)
 			(effects
 				(font
@@ -10383,7 +10383,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" "CAP CER 0.1UF 50V X7R RADIAL"
 			(at 102.87 63.5 0)
 			(effects
 				(font
@@ -10392,7 +10392,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Vishay Beyschlag/Draloric/BC Components"
 			(at 102.87 63.5 0)
 			(effects
 				(font
@@ -10401,7 +10401,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "K104K15X7RF5TL2"
 			(at 102.87 63.5 0)
 			(effects
 				(font
@@ -10410,7 +10410,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 102.87 63.5 0)
 			(effects
 				(font
@@ -10419,7 +10419,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "BC1084TR-ND"
 			(at 102.87 63.5 0)
 			(effects
 				(font
@@ -10480,7 +10480,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/56/A1604_DS.pdf"
 			(at 62.23 139.446 90)
 			(effects
 				(font
@@ -10489,7 +10489,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Single-cell battery"
+		(property "Description" "BATTERY ALKALINE 9V"
 			(at 62.23 140.97 0)
 			(effects
 				(font
@@ -10498,7 +10498,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Energizer Battery Company"
 			(at 62.23 140.97 0)
 			(effects
 				(font
@@ -10507,7 +10507,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "A1604 BK210J"
 			(at 62.23 140.97 0)
 			(effects
 				(font
@@ -10516,7 +10516,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 62.23 140.97 0)
 			(effects
 				(font
@@ -10525,7 +10525,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "547-A1604BK210J-ND"
 			(at 62.23 140.97 0)
 			(effects
 				(font
@@ -10835,7 +10835,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "PIC16F18324, 4096W FLASH, 512B SRAM, 256B EEPROM, SOIC14"
+		(property "Description" "IC MCU 8BIT 28KB FLASH 14DIP"
 			(at 93.98 90.17 0)
 			(effects
 				(font
@@ -10844,7 +10844,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn" ""
+		(property "Mfn" "Microchip Technology"
 			(at 93.98 90.17 0)
 			(effects
 				(font
@@ -10853,7 +10853,7 @@
 				(hide yes)
 			)
 		)
-		(property "Mfn PN" ""
+		(property "Mfn PN" "PIC16LF18326-I/P"
 			(at 93.98 90.17 0)
 			(effects
 				(font
@@ -10862,7 +10862,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier" ""
+		(property "Supplier" "DigiKey"
 			(at 93.98 90.17 0)
 			(effects
 				(font
@@ -10871,7 +10871,7 @@
 				(hide yes)
 			)
 		)
-		(property "Supplier PN" ""
+		(property "Supplier PN" "PIC16LF18326-I/P-ND"
 			(at 93.98 90.17 0)
 			(effects
 				(font
@@ -10951,7 +10951,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "R_Potentiometer"
+		(property "Value" "Control Pot"
 			(at 213.36 98.4249 0)
 			(effects
 				(font
@@ -11148,7 +11148,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "RES 10K OHM 5% 1/4W AXIAL"
+		(property "Datasheet" "https://www.seielect.com/catalog/SEI-CF_CFM.pdf"
 			(at 72.39 95.25 0)
 			(effects
 				(font
@@ -11185,15 +11185,6 @@
 			)
 		)
 		(property "Supplier PN" "CF14JT10K0TR-ND"
-			(at 72.39 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.seielect.com/catalog/SEI-CF_CFM.pdf"
 			(at 72.39 95.25 0)
 			(effects
 				(font
