@@ -1,57 +1,59 @@
 /*----------------------------- Include Files -----------------------------*/
 #include <xc.h>
-//#include <sys/attribs.h>
-//#include "ES_Configure.h"
-//#include "ES_Framework.h"
 #include "../HeaderFiles/TransmitService.h"
-//#include "dbprintf.h"
-//#include "PIC32_AD_Lib.h"
 #include "stdbool.h"
 
 /*----------------------------- Module Defines ----------------------------*/
-// radio specific defined constants
 #define ADDRESS_WIDTH		5
 
-/*---------------------------- Module Functions ---------------------------*/
-
 /*---------------------------- Module Variables ---------------------------*/
+// array for bytes to transmit
 uint8_t payload[PAYLOAD_SIZE + 1];
+// variable to set if radio is a receiver or a transmitter depending on RA5
 Radio_t radioType = RECEIVER;
-static uint8_t motorSpeed = 128;
-static uint8_t servoPos = 0;
-bool readyToTransmit = true;
 
+// sends contents in payload variable to nRF24L01 to be sent to receiver
 void transmitPayload(uint8_t statusBits) {
-	readyToTransmit = false;
-	// DB_printf("Writing payload to radio\n");
+    // checks first that no interrupt flags are set
 	if (statusBits & 0x70) {
-		// clear STATUS register to allow for more transmissions
+        // if interrupt flag set then need to clear it for the nRF24L01 to transmit
 		uint8_t databytes[2];
         uint8_t result[2];
         databytes[0] = W_REGISTER | SPI_STATUS;
         databytes[1] = 0x70;
         SendSPI(databytes, result, 2);
 	}
+    // send payload variable to nRF24L01 radio
 	uint8_t result[PAYLOAD_SIZE + 1];
 	SendSPI(payload, result, PAYLOAD_SIZE + 1);
+    // pulse CE line on nRF24L01 high and low to enable transmission
 	ce(TRANSMITTER, HIGH);
 	delay(TX_DELAY);
 	ce(TRANSMITTER, LOW);
 }
 
+// puts bytes to send into payload variable
 void packagePayload(uint8_t radioID, uint8_t *bytes) {
+    // first compute checksum
 	uint8_t checksum = 0xFF - radioID;
     for (uint8_t i = 0; i < 6; i++) {
         checksum -= bytes[i];
     }
+    
+    // by default first two bytes will always constant.
+    // byte 1: tells the nRF24L01 that it is receiving a payload to transmit
+    // byte 2: hold the ID of the radio; this should never change
 	payload[0] = W_TX_PAYLOAD;
 	payload[1] = radioID;
+    
+    // load the rest of the payload and checksum into the payload variable
 	for (uint8_t i = 2; i < 8; i++) {
         payload[i] = bytes[i-2];
     }
     payload[8] = checksum;
 }
 
+// function that executes the SPI setup and initialization
 void setupSPI(Radio_t radioType) {
     // SCLK config
     // configure RC0 (pin 10) as digital output
@@ -99,6 +101,7 @@ void setupSPI(Radio_t radioType) {
     SSP1CON1bits.CKP = 0;
 }
 
+// configures the nRF24L01 radio as a receiver when run
 void configureRX(uint8_t *address) {
     // open reading pipe
     uint8_t bytes[2];
@@ -172,6 +175,7 @@ void configureRX(uint8_t *address) {
     PWM6CONbits.PWM6EN = 1;
 }
 
+// configures the nRF24L01 as a transmitter when run
 void configureTX(uint8_t *address) {
     // set address
     uint8_t databytes[6];
@@ -216,10 +220,14 @@ void configureTX(uint8_t *address) {
     ADCON0bits.ADON = 1;        // turn on ADC
 }
 
+// functions checks if the control inputs have changed. used so radio is not 
+// retransmitting the same message or the controls resting values
 bool controlsChanged(uint8_t *bytes) {
+    // holds previous control values
     static uint8_t prevBytes[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
     uint8_t delta = 20;
     bool returnVal = false;
+    // checks if any of the high or low bytes of the ADC conversions are different
     for (uint8_t i = 0; i < 6; i++) {
         if (((prevBytes[i] - bytes[i]) > delta) || ((bytes[i] - prevBytes[i]) > delta)) {
             returnVal = true;

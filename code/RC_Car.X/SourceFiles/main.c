@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <xc.h>
 #include "stdbool.h"
-//#include "../HeaderFiles/TransmitService.h"
+#include "../HeaderFiles/TransmitService.h"
 #include "string.h"
 
 #pragma config WDTE = OFF           // Watchdog Timer Enable bit (WDT disabled)
@@ -123,13 +123,20 @@ int main(int argc, char** argv) {
         ADCON0bits.GO_nDONE = 1;
     }
     
+    // run main state machine
     while (1) {
         switch (currentState) {
+            
+            // first three states are for the controller only
+            // need to collect ADC data from the three potentiometers on the board
             case COLLECT_ADC_DATA: {
                 if (!ADCON0bits.GO_nDONE) {
+                    // cycle through the three pots
                     if (ADCON0bits.CHS == 0x14) {
+                        // store high and low byte into the bytes array
                         bytes[0] = ADRESH;
                         bytes[1] = ADRESL;
+                        // switch to next ADC input pin on next ADC conversion
                         ADCON0bits.CHS = 0x13;
                     } else if (ADCON0bits.CHS == 0x13) {
                         bytes[2] = ADRESH;
@@ -139,6 +146,8 @@ int main(int argc, char** argv) {
                         bytes[4] = ADRESH;
                         bytes[5] = ADRESL;
                         ADCON0bits.CHS = 0x14;
+                        // if the controls have changed since the last conversion
+                        // then transmit; otherwise repeat the process in this state
                         if (controlsChanged(bytes)) {
                             packagePayload(RADIO_ID, bytes);
                             currentState = TRANSMIT_ADC_DATA;
@@ -150,20 +159,24 @@ int main(int argc, char** argv) {
                 break;
             }
 
+            // send data to nRF24L01 via SPI bus and transmit
             case TRANSMIT_ADC_DATA: {
                 sendNOP(result);
                 transmitPayload(result[0]);
                 currentState = CLEAR_INTERRUPT;
                 break;
             }
-
+            
+            // checks for interrupt to signify when transmission is done
             case CLEAR_INTERRUPT: {
                 if (!PORTCbits.RC2) {
-                    LATAbits.LATA0 = 1;
-                    delay(1000);
-                    LATAbits.LATA0 = 0;
-                    delay(1000);
+//                    LATAbits.LATA0 = 1;
+//                    delay(1000);
+//                    LATAbits.LATA0 = 0;
+//                    delay(1000);
+                    // get interrupt type 
                     sendNOP(result);
+                    // clear interrupt so nRF24L01 can transmit again
                     bytes[0] = W_REGISTER | SPI_STATUS;
                     bytes[1] = 0x70;
                     while (1) {
@@ -178,15 +191,21 @@ int main(int argc, char** argv) {
                 break;
             }
 
+            // starts next ADC conversion
             case DONE: {
                 currentState = COLLECT_ADC_DATA;
                 ADCON0bits.GO_nDONE = 1;
                 break;
             }
 
+            // final states are for the receiver
+            // read data from the nRF24L01 when it signifies there is data ready
             case READ_RX: {
+                // checks for IRQ line to be low
                 if (!PORTAbits.RA1) {
+                    // once low checks for type of interrupt
                     sendNOP(result);
+                    // if interrupt is data ready (0x40) then begin data collection process
                     if (result[0] & 0x40) {
                         currentState = UPDATE_CONTROLS;
                     }
@@ -197,13 +216,20 @@ int main(int argc, char** argv) {
                 }
                 break;
             }
-
+            
+            // gets data from nRF24L01 and updates servo and motor
             case UPDATE_CONTROLS: {
+                // collect data from nRF24L01 and check if validity
                 bool validData = readRXFIFO(result);
+                // if data is uncorrupted and coming from the right source then update
                 if (validData && result[1] == RADIO_ID) {
+                    // convert motor and servo data to proper data type
                     uint16_t motorSpeed = (uint16_t)((result[2] << 8) | result[3]);
                     uint16_t servoPos = (uint16_t)((result[4] << 8) | result[5]);
+                    // convert servo data to a 1ms to 2ms format
                     servoPos = (servoPos * 15 + 15345) / 1023;
+                    // convert motor data such that 0 is full reverse, 512 is 
+                    // stopped, and 1023 is full forward
                     if (motorSpeed > 512) {
                         motorSpeed -= 512;
                         spinDir = true;
@@ -212,8 +238,11 @@ int main(int argc, char** argv) {
 //                        motorSpeed = 0;
                         spinDir = false;
                     }
+                    // disable motor pwm line
                     PWM5CONbits.PWM5EN = 0;
+                    // check if motor spin direction has changed
                     if (prevSpinDir != spinDir) {
+                        // if changed then swap pin mapping
                         if (spinDir) {
                             RC2PPS = 0b00010;
                             RC4PPS = 0b00000;
@@ -223,15 +252,22 @@ int main(int argc, char** argv) {
                             RC4PPS = 0b00010;
                             LATCbits.LATC2 = 0;
                         }
+                        // update motor spinning direction
                         prevSpinDir = spinDir;
                     }
+                    
+                    // update motor PWM speed
                     PWM5DCL = (uint8_t)(motorSpeed << 6);
                     PWM5DCH = (uint8_t)(motorSpeed >> 2);
                     
+                    // update servo PWM speed
                     PWM6DCL = (uint8_t)(servoPos << 6);
                     PWM6DCH = (uint8_t)(servoPos >> 2);
+                    
+                    // re-enable motor PWM
                     PWM5CONbits.PWM5EN = 1;
                 }
+                // go back to READ_RX state and wait for next command to be ready
                 currentState = READ_RX;
                 break;
             }

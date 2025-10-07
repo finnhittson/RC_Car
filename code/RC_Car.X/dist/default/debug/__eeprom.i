@@ -1,4 +1,4 @@
-# 1 "SourceFiles/TransmitService.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "SourceFiles/TransmitService.c" 2
-
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -10594,358 +10593,184 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
-# 2 "SourceFiles/TransmitService.c" 2
-
-# 1 "SourceFiles/../HeaderFiles/TransmitService.h" 1
-
-
-
-# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 1
-# 1 "SourceFiles/../HeaderFiles/SPI.h" 1
-# 49 "SourceFiles/../HeaderFiles/SPI.h"
-typedef enum {
- LOW = 0,
- HIGH
-} Level_t;
-
-void ReadRegister(uint8_t reg, uint8_t *result);
-void SendSPI(uint8_t bytes[], uint8_t *result, uint8_t n);
-void sendNOP(uint8_t *result);
-void delay (volatile int length);
-# 1 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
-
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
-# 2 "SourceFiles/../HeaderFiles/nRF24L01.h" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c" 2
 
 
 
 
-
-
-typedef union {
- struct {
-  uint8_t : 1;
-  uint8_t RF_PWR : 2;
-  uint8_t RF_DR_HIGH : 1;
-  uint8_t PLL_HIGH : 1;
-  uint8_t RF_DR_LOW : 1;
-  uint8_t : 1;
-  uint8_t CONT_WAVE : 1;
- };
- struct {
-  uint8_t w : 8;
- };
-} RF_SETUPbits_t;
-
-typedef union {
- struct {
-  uint8_t PRIM_RX : 1;
-  uint8_t PWR_UP : 1;
-  uint8_t CRCO : 1;
-  uint8_t EN_CRC : 1;
-  uint8_t MASK_MAX_RT : 1;
-  uint8_t MASK_TX_DS : 1;
-  uint8_t MASK_RX_DR : 1;
- };
- struct {
-  uint8_t w : 8;
- };
-} CONFIGbits_t;
-
-typedef enum {
- RECEIVER = 0,
- TRANSMITTER
-} Radio_t;
-
-typedef enum {
- RF_DR_1Mbps = 0,
- RF_DR_2Mbps,
- RF_DR_250Kbps
-} RF_DR_t;
-
-typedef enum {
- RF_PWR_18dBm = 0,
- RF_PWR_12dBm,
- RF_PWR_6dBm,
- RF_PWR_0dBm
-} RF_PWR_t;
-
-typedef enum {
- RX,
- TX,
- Standby2,
- Standby1,
- PowerDown
-} Mode;
-
-_Bool StartRadio(uint8_t channel, uint8_t payloadSize, Radio_t radioType);
-void FlushTX(void);
-void FlushRX(void);
-void RFSetup(RF_DR_t datarate, RF_PWR_t power, uint8_t *result);
-void ChangeRadioMode(Mode newMode, uint8_t CRCbytes, Radio_t radioType);
-void SetupPayloadSize(uint8_t size, uint8_t *result);
-void FeatureTest(uint8_t *result);
-void SetupRetries(uint16_t autoReTXDelay, uint8_t autoReTXCount, uint8_t *result);
-_Bool readRXFIFO(uint8_t *result);
-void StartListening(uint8_t *address);
-void ce(Radio_t radioType, Level_t level);
-# 4 "SourceFiles/../HeaderFiles/TransmitService.h" 2
-
-
-
-
-
-
-
-typedef enum {
-    COLLECT_ADC_DATA,
-    TRANSMIT_ADC_DATA,
-    CLEAR_INTERRUPT,
-    READ_RX,
-    UPDATE_CONTROLS,
-    DONE,
-} State_t;
-
-void packagePayload(uint8_t radioID, uint8_t *bytes);
-void transmitPayload(uint8_t statusBits);
-void setupSPI(Radio_t radioType);
-void configureRX(uint8_t *address);
-void configureTX(uint8_t *address);
-_Bool controlsChanged(uint8_t *bytes);
-# 3 "SourceFiles/TransmitService.c" 2
-
-
-
-
-
-
-
-
-uint8_t payload[8 + 1];
-
-Radio_t radioType = RECEIVER;
-
-
-void transmitPayload(uint8_t statusBits) {
-
- if (statusBits & 0x70) {
-
-  uint8_t databytes[2];
-        uint8_t result[2];
-        databytes[0] = 0x20 | 0x07;
-        databytes[1] = 0x70;
-        SendSPI(databytes, result, 2);
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
+{
+ volatile unsigned char *cp = to;
+# 22 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c"
+ while (NVMCON1bits.WR) {
+  continue;
+ }
+ NVMCON1bits.NVMREGS = 1;
+ NVMADRL = (unsigned char) from;
+ NVMADRH = 0x70;
+ while (size--) {
+  NVMCON1bits.RD = 1;
+  *cp++ = NVMDATL;
+  NVMADRL++;
  }
 
- uint8_t result[8 + 1];
- SendSPI(payload, result, 8 + 1);
 
- ce(TRANSMITTER, HIGH);
- delay(45);
- ce(TRANSMITTER, LOW);
+
 }
 
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
+{
+ const unsigned char *ptr =from;
+# 69 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\sources\\c99\\pic\\__eeprom.c"
+ while (NVMCON1bits.WR) {
+  continue;
+ }
+ NVMCON1bits.NVMREGS = 1;
+ NVMADRL = (unsigned char) to - 1U;
+ NVMADRH = 0x70;
+ NVMDATH = 0;
+ while (size--) {
+  while (NVMCON1bits.WR) {
+   continue;
+  }
+  NVMDATL = *ptr++;
+  NVMADRL++;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  NVMCON1bits.WREN = 1;
+  NVMCON2 = 0x55;
+  NVMCON2 = 0xAA;
+  NVMCON1bits.WR = 1;
+  while (NVMCON1bits.WR) {
+   continue;
+  }
+  NVMCON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
 
-void packagePayload(uint8_t radioID, uint8_t *bytes) {
-
- uint8_t checksum = 0xFF - radioID;
-    for (uint8_t i = 0; i < 6; i++) {
-        checksum -= bytes[i];
-    }
 
 
-
-
- payload[0] = 0xA0;
- payload[1] = radioID;
-
-
- for (uint8_t i = 2; i < 8; i++) {
-        payload[i] = bytes[i-2];
-    }
-    payload[8] = checksum;
 }
 
-
-void setupSPI(Radio_t radioType) {
-
-
-    TRISCbits.TRISC0 = 0;
-
-    RC0PPS = 0b11000;
-
-
-
-    TRISCbits.TRISC1 = 1;
-
-    ANSELCbits.ANSC1 = 0;
-
-    SSP1DATPPS = 0b10001;
-
-
-    if (radioType == TRANSMITTER) {
-
-        TRISCbits.TRISC5 = 0;
-
-        RC5PPS = 0b11001;
-    } else if (radioType == RECEIVER) {
-
-        TRISAbits.TRISA2 = 0;
-
-        RA2PPS = 0b11001;
-    }
-
-
-
-    TRISAbits.TRISA4 = 0;
-
-    LATAbits.LATA4 = 1;
-
-
-    SSP1CON1bits.SSPEN = 1;
-
-    SSP1CON1bits.SSPM = 0b0000;
-
-
-    SSP1STATbits.SMP = 1;
-
-    SSP1STATbits.CKE = 1;
-
-    SSP1CON1bits.CKP = 0;
+unsigned char
+__eetoc(__eeprom void *addr)
+{
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-
-void configureRX(uint8_t *address) {
-
-    uint8_t bytes[2];
-    uint8_t result[2];
-    bytes[0] = 0x20 | 0x02;
-    bytes[1] = 0x01;
-    SendSPI(bytes, result, 2);
-
-
-    StartListening(address);
-
-
-    bytes[0] = 0x20 | 0x07;
-    bytes[1] = 0x70;
-    SendSPI(bytes, result, 2);
-
-
-    T2CONbits.TMR2ON = 0;
-    T2CONbits.T2CKPS = 0b01;
-    TMR2 = 0;
-    PR2 = 125;
-    T2CONbits.TMR2ON = 1;
-
-
-    T4CONbits.TMR4ON = 0;
-    T4CONbits.T4CKPS = 0b11;
-    TMR4 = 0;
-    PR4 = 77;
-    T4CONbits.TMR4ON = 1;
-
-
-
-    TRISCbits.TRISC4 = 0;
-
-    LATCbits.LATC4 = 0;
-
-
-
-    TRISCbits.TRISC2 = 0;
-
-    PWM5CONbits.PWM5EN = 0;
-
-    PWM5CONbits.PWM5POL = 0;
-
-    RC2PPS = 0b00010;
-
-    PWM5DCL = 0x00;
-
-    PWM5DCH = 0x00;
-
-    PWMTMRSbits.P5TSEL = 0x01;
-
-    PWM5CONbits.PWM5EN = 1;
-
-
-
-    TRISCbits.TRISC3 = 0;
-
-    PWM6CONbits.PWM6EN = 0;
-
-    PWM6CONbits.PWM6POL = 0;
-
-    RC3PPS = 0b00011;
-
-    PWM6DCL = 0xC0;
-
-    PWM6DCH = 0x07;
-
-    PWMTMRSbits.P6TSEL = 0x02;
-
-    PWM6CONbits.PWM6EN = 1;
+unsigned int
+__eetoi(__eeprom void *addr)
+{
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
 }
 
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
 
-void configureTX(uint8_t *address) {
-
-    uint8_t databytes[6];
-    uint8_t result[6];
-    databytes[0] = 0x20 | 0x0A;
-    databytes[1] = address[0];
-    databytes[2] = address[1];
-    databytes[3] = address[2];
-    databytes[4] = address[3];
-    databytes[5] = address[4];
-    SendSPI(databytes, result, 5 + 1);
-    databytes[0] = 0x20 | 0x10;
-    SendSPI(databytes, result, 5 + 1);
-
-
-    ChangeRadioMode(Standby1, 1, TRANSMITTER);
-
-
-
-    TRISCbits.TRISC4 = 1;
-
-    ANSELCbits.ANSC4 = 1;
-
-
-
-    TRISCbits.TRISC3 = 1;
-
-    ANSELCbits.ANSC3 = 1;
-
-
-
-    TRISAbits.TRISA1 = 1;
-
-    ANSELAbits.ANSA1 = 1;
-
-    ADCON0bits.ADON = 0;
-    ADCON1bits.ADCS = 0b110;
-    ADCON1bits.ADNREF = 0;
-    ADCON1bits.ADPREF = 0;
-    ADCON0bits.CHS = 0x14;
-    ADCON1bits.ADFM = 1;
-    ADCON0bits.ADON = 1;
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
 
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
+}
 
-_Bool controlsChanged(uint8_t *bytes) {
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
+}
 
-    static uint8_t prevBytes[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-    uint8_t delta = 20;
-    _Bool returnVal = 0;
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
 
-    for (uint8_t i = 0; i < 6; i++) {
-        if (((prevBytes[i] - bytes[i]) > delta) || ((bytes[i] - prevBytes[i]) > delta)) {
-            returnVal = 1;
-            prevBytes[i] = bytes[i];
-        }
-    }
-    return returnVal;
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
+
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }
