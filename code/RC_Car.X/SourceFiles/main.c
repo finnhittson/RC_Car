@@ -170,10 +170,10 @@ int main(int argc, char** argv) {
             // checks for interrupt to signify when transmission is done
             case CLEAR_INTERRUPT: {
                 if (!PORTCbits.RC2) {
-//                    LATAbits.LATA0 = 1;
-//                    delay(1000);
-//                    LATAbits.LATA0 = 0;
-//                    delay(1000);
+                    LATAbits.LATA0 = 1;
+                    delay(1000);
+                    LATAbits.LATA0 = 0;
+                    delay(1000);
                     // get interrupt type 
                     sendNOP(result);
                     // clear interrupt so nRF24L01 can transmit again
@@ -203,6 +203,10 @@ int main(int argc, char** argv) {
             case READ_RX: {
                 // checks for IRQ line to be low
                 if (!PORTAbits.RA1) {
+                    LATAbits.LATA0 = 1;
+                    delay(1000);
+                    LATAbits.LATA0 = 0;
+                    delay(1000);
                     // once low checks for type of interrupt
                     sendNOP(result);
                     // if interrupt is data ready (0x40) then begin data collection process
