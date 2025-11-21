@@ -1512,7 +1512,7 @@
 		(descr "Through hole straight socket strip, 1x03, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x03 2.54mm single row")
 		(property "Reference" "SW1"
-			(at 0 -2.77 360)
+			(at 0 -2.77 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "659c3941-fcf3-47c9-b33c-1fd5fcb92c12")
@@ -1524,7 +1524,7 @@
 			)
 		)
 		(property "Value" "Power"
-			(at 0 7.85 360)
+			(at 0 7.85 0)
 			(layer "F.SilkS")
 			(uuid "79f1fbc7-f078-4403-ad1e-a907714e4eaa")
 			(effects
@@ -9831,7 +9831,7 @@
 			)
 		)
 		(property "Value" "Program"
-			(at -2.27 8.58 0)
+			(at -2.495 5.18 0)
 			(layer "F.SilkS")
 			(uuid "0a6da9be-a3b4-4d6e-ba55-a324c043a688")
 			(effects
@@ -10970,6 +10970,71 @@
 		(fill none)
 		(layer "Edge.Cuts")
 		(uuid "c7dd4765-e56d-441f-b964-b49609f51d8d")
+	)
+	(gr_text "5"
+		(at 97.86 71.02 0)
+		(layer "F.SilkS")
+		(uuid "70a9e73f-4743-4fb6-b923-58b44ca71c4b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "TX"
+		(at 84.62 73.06 0)
+		(layer "F.SilkS")
+		(uuid "715cc336-9363-489e-b91f-1d0b46d821e5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "GND"
+		(at 84.5 78.06 0)
+		(layer "F.SilkS")
+		(uuid "b4cac97d-5d62-4475-9e9d-462afd285aec")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "RX"
+		(at 84.49 75.42 0)
+		(layer "F.SilkS")
+		(uuid "cd1ba28a-7483-4fd6-9b3e-8b25da9896d4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "1"
+		(at 108.05 71.08 0)
+		(layer "F.SilkS")
+		(uuid "dfcf51f9-edcd-417e-af6b-acb348d18c72")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.2)
+				(bold yes)
+			)
+			(justify left bottom)
+		)
 	)
 	(segment
 		(start 91.46 119.79)
