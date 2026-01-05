@@ -7606,6 +7606,17 @@
 		)
 		(uuid "8bf428c1-7563-49b0-af5b-8456d5d7d437")
 	)
+	(text "CHANGES\n1. Move STEER_TRIM and STEER to analog pins 6 and 7.\n2. More space for battery screw hole next to C10 on receiver"
+		(exclude_from_sim no)
+		(at -82.55 18.415 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a4823ad7-ffb7-4313-8a35-42be8067c4f5")
+	)
 	(text "Reset Buttons"
 		(exclude_from_sim no)
 		(at 24.765 113.665 0)

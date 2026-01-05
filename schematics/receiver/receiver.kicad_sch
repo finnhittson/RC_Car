@@ -3,7 +3,7 @@
 	(generator "eeschema")
 	(generator_version "8.0")
 	(uuid "4eeaeeb6-8926-4c45-bc53-c55368205ca6")
-	(paper "A4")
+	(paper "A3")
 	(lib_symbols
 		(symbol "2N7000_1"
 			(pin_names
